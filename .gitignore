@@ -1,0 +1,25 @@
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+.env
+*.egg-info/
+
+# Run artifacts (regenerated on every run)
+search_driven_search_results/
+outputs/
+eval_logs/
+logs/
+ollama_eval_results/
+*.log
+*.xlsx
+
+# Local model caches
+.cache/
+hf_cache/
+unsloth_compiled_cache/
+
+# IDE
+.vscode/
+.idea/
+.DS_Store

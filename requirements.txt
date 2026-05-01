@@ -1,0 +1,21 @@
+# Pipeline (CUDA 12.x assumed; pin to suit your hardware)
+torch>=2.4.0
+unsloth>=2025.1
+trl>=0.11.0
+transformers>=4.45.0
+accelerate>=1.0.0
+peft>=0.13.0
+datasets>=3.0.0
+bitsandbytes>=0.44.0
+
+# Reward generation
+groq>=0.11.0
+ollama>=0.3.0
+
+# Analysis / plotting
+numpy>=1.26
+pandas>=2.2
+scipy>=1.13
+matplotlib>=3.9
+seaborn>=0.13
+openpyxl>=3.1
