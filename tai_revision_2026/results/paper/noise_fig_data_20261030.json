@@ -1,0 +1,827 @@
+{
+ "source": "pools/scores_math_val_base3_v2",
+ "rows": [
+  {
+   "key": "math:interval_endpoint_partial_credit",
+   "source": "math",
+   "screen_val": 0.668,
+   "class": "null",
+   "varies": 0.0,
+   "rho_check_answer": 0.2948875494608071
+  },
+  {
+   "key": "math:numeric_core_unit_tolerance",
+   "source": "math",
+   "screen_val": 0.646,
+   "class": "null",
+   "varies": 0.0,
+   "rho_check_answer": 0.2948875494608071
+  },
+  {
+   "key": "math:final_answer_uniqueness_penalty",
+   "source": "math",
+   "screen_val": 0.652,
+   "class": "duplicate",
+   "varies": 0.844,
+   "rho_check_answer": 0.9364241032652126
+  },
+  {
+   "key": "math:thinking_no_repetition_penalty",
+   "source": "math",
+   "screen_val": 0.67,
+   "class": "duplicate",
+   "varies": 0.72,
+   "rho_check_answer": 0.9591904304225282
+  },
+  {
+   "key": "math:response_tail_answer_only",
+   "source": "math",
+   "screen_val": 0.664,
+   "class": "useful",
+   "varies": 0.856,
+   "rho_check_answer": 0.8947082438472218
+  },
+  {
+   "key": "math:thinking_mathematical_density",
+   "source": "math",
+   "screen_val": 0.656,
+   "class": "duplicate",
+   "varies": 0.822,
+   "rho_check_answer": 0.9179008104723997
+  },
+  {
+   "key": "math:base_notation_compliance",
+   "source": "math",
+   "screen_val": 0.634,
+   "class": "null",
+   "varies": 0.0,
+   "rho_check_answer": 0.0
+  },
+  {
+   "key": "math:thinking_length_efficiency",
+   "source": "math",
+   "screen_val": 0.68,
+   "class": "useful",
+   "varies": 0.912,
+   "rho_check_answer": 0.8763624919301901
+  },
+  {
+   "key": "math:fraction_simplification_quality",
+   "source": "math",
+   "screen_val": 0.662,
+   "class": "null",
+   "varies": 0.0,
+   "rho_check_answer": 0.0
+  },
+  {
+   "key": "math:self_correction_confusion_penalty",
+   "source": "math",
+   "screen_val": 0.66,
+   "class": "duplicate",
+   "varies": 0.774,
+   "rho_check_answer": 0.9521060095427942
+  },
+  {
+   "key": "math:pi_coefficient_partial_credit",
+   "source": "math",
+   "screen_val": 0.668,
+   "class": "null",
+   "varies": 0.0,
+   "rho_check_answer": 0.0
+  },
+  {
+   "key": "math:integer_constraint_compliance",
+   "source": "math",
+   "screen_val": 0.678,
+   "class": "useful",
+   "varies": 0.824,
+   "rho_check_answer": 0.7516156576748583
+  },
+  {
+   "key": "math:answer_verification_mention",
+   "source": "math",
+   "screen_val": 0.666,
+   "class": "useful",
+   "varies": 0.954,
+   "rho_check_answer": 0.8394325748482274
+  },
+  {
+   "key": "math:solution_tag_purity",
+   "source": "math",
+   "screen_val": 0.66,
+   "class": "useful",
+   "varies": 0.878,
+   "rho_check_answer": 0.8897198749567243
+  },
+  {
+   "key": "math:numeric_type_and_sign_partial_credit",
+   "source": "math",
+   "screen_val": 0.664,
+   "class": "null",
+   "varies": 0.0,
+   "rho_check_answer": 0.0
+  },
+  {
+   "key": "math:degree_angle_notation_compliance",
+   "source": "math",
+   "screen_val": 0.662,
+   "class": "null",
+   "varies": 0.0,
+   "rho_check_answer": 0.0
+  },
+  {
+   "key": "math:prompt_key_number_grounding",
+   "source": "math",
+   "screen_val": 0.666,
+   "class": "duplicate",
+   "varies": 0.848,
+   "rho_check_answer": 0.9046085731348928
+  },
+  {
+   "key": "math:percent_answer_compliance",
+   "source": "math",
+   "screen_val": 0.658,
+   "class": "null",
+   "varies": 0.0,
+   "rho_check_answer": 0.0
+  },
+  {
+   "key": "math:final_answer_not_equation",
+   "source": "math",
+   "screen_val": 0.676,
+   "class": "useful",
+   "varies": 0.882,
+   "rho_check_answer": 0.8905008422842937
+  },
+  {
+   "key": "math:numeric_sign_and_magnitude_proximity",
+   "source": "math",
+   "screen_val": 0.668,
+   "class": "useful",
+   "varies": 0.898,
+   "rho_check_answer": 0.885991073494954
+  },
+  {
+   "key": "math:solution_tag_conciseness_and_correctness",
+   "source": "math",
+   "screen_val": 0.662,
+   "class": "duplicate",
+   "varies": 0.834,
+   "rho_check_answer": 0.929498813205368
+  },
+  {
+   "key": "math:fraction_simplification_and_equivalence",
+   "source": "math",
+   "screen_val": 0.654,
+   "class": "useful",
+   "varies": 0.852,
+   "rho_check_answer": 0.8781251651895802
+  },
+  {
+   "key": "math:ordered_pair_component_match",
+   "source": "math",
+   "screen_val": 0.664,
+   "class": "useful",
+   "varies": 0.822,
+   "rho_check_answer": 0.8968810880695103
+  },
+  {
+   "key": "math:no_hallucination_and_error_penalty",
+   "source": "math",
+   "screen_val": 0.668,
+   "class": "duplicate",
+   "varies": 0.73,
+   "rho_check_answer": 0.9550469901961691
+  },
+  {
+   "key": "math:thinking_consistency_with_solution",
+   "source": "math",
+   "screen_val": 0.66,
+   "class": "duplicate",
+   "varies": 0.78,
+   "rho_check_answer": 0.936930406521226
+  },
+  {
+   "key": "math:thinking_mathematical_density_and_correctness",
+   "source": "math",
+   "screen_val": 0.676,
+   "class": "useful",
+   "varies": 0.876,
+   "rho_check_answer": 0.8907034315520284
+  },
+  {
+   "key": "math:fraction_equivalence_check",
+   "source": "math",
+   "screen_val": 0.682,
+   "class": "duplicate",
+   "varies": 0.826,
+   "rho_check_answer": 0.9006867663087302
+  },
+  {
+   "key": "math:numeric_magnitude_partial_credit",
+   "source": "math",
+   "screen_val": 0.656,
+   "class": "useful",
+   "varies": 0.898,
+   "rho_check_answer": 0.8779822199752576
+  },
+  {
+   "key": "math:trig_single_function_simplification_bonus",
+   "source": "math",
+   "screen_val": 0.648,
+   "class": "null",
+   "varies": 0.0,
+   "rho_check_answer": 0.0
+  },
+  {
+   "key": "math:numeric_magnitude_proximity",
+   "source": "math",
+   "screen_val": 0.638,
+   "class": "useful",
+   "varies": 0.904,
+   "rho_check_answer": 0.7104941839381418
+  },
+  {
+   "key": "math:numeric_precision_formatting",
+   "source": "math",
+   "screen_val": 0.692,
+   "class": "duplicate",
+   "varies": 0.736,
+   "rho_check_answer": 0.9434780258545116
+  },
+  {
+   "key": "math:interval_bracket_correctness",
+   "source": "math",
+   "screen_val": 0.668,
+   "class": "duplicate",
+   "varies": 0.726,
+   "rho_check_answer": 0.9442596810838783
+  },
+  {
+   "key": "math:ordered_pair_component_partial_credit",
+   "source": "math",
+   "screen_val": 0.662,
+   "class": "null",
+   "varies": 0.0,
+   "rho_check_answer": 0.2948875494608071
+  },
+  {
+   "key": "math:ordered_pair_structure_validation",
+   "source": "math",
+   "screen_val": 0.632,
+   "class": "null",
+   "varies": 0.0,
+   "rho_check_answer": 0.0
+  },
+  {
+   "key": "math:arithmetic_operation_density",
+   "source": "math",
+   "screen_val": 0.634,
+   "class": "useful",
+   "varies": 0.988,
+   "rho_check_answer": 0.8234599345401178
+  },
+  {
+   "key": "math:fraction_reduced_form_bonus",
+   "source": "math",
+   "screen_val": 0.628,
+   "class": "duplicate",
+   "varies": 0.72,
+   "rho_check_answer": 0.9413919786458854
+  },
+  {
+   "key": "math_fa:reward_no_repetition_penalty",
+   "source": "math_fa",
+   "screen_val": 0.65,
+   "class": "useful",
+   "varies": 0.74,
+   "rho_check_answer": 0.0642002896776094
+  },
+  {
+   "key": "math:numeric_sign_accuracy",
+   "source": "math",
+   "screen_val": 0.642,
+   "class": "useful",
+   "varies": 0.84,
+   "rho_check_answer": 0.8978048873000553
+  },
+  {
+   "key": "math_fa:reward_solution_tag_integrity",
+   "source": "math_fa",
+   "screen_val": 0.662,
+   "class": "duplicate",
+   "varies": 0.82,
+   "rho_check_answer": 0.9000358940878393
+  },
+  {
+   "key": "math_fa:reward_numeric_precision",
+   "source": "math_fa",
+   "screen_val": 0.662,
+   "class": "useful",
+   "varies": 0.846,
+   "rho_check_answer": 0.7349891725916167
+  },
+  {
+   "key": "math_fa:reward_thinking_structure",
+   "source": "math_fa",
+   "screen_val": 0.71,
+   "class": "useful",
+   "varies": 0.998,
+   "rho_check_answer": -0.0375422251328219
+  },
+  {
+   "key": "math:variable_consistency_check",
+   "source": "math",
+   "screen_val": 0.684,
+   "class": "useful",
+   "varies": 0.934,
+   "rho_check_answer": 0.8933409108537911
+  },
+  {
+   "key": "math_fa:reward_answer_format_consistency",
+   "source": "math_fa",
+   "screen_val": 0.66,
+   "class": "useful",
+   "varies": 0.764,
+   "rho_check_answer": 0.2021007052543367
+  },
+  {
+   "key": "math_fa:reward_no_hallucinated_constraints",
+   "source": "math_fa",
+   "screen_val": 0.662,
+   "class": "useful",
+   "varies": 0.084,
+   "rho_check_answer": 0.03113799798033784
+  },
+  {
+   "key": "math_fa:reward_step_by_step_verification",
+   "source": "math_fa",
+   "screen_val": 0.67,
+   "class": "useful",
+   "varies": 0.968,
+   "rho_check_answer": 0.009621729930198802
+  },
+  {
+   "key": "math_fa:reward_no_common_mistakes",
+   "source": "math_fa",
+   "screen_val": 0.684,
+   "class": "useful",
+   "varies": 0.452,
+   "rho_check_answer": -0.021922746752621267
+  },
+  {
+   "key": "math_fa:reward_final_answer_clarity",
+   "source": "math_fa",
+   "screen_val": 0.654,
+   "class": "null",
+   "varies": 0.004,
+   "rho_check_answer": 0.003629117229458482
+  },
+  {
+   "key": "math_fa:reward_completeness_and_termination",
+   "source": "math_fa",
+   "screen_val": 0.652,
+   "class": "useful",
+   "varies": 0.406,
+   "rho_check_answer": 0.14206278371489683
+  },
+  {
+   "key": "math_fa:reward_answer_extraction_consistency",
+   "source": "math_fa",
+   "screen_val": 0.666,
+   "class": "null",
+   "varies": 0.0,
+   "rho_check_answer": 0.0
+  },
+  {
+   "key": "math_fa:reward_no_hallucinated_geometry",
+   "source": "math_fa",
+   "screen_val": 0.676,
+   "class": "null",
+   "varies": 0.0,
+   "rho_check_answer": 0.0
+  },
+  {
+   "key": "math_fa:reward_intermediate_step_density",
+   "source": "math_fa",
+   "screen_val": 0.658,
+   "class": "useful",
+   "varies": 0.936,
+   "rho_check_answer": 0.04399152705368569
+  },
+  {
+   "key": "math_fa:reward_final_answer_format_match",
+   "source": "math_fa",
+   "screen_val": 0.69,
+   "class": "useful",
+   "varies": 0.792,
+   "rho_check_answer": 0.22581127083959432
+  },
+  {
+   "key": "math_fa:reward_arithmetic_accuracy_check",
+   "source": "math_fa",
+   "screen_val": 0.66,
+   "class": "useful",
+   "varies": 0.778,
+   "rho_check_answer": 0.010574111174110081
+  },
+  {
+   "key": "math_fa:reward_logical_flow",
+   "source": "math_fa",
+   "screen_val": 0.664,
+   "class": "useful",
+   "varies": 1.0,
+   "rho_check_answer": -0.06517289596790814
+  },
+  {
+   "key": "math_fa:reward_logical_coherence",
+   "source": "math_fa",
+   "screen_val": 0.654,
+   "class": "useful",
+   "varies": 0.956,
+   "rho_check_answer": -0.10462460426241198
+  },
+  {
+   "key": "math_fa:reward_efficient_reasoning",
+   "source": "math_fa",
+   "screen_val": 0.654,
+   "class": "useful",
+   "varies": 0.852,
+   "rho_check_answer": 0.17497081405162573
+  },
+  {
+   "key": "math_fa:reward_no_contradiction",
+   "source": "math_fa",
+   "screen_val": 0.676,
+   "class": "useful",
+   "varies": 0.502,
+   "rho_check_answer": 0.17206570694875406
+  },
+  {
+   "key": "math_fa:reward_correct_intermediate_values",
+   "source": "math_fa",
+   "screen_val": 0.682,
+   "class": "useful",
+   "varies": 0.66,
+   "rho_check_answer": 0.0658548948604158
+  },
+  {
+   "key": "math_fa:reward_geometry_coordinate_fidelity",
+   "source": "math_fa",
+   "screen_val": 0.682,
+   "class": "useful",
+   "varies": 0.274,
+   "rho_check_answer": 0.07770046986965824
+  },
+  {
+   "key": "math_fa:reward_answer_type_consistency",
+   "source": "math_fa",
+   "screen_val": 0.692,
+   "class": "useful",
+   "varies": 0.564,
+   "rho_check_answer": 0.10226500156078963
+  },
+  {
+   "key": "math_fa:reward_modular_arithmetic_efficiency",
+   "source": "math_fa",
+   "screen_val": 0.648,
+   "class": "useful",
+   "varies": 0.274,
+   "rho_check_answer": 0.07770046986965824
+  },
+  {
+   "key": "math_fa:reward_no_truncation_or_loops",
+   "source": "math_fa",
+   "screen_val": 0.662,
+   "class": "useful",
+   "varies": 0.44,
+   "rho_check_answer": 0.15290683981620837
+  },
+  {
+   "key": "math_fa:reward_final_answer_simplicity",
+   "source": "math_fa",
+   "screen_val": 0.646,
+   "class": "useful",
+   "varies": 0.918,
+   "rho_check_answer": 0.20564648789366213
+  },
+  {
+   "key": "math_fa:reward_problem_identification",
+   "source": "math_fa",
+   "screen_val": 0.684,
+   "class": "useful",
+   "varies": 0.274,
+   "rho_check_answer": 0.07770046986965824
+  },
+  {
+   "key": "math_fa:reward_boundary_condition_check",
+   "source": "math_fa",
+   "screen_val": 0.686,
+   "class": "useful",
+   "varies": 0.274,
+   "rho_check_answer": 0.07770046986965824
+  },
+  {
+   "key": "math_fa:reward_consistent_notation",
+   "source": "math_fa",
+   "screen_val": 0.674,
+   "class": "useful",
+   "varies": 0.876,
+   "rho_check_answer": 0.09272844686975146
+  },
+  {
+   "key": "math_fa:reward_intermediate_calculation_accuracy",
+   "source": "math_fa",
+   "screen_val": 0.662,
+   "class": "useful",
+   "varies": 0.77,
+   "rho_check_answer": 0.038185074957413946
+  },
+  {
+   "key": "math_fa:reward_no_unjustified_assumptions",
+   "source": "math_fa",
+   "screen_val": 0.656,
+   "class": "useful",
+   "varies": 0.812,
+   "rho_check_answer": -0.04101764477210379
+  },
+  {
+   "key": "math_fa:reward_extremal_case_verification",
+   "source": "math_fa",
+   "screen_val": 0.646,
+   "class": "null",
+   "varies": 0.0,
+   "rho_check_answer": 0.0
+  },
+  {
+   "key": "math_fa:reward_geometric_constraint_fidelity",
+   "source": "math_fa",
+   "screen_val": 0.64,
+   "class": "null",
+   "varies": 0.0,
+   "rho_check_answer": 0.0
+  },
+  {
+   "key": "math_fa:reward_arithmetic_consistency_check",
+   "source": "math_fa",
+   "screen_val": 0.654,
+   "class": "useful",
+   "varies": 0.708,
+   "rho_check_answer": 0.01938014216230065
+  },
+  {
+   "key": "math:reward_final_answer_correctness",
+   "source": "math",
+   "screen_val": 0.634,
+   "class": "duplicate",
+   "varies": 0.822,
+   "rho_check_answer": 0.9043527654739967
+  },
+  {
+   "key": "math:binary_answer_correctness",
+   "source": "math",
+   "screen_val": 0.64,
+   "class": "duplicate",
+   "varies": 0.716,
+   "rho_check_answer": 0.9565030497163445
+  },
+  {
+   "key": "math:no_hallucination_penalty",
+   "source": "math",
+   "screen_val": 0.672,
+   "class": "duplicate",
+   "varies": 0.822,
+   "rho_check_answer": 0.9004973912322175
+  },
+  {
+   "key": "math:structure_compliance_bonus",
+   "source": "math",
+   "screen_val": 0.67,
+   "class": "duplicate",
+   "varies": 0.822,
+   "rho_check_answer": 0.9189319579110445
+  },
+  {
+   "key": "math_fa:reward_answer_simplification",
+   "source": "math_fa",
+   "screen_val": 0.674,
+   "class": "null",
+   "varies": 0.0,
+   "rho_check_answer": 0.0
+  },
+  {
+   "key": "math:final_answer_clarity",
+   "source": "math",
+   "screen_val": 0.678,
+   "class": "useful",
+   "varies": 0.888,
+   "rho_check_answer": 0.8849369026921161
+  },
+  {
+   "key": "math:latex_format_validity",
+   "source": "math",
+   "screen_val": 0.704,
+   "class": "duplicate",
+   "varies": 0.716,
+   "rho_check_answer": 0.9562968256824727
+  },
+  {
+   "key": "math_fa:reward_no_brute_force_search",
+   "source": "math_fa",
+   "screen_val": 0.676,
+   "class": "useful",
+   "varies": 0.202,
+   "rho_check_answer": 0.03534564009918101
+  },
+  {
+   "key": "math:step_by_step_verification",
+   "source": "math",
+   "screen_val": 0.644,
+   "class": "useful",
+   "varies": 0.97,
+   "rho_check_answer": 0.8346409808702446
+  },
+  {
+   "key": "math:reasoning_length_quality",
+   "source": "math",
+   "screen_val": 0.67,
+   "class": "duplicate",
+   "varies": 0.836,
+   "rho_check_answer": 0.9089291016247536
+  },
+  {
+   "key": "math_fa:reward_no_truncation_penalty",
+   "source": "math_fa",
+   "screen_val": 0.694,
+   "class": "useful",
+   "varies": 0.484,
+   "rho_check_answer": 0.19156230398417248
+  },
+  {
+   "key": "math_fa:reward_combinatorial_method_accuracy",
+   "source": "math_fa",
+   "screen_val": 0.652,
+   "class": "null",
+   "varies": 0.0,
+   "rho_check_answer": 0.0
+  },
+  {
+   "key": "math_fa:reward_equation_verification",
+   "source": "math_fa",
+   "screen_val": 0.618,
+   "class": "useful",
+   "varies": 0.982,
+   "rho_check_answer": -0.008845916976500792
+  },
+  {
+   "key": "math_fa:reward_spherical_geometry_check",
+   "source": "math_fa",
+   "screen_val": 0.662,
+   "class": "null",
+   "varies": 0.0,
+   "rho_check_answer": 0.0
+  },
+  {
+   "key": "math:answer_format_request_compliance",
+   "source": "math",
+   "screen_val": 0.668,
+   "class": "duplicate",
+   "varies": 0.72,
+   "rho_check_answer": 0.9591904304225282
+  },
+  {
+   "key": "math_fa:reward_interval_notation_format",
+   "source": "math_fa",
+   "screen_val": 0.658,
+   "class": "useful",
+   "varies": 0.518,
+   "rho_check_answer": 0.1523215034832131
+  },
+  {
+   "key": "math_fa:reward_coordinate_precision",
+   "source": "math_fa",
+   "screen_val": 0.642,
+   "class": "useful",
+   "varies": 0.796,
+   "rho_check_answer": -0.1483575411073685
+  },
+  {
+   "key": "math_fa:reward_complex_number_awareness",
+   "source": "math_fa",
+   "screen_val": 0.64,
+   "class": "null",
+   "varies": 0.014,
+   "rho_check_answer": 0.17450814826429048
+  },
+  {
+   "key": "math:consistency_check",
+   "source": "math",
+   "screen_val": 0.674,
+   "class": "useful",
+   "varies": 0.974,
+   "rho_check_answer": 0.8481263037853369
+  },
+  {
+   "key": "math_fa:reward_concise_final_answer",
+   "source": "math_fa",
+   "screen_val": 0.636,
+   "class": "useful",
+   "varies": 0.748,
+   "rho_check_answer": 0.2169041212141815
+  },
+  {
+   "key": "math_fa:reward_polynomial_remainder_method",
+   "source": "math_fa",
+   "screen_val": 0.616,
+   "class": "useful",
+   "varies": 0.704,
+   "rho_check_answer": 0.042095484043972425
+  },
+  {
+   "key": "math_fa:reward_triangle_inequality_check",
+   "source": "math_fa",
+   "screen_val": 0.664,
+   "class": "useful",
+   "varies": 0.59,
+   "rho_check_answer": -0.06733968206043349
+  },
+  {
+   "key": "math_fa:reward_variable_definition_clarity",
+   "source": "math_fa",
+   "screen_val": 0.636,
+   "class": "useful",
+   "varies": 0.128,
+   "rho_check_answer": -0.007030747375256175
+  },
+  {
+   "key": "math_fa:reward_systematic_enumeration",
+   "source": "math_fa",
+   "screen_val": 0.638,
+   "class": "useful",
+   "varies": 0.994,
+   "rho_check_answer": -0.056467624980265946
+  },
+  {
+   "key": "math_fa:reward_probabilistic_reasoning",
+   "source": "math_fa",
+   "screen_val": 0.64,
+   "class": "useful",
+   "varies": 0.388,
+   "rho_check_answer": -0.04939636187301007
+  },
+  {
+   "key": "math_fa:reward_no_contradictory_statements",
+   "source": "math_fa",
+   "screen_val": 0.656,
+   "class": "useful",
+   "varies": 0.098,
+   "rho_check_answer": 0.0436601980115821
+  },
+  {
+   "key": "math_fa:reward_logical_implication_chain",
+   "source": "math_fa",
+   "screen_val": 0.652,
+   "class": "useful",
+   "varies": 0.994,
+   "rho_check_answer": -0.06432450362721463
+  },
+  {
+   "key": "math:thinking_step_count_quality",
+   "source": "math",
+   "screen_val": 0.656,
+   "class": "useful",
+   "varies": 0.984,
+   "rho_check_answer": 0.8685223389259217
+  },
+  {
+   "key": "math:trig_function_form_match",
+   "source": "math",
+   "screen_val": 0.674,
+   "class": "duplicate",
+   "varies": 0.752,
+   "rho_check_answer": 0.9541173719831859
+  }
+ ],
+ "summary": {
+  "null": {
+   "n": 20,
+   "mean": 0.6557000000000001,
+   "sd": 0.01260595097563053
+  },
+  "duplicate": {
+   "n": 21,
+   "mean": 0.6646666666666666,
+   "sd": 0.01696307848670257
+  },
+  "useful": {
+   "n": 59,
+   "mean": 0.6618983050847459,
+   "sd": 0.0184424849563325
+  },
+  "not_null": {
+   "n": 80,
+   "mean": 0.662625,
+   "sd": 0.01810688750172155
+  }
+ }
+}

@@ -1,0 +1,40 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/cos_s1234:lit_cosine_length_s1234:bl_base3_s1234",
+   "items": 2772,
+   "cand_pooled": 0.6740169552669553,
+   "ref_pooled": 0.6786616161616161,
+   "diff": -0.004644660894660895,
+   "cand_suite": 0.418468287314469,
+   "ref_suite": 0.42628766423264136
+  },
+  {
+   "pair": "cmp/cos_s2025:lit_cosine_length_s2025:bl_base3_s2025",
+   "items": 2772,
+   "cand_pooled": 0.6658098845598845,
+   "ref_pooled": 0.6566558441558441,
+   "diff": 0.009154040404040404,
+   "cand_suite": 0.4153888631843213,
+   "ref_suite": 0.4001558362386032
+  }
+ ],
+ "pairs": 5544,
+ "diff": 0.0022546897546897545,
+ "ci_pairs": [
+  -0.005366725288600288,
+  0.009807900432900432
+ ],
+ "ci_items_cluster": [
+  -0.005276537698412698,
+  0.009808464105339096
+ ],
+ "wins": 269,
+ "losses": 256,
+ "p_sign": 0.6005133886343444,
+ "cand_suite_mean": 0.41692857524939514,
+ "ref_suite_mean": 0.41322175023562224,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/cos_s1234:lit_cosine_length_s1234:bl_base3_s1234 --pair cmp/cos_s2025:lit_cosine_length_s2025:bl_base3_s2025 --out cmp/cos_2seeds_unselected_vs_base3.json"
+}

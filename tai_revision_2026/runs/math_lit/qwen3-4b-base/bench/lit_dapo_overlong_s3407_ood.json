@@ -1,0 +1,30 @@
+{
+  "model": "qwen3-4b-base",
+  "lora": "runs/math_lit/qwen3-4b-base/outputs/lit_dapo_overlong_s3407/lora",
+  "max_tokens": 4096,
+  "benchmarks": {
+    "gpqa": {
+      "n": 198,
+      "k": 8,
+      "acc_strict": 0.346,
+      "acc_flex": 0.3523,
+      "ci_flex": null,
+      "truncated_rate": 0.0284,
+      "mean_tokens": 644.4,
+      "seconds": 543.1
+    },
+    "medqa": {
+      "n": 1273,
+      "k": 1,
+      "acc_strict": 0.6041,
+      "acc_flex": 0.6057,
+      "ci_flex": [
+        0.5789473684210527,
+        0.6323644933228594
+      ],
+      "truncated_rate": 0.0086,
+      "mean_tokens": 291.8,
+      "seconds": 222.5
+    }
+  }
+}

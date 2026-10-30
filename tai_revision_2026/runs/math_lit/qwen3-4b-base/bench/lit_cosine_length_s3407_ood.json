@@ -1,0 +1,30 @@
+{
+  "model": "qwen3-4b-base",
+  "lora": "runs/math_lit/qwen3-4b-base/outputs/lit_cosine_length_s3407/lora",
+  "max_tokens": 4096,
+  "benchmarks": {
+    "gpqa": {
+      "n": 198,
+      "k": 8,
+      "acc_strict": 0.3605,
+      "acc_flex": 0.3643,
+      "ci_flex": null,
+      "truncated_rate": 0.0271,
+      "mean_tokens": 640.3,
+      "seconds": 547.3
+    },
+    "medqa": {
+      "n": 1273,
+      "k": 1,
+      "acc_strict": 0.6261,
+      "acc_flex": 0.6261,
+      "ci_flex": [
+        0.5993715632364494,
+        0.6520031421838177
+      ],
+      "truncated_rate": 0.0047,
+      "mean_tokens": 257.8,
+      "seconds": 205.3
+    }
+  }
+}

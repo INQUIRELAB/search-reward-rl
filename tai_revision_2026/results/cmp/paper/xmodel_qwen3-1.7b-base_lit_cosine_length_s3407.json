@@ -1,0 +1,31 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/paper/links/xmodel_qwen3-1.7b-base_s3407:lit_cosine_length:base3",
+   "items": 2772,
+   "cand_pooled": 0.4081439393939394,
+   "ref_pooled": 0.4365530303030303,
+   "diff": -0.028409090909090908,
+   "cand_suite": 0.24842972987490528,
+   "ref_suite": 0.26616537203315427
+  }
+ ],
+ "pairs": 2772,
+ "diff": -0.028409090909090908,
+ "ci_pairs": [
+  -0.04315588924963925,
+  -0.013798701298701298
+ ],
+ "ci_items_cluster": [
+  -0.04301948051948052,
+  -0.013483044733044734
+ ],
+ "wins": 186,
+ "losses": 270,
+ "p_sign": 9.740224977459521e-05,
+ "cand_suite_mean": 0.24842972987490528,
+ "ref_suite_mean": 0.26616537203315427,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/paper/links/xmodel_qwen3-1.7b-base_s3407:lit_cosine_length:base3 --out cmp/paper/xmodel_qwen3-1.7b-base_lit_cosine_length_s3407.json"
+}

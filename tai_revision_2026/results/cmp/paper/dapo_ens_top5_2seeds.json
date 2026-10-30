@@ -1,0 +1,40 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/paper/links/dapo_s3407:ens_top5:base3",
+   "items": 2772,
+   "cand_pooled": 0.6516504329004329,
+   "ref_pooled": 0.6451569264069265,
+   "diff": 0.006493506493506494,
+   "cand_suite": 0.3929812816880271,
+   "ref_suite": 0.38886876662207953
+  },
+  {
+   "pair": "cmp/paper/links/dapo_s1234:ens_top5:base3",
+   "items": 2772,
+   "cand_pooled": 0.6578282828282829,
+   "ref_pooled": 0.6691919191919192,
+   "diff": -0.011363636363636364,
+   "cand_suite": 0.40701477553214266,
+   "ref_suite": 0.41197426289176214
+  }
+ ],
+ "pairs": 5544,
+ "diff": -0.002435064935064935,
+ "ci_pairs": [
+  -0.01001082251082251,
+  0.005298520923520924
+ ],
+ "ci_items_cluster": [
+  -0.009785353535353536,
+  0.004938334235209227
+ ],
+ "wins": 261,
+ "losses": 271,
+ "p_sign": 0.6964274773283369,
+ "cand_suite_mean": 0.3999980286100849,
+ "ref_suite_mean": 0.40042151475692084,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/paper/links/dapo_s3407:ens_top5:base3 --pair cmp/paper/links/dapo_s1234:ens_top5:base3 --out cmp/paper/dapo_ens_top5_2seeds.json"
+}

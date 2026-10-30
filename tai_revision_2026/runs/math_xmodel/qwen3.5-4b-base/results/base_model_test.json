@@ -1,0 +1,52 @@
+{
+  "accuracy": 0.488,
+  "accuracy_flex": 0.712,
+  "precision": 0.9242,
+  "recall": 0.5083,
+  "f1": 0.6559,
+  "extraction_rate": 0.528,
+  "ci_lower": 0.444,
+  "ci_upper": 0.532,
+  "tp": 244,
+  "fp": 20,
+  "fn": 236,
+  "total": 500,
+  "mean_completion_chars": 2810.9,
+  "truncated_rate": 0.3,
+  "trial": "base_model",
+  "split": "test",
+  "task": "math",
+  "model": "qwen3.5-4b-base",
+  "lora_dir": null,
+  "eval_seconds": 148.6,
+  "gpu": "1",
+  "code_sha": "b10c4637a93c3c36",
+  "versions": {
+    "python": "3.12.3",
+    "torch": "2.13.0",
+    "vllm": "0.28.0",
+    "trl": "1.13.0",
+    "transformers": "5.17.0",
+    "peft": "0.20.0",
+    "datasets": "5.0.1",
+    "accelerate": "1.15.0",
+    "bitsandbytes": "0.50.2",
+    "math-verify": "0.9.0",
+    "sympy": "1.14.0",
+    "numpy": "2.3.5",
+    "flash-linear-attention": "0.6.0",
+    "huggingface-hub": "1.31.0"
+  },
+  "lora_sha": null,
+  "model_revision": {
+    "path": "/home/deimos/models/Qwen3.5-4B-Base-chatml",
+    "resolved": "/home/deimos/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B-Base/blobs",
+    "snapshot": "blobs"
+  },
+  "data_sha": "6314b787c89e9fc5",
+  "eval_settings": {
+    "max_tokens": 2048,
+    "temperature": 0.0,
+    "seed": 3407
+  }
+}

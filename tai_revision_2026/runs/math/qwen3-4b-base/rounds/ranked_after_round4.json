@@ -1,0 +1,362 @@
+[
+ {
+  "name": "latex_format_validity",
+  "description": "Penalizes malformed LaTeX (unbalanced braces) and rewards correct answers.",
+  "round": 1,
+  "accuracy": 0.704,
+  "f1": 0.8263,
+  "strict_accuracy": 0.704,
+  "failed": false
+ },
+ {
+  "name": "fraction_equivalence_check",
+  "description": "Checks for mathematical equivalence of fractions, rewarding correct values even if not in simplest form, and penalizing incorrect rational values.",
+  "round": 4,
+  "accuracy": 0.682,
+  "f1": 0.8095,
+  "strict_accuracy": 0.68,
+  "failed": false
+ },
+ {
+  "name": "thinking_length_efficiency",
+  "description": "Penalizes incorrect completions with extremely long or extremely short thinking, encouraging efficient reasoning.",
+  "round": 2,
+  "accuracy": 0.68,
+  "f1": 0.8095,
+  "strict_accuracy": 0.68,
+  "failed": false
+ },
+ {
+  "name": "final_answer_clarity",
+  "description": "Penalizes overly verbose solution tags and rewards concise, correct answers.",
+  "round": 1,
+  "accuracy": 0.678,
+  "f1": 0.8081,
+  "strict_accuracy": 0.678,
+  "failed": false
+ },
+ {
+  "name": "integer_constraint_compliance",
+  "description": "Targets integer-constrained questions, rewarding integer-typed predictions and penalizing non-integer or negated answers.",
+  "round": 3,
+  "accuracy": 0.678,
+  "f1": 0.8081,
+  "strict_accuracy": 0.678,
+  "failed": false
+ },
+ {
+  "name": "final_answer_not_equation",
+  "description": "Penalizes final answers presented as equations or variable assignments when the ground truth is a plain value.",
+  "round": 3,
+  "accuracy": 0.676,
+  "f1": 0.8067,
+  "strict_accuracy": 0.676,
+  "failed": false
+ },
+ {
+  "name": "thinking_mathematical_density_and_correctness",
+  "description": "Rewards correct answers with high mathematical density in thinking, penalizes low-density reasoning for incorrect answers.",
+  "round": 4,
+  "accuracy": 0.676,
+  "f1": 0.8067,
+  "strict_accuracy": 0.676,
+  "failed": false
+ },
+ {
+  "name": "consistency_check",
+  "description": "Rewards consistency between the final number in the thinking process and the final answer in the solution tag.",
+  "round": 1,
+  "accuracy": 0.674,
+  "f1": 0.8038,
+  "strict_accuracy": 0.672,
+  "failed": false
+ },
+ {
+  "name": "no_hallucination_penalty",
+  "description": "Penalizes non-committal or error messages in the solution tag, and rewards correct answers.",
+  "round": 1,
+  "accuracy": 0.672,
+  "f1": 0.8024,
+  "strict_accuracy": 0.67,
+  "failed": false
+ },
+ {
+  "name": "structure_compliance_bonus",
+  "description": "Rewards proper use of thinking and solution tags, with a large bonus for correct answers within the tags.",
+  "round": 1,
+  "accuracy": 0.67,
+  "f1": 0.8024,
+  "strict_accuracy": 0.67,
+  "failed": false
+ },
+ {
+  "name": "reasoning_length_quality",
+  "description": "Combines answer correctness with a bonus for having a sufficiently long reasoning section.",
+  "round": 1,
+  "accuracy": 0.67,
+  "f1": 0.8024,
+  "strict_accuracy": 0.67,
+  "failed": false
+ },
+ {
+  "name": "thinking_no_repetition_penalty",
+  "description": "Penalizes incorrect completions with highly repetitive thinking lines, while leaving correct answers at full score.",
+  "round": 2,
+  "accuracy": 0.67,
+  "f1": 0.8024,
+  "strict_accuracy": 0.67,
+  "failed": false
+ },
+ {
+  "name": "answer_format_request_compliance",
+  "description": "Rewards answers that satisfy explicit prompt format requests such as ordered pairs, interval notation, fractions, degrees, trig functions, or radicals, with a strong correctness bonus.",
+  "round": 2,
+  "accuracy": 0.668,
+  "f1": 0.801,
+  "strict_accuracy": 0.668,
+  "failed": false
+ },
+ {
+  "name": "pi_coefficient_partial_credit",
+  "description": "Targets pi answers, comparing pi coefficients and allowing partial credit for close coefficients or decimal approximations.",
+  "round": 3,
+  "accuracy": 0.668,
+  "f1": 0.801,
+  "strict_accuracy": 0.668,
+  "failed": false
+ },
+ {
+  "name": "numeric_sign_and_magnitude_proximity",
+  "description": "Grants partial credit based on sign match and relative magnitude error for numeric answers, independent of strict string or LaTeX equality.",
+  "round": 4,
+  "accuracy": 0.668,
+  "f1": 0.801,
+  "strict_accuracy": 0.668,
+  "failed": false
+ },
+ {
+  "name": "no_hallucination_and_error_penalty",
+  "description": "Penalizes non-committal or error messages in the solution tag, rewarding definite (even if wrong) answers more than refusals.",
+  "round": 4,
+  "accuracy": 0.668,
+  "f1": 0.801,
+  "strict_accuracy": 0.668,
+  "failed": false
+ },
+ {
+  "name": "interval_endpoint_partial_credit",
+  "description": "Gives partial credit for interval notation answers by matching numeric endpoints and requiring interval bracket characters.",
+  "round": 2,
+  "accuracy": 0.668,
+  "f1": 0.7981,
+  "strict_accuracy": 0.664,
+  "failed": false
+ },
+ {
+  "name": "answer_verification_mention",
+  "description": "Rewards explicit verification language in thinking, with higher scores for correct answers that check the result.",
+  "round": 3,
+  "accuracy": 0.666,
+  "f1": 0.7995,
+  "strict_accuracy": 0.666,
+  "failed": false
+ },
+ {
+  "name": "prompt_key_number_grounding",
+  "description": "Rewards thinking that grounds key numeric constants from the prompt, especially for otherwise incorrect attempts.",
+  "round": 3,
+  "accuracy": 0.666,
+  "f1": 0.7981,
+  "strict_accuracy": 0.664,
+  "failed": false
+ },
+ {
+  "name": "response_tail_answer_only",
+  "description": "Rewards placing the solution tag near the end with no substantial trailing text or thinking after the final answer.",
+  "round": 2,
+  "accuracy": 0.664,
+  "f1": 0.7981,
+  "strict_accuracy": 0.664,
+  "failed": false
+ },
+ {
+  "name": "numeric_type_and_sign_partial_credit",
+  "description": "Gives partial credit for numeric answers based on sign and numeric type, independent of magnitude proximity.",
+  "round": 3,
+  "accuracy": 0.664,
+  "f1": 0.7966,
+  "strict_accuracy": 0.662,
+  "failed": false
+ },
+ {
+  "name": "ordered_pair_component_match",
+  "description": "Gives partial credit for ordered pair answers based on the number of correctly matched coordinates.",
+  "round": 4,
+  "accuracy": 0.664,
+  "f1": 0.7966,
+  "strict_accuracy": 0.662,
+  "failed": false
+ },
+ {
+  "name": "ordered_pair_component_partial_credit",
+  "description": "Gives partial credit when an ordered pair answer has the correct coordinate values even if the full LaTeX expression is not accepted.",
+  "round": 2,
+  "accuracy": 0.662,
+  "f1": 0.7966,
+  "strict_accuracy": 0.662,
+  "failed": false
+ },
+ {
+  "name": "fraction_simplification_quality",
+  "description": "Targets common-fraction answers, rewarding simplified equivalent fractions and penalizing wrong rational values.",
+  "round": 3,
+  "accuracy": 0.662,
+  "f1": 0.7966,
+  "strict_accuracy": 0.662,
+  "failed": false
+ },
+ {
+  "name": "degree_angle_notation_compliance",
+  "description": "Targets angle answers, rewarding degree notation and penalizing missing degree symbols or radian labels.",
+  "round": 3,
+  "accuracy": 0.662,
+  "f1": 0.7966,
+  "strict_accuracy": 0.662,
+  "failed": false
+ },
+ {
+  "name": "solution_tag_conciseness_and_correctness",
+  "description": "Penalizes verbose or explanatory solution tags, rewarding concise final answers, with a strong bonus for correctness.",
+  "round": 4,
+  "accuracy": 0.662,
+  "f1": 0.7966,
+  "strict_accuracy": 0.662,
+  "failed": false
+ },
+ {
+  "name": "thinking_consistency_with_solution",
+  "description": "Rewards correct answers with consistent thinking, penalizes inconsistent reasoning or self-correction markers in thinking for incorrect answers.",
+  "round": 4,
+  "accuracy": 0.66,
+  "f1": 0.7952,
+  "strict_accuracy": 0.66,
+  "failed": false
+ },
+ {
+  "name": "self_correction_confusion_penalty",
+  "description": "Penalizes incorrect completions with many self-correction or confusion markers in the thinking section.",
+  "round": 2,
+  "accuracy": 0.66,
+  "f1": 0.7937,
+  "strict_accuracy": 0.658,
+  "failed": false
+ },
+ {
+  "name": "solution_tag_purity",
+  "description": "Rewards a clean solution tag containing only the final answer, penalizing explanatory text, sentences, and assignments.",
+  "round": 3,
+  "accuracy": 0.66,
+  "f1": 0.7937,
+  "strict_accuracy": 0.658,
+  "failed": false
+ },
+ {
+  "name": "percent_answer_compliance",
+  "description": "Reward percent answers and give partial credit for equivalent decimal or fraction values when the ground truth is a percentage.",
+  "round": 4,
+  "accuracy": 0.658,
+  "f1": 0.7937,
+  "strict_accuracy": 0.658,
+  "failed": false
+ },
+ {
+  "name": "thinking_mathematical_density",
+  "description": "Rewards incorrect completions whose thinking contains mathematical symbols, equations, and relevant variables, and penalizes empty or non-mathematical reasoning.",
+  "round": 2,
+  "accuracy": 0.656,
+  "f1": 0.7923,
+  "strict_accuracy": 0.656,
+  "failed": false
+ },
+ {
+  "name": "numeric_magnitude_partial_credit",
+  "description": "Gives partial credit based on the relative error between the numeric values extracted from the prediction and the ground truth. Handles fractions and decimals.",
+  "round": 4,
+  "accuracy": 0.656,
+  "f1": 0.7923,
+  "strict_accuracy": 0.656,
+  "failed": false
+ },
+ {
+  "name": "fraction_simplification_and_equivalence",
+  "description": "Gives partial credit for fractionally equivalent answers that are not string-identical, rewarding simplified forms.",
+  "round": 4,
+  "accuracy": 0.654,
+  "f1": 0.7908,
+  "strict_accuracy": 0.654,
+  "failed": false
+ },
+ {
+  "name": "final_answer_uniqueness_penalty",
+  "description": "Penalizes incorrect solution tags that present multiple candidate answers or repeatedly restate the answer.",
+  "round": 2,
+  "accuracy": 0.652,
+  "f1": 0.7893,
+  "strict_accuracy": 0.652,
+  "failed": false
+ },
+ {
+  "name": "numeric_core_unit_tolerance",
+  "description": "Gives partial credit when the numeric core of the solution matches the numeric core of the ground truth, ignoring units or surrounding text.",
+  "round": 2,
+  "accuracy": 0.646,
+  "f1": 0.7835,
+  "strict_accuracy": 0.644,
+  "failed": false
+ },
+ {
+  "name": "step_by_step_verification",
+  "description": "Rewards the presence of logical transition keywords in the thinking section and correct final answer.",
+  "round": 1,
+  "accuracy": 0.644,
+  "f1": 0.7805,
+  "strict_accuracy": 0.64,
+  "failed": false
+ },
+ {
+  "name": "binary_answer_correctness",
+  "description": "Simple binary reward: +5.0 if the extracted solution is correct, -1.0 if incorrect or missing.",
+  "round": 1,
+  "accuracy": 0.64,
+  "f1": 0.7805,
+  "strict_accuracy": 0.64,
+  "failed": false
+ },
+ {
+  "name": "numeric_magnitude_proximity",
+  "description": "For numeric answers, gives partial credit based on the relative error between the predicted and true values.",
+  "round": 1,
+  "accuracy": 0.638,
+  "f1": 0.7775,
+  "strict_accuracy": 0.636,
+  "failed": false
+ },
+ {
+  "name": "reward_final_answer_correctness",
+  "description": "Reward correct final answer in solution tag, penalize missing or wrong answers.",
+  "round": 1,
+  "accuracy": 0.634,
+  "f1": 0.776,
+  "strict_accuracy": 0.634,
+  "failed": false
+ },
+ {
+  "name": "base_notation_compliance",
+  "description": "Rewards base-notation answers, gives partial credit for decimal equivalents or correct digits in the requested base.",
+  "round": 3,
+  "accuracy": 0.634,
+  "f1": 0.7745,
+  "strict_accuracy": 0.632,
+  "failed": false
+ }
+]

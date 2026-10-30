@@ -1,0 +1,421 @@
+{
+  "round": 1,
+  "task": "math",
+  "generator": "Qwen/Qwen3.8-27B",
+  "lit_seeded": true,
+  "prompt": "You are a Language Model generating reward functions for reinforcement learning fine-tuning (GRPO) of a small language model.\nTask domain: math. The ground-truth answer is a LaTeX expression or number (compare with the provided is_correct helper, never by string equality).\nGenerate exactly 20 diverse reward functions. Analyze the samples, then produce the functions.\n\nEach function MUST use the exact signature:\ndef reward_name(prompts, completions, answer, **kwargs):\n    # Returns: list[float] (one per completion), score range ~ -2.0..+5.0\n\nAvailable helpers (already defined, do not redefine): is_correct(pred_str, gt_str) -> bool (the task verifier), extract_solution(text) -> str|None, extract_thinking(text) -> str|None.\nConstraints:\n- Do NOT redefine 'match_format_exactly', 'match_format_approximately' or 'check_answer' (they already exist and are always on).\n- Use unique, descriptive function names; no duplicates.\n- Handle malformed outputs gracefully (missing tags, non-numeric text).\n- No external deps beyond Python stdlib and regex; no file or network access.\n- Output ONLY a JSON array of objects with 'name', 'code', 'description' keys (no backticks, no prose).\n\nPublished reward functions for reasoning RL, rewritten for this output format. They show the quality and kind of signal expected. Build on their ideas and go beyond them; do not copy them or reuse their names:\n\n# lit_cosine_length  [category: efficiency]  source: Cosine length-scaled reward (Yeo et al., 2025, Demystifying Long Chain-of-Thought Reasoning)\n# Correct: 0.5..1.0, higher when shorter; wrong or missing: -1.0..-0.5, less negative when longer; cosine schedule over length (7,000 characters, about the 2,048 token limit).\ndef lit_cosine_length(prompts, completions, answer, **kwargs):\n    import math\n    max_len = 7000.0\n    out = []\n    for c, gt in zip(completions, answer):\n        text = c[0][\"content\"]\n        progress = min(1.0, len(text) / max_len)\n        cosine = math.cos(progress * math.pi)\n        if is_correct(extract_solution(text), gt):\n            lo, hi = 0.5, 1.0\n        else:\n            lo, hi = -0.5, -1.0\n        out.append(lo + 0.5 * (hi - lo) * (1.0 + cosine))\n    return out\n\n# lit_grpo_lead_accuracy  [category: efficiency]  source: GRPO-LEAD length-dependent accuracy reward with explicit penalty (Zhang and Zuo, 2025, Eqs. 3-5)\n# Correct: exp(-0.05 z), z = standardized length among the correct answers of the same group; wrong: -1.\ndef lit_grpo_lead_accuracy(prompts, completions, answer, **kwargs):\n    import math\n    groups = {}\n    for i, p in enumerate(prompts):\n        groups.setdefault(str(p[-1][\"content\"]), []).append(i)\n    out = [0.0] * len(completions)\n    for idx in groups.values():\n        ok = {i: is_correct(extract_solution(completions[i][0][\"content\"]), answer[i]) for i in idx}\n        lens = [len(completions[i][0][\"content\"]) for i in idx if ok[i]]\n        mu = sum(lens) / len(lens) if lens else 0.0\n        sd = (sum((x - mu) ** 2 for x in lens) / len(lens)) ** 0.5 if lens else 0.0\n        for i in idx:\n            if ok[i]:\n                z = (len(completions[i][0][\"content\"]) - mu) / (sd + 1e-6)\n                out[i] = math.exp(-0.05 * z)\n            else:\n                out[i] = -1.0\n    return out\n\n# lit_ttrl_majority  [category: consistency]  source: TTRL majority-vote reward (Zuo et al., 2025)\n# Label-free: 1 if the extracted answer agrees with the majority answer of its group, else 0.\ndef lit_ttrl_majority(prompts, completions, answer, **kwargs):\n    groups = {}\n    for i, p in enumerate(prompts):\n        groups.setdefault(str(p[-1][\"content\"]), []).append(i)\n    out = [0.0] * len(completions)\n    for idx in groups.values():\n        preds = {i: extract_solution(completions[i][0][\"content\"]) for i in idx}\n        clusters = []\n        for i in idx:\n            if not preds[i]:\n                continue\n            for cl in clusters:\n                if is_correct(preds[i], preds[cl[0]]):\n                    cl.append(i)\n                    break\n            else:\n                clusters.append([i])\n        if not clusters:\n            continue\n        top = max(clusters, key=len)\n        for i in top:\n            out[i] = 1.0\n    return out\n\n# lit_repetition_penalty  [category: degeneration]  source: N-gram repetition penalty (Yeo et al., 2025, Appendix C.2), Open-R1 / TRL implementation\n# Penalty = -(1 - unique 3-grams / total 3-grams) over the words of the output; 0 for very short outputs.\ndef lit_repetition_penalty(prompts, completions, answer, **kwargs):\n    out = []\n    for c in completions:\n        words = c[0][\"content\"].lower().split()\n        if len(words) < 3:\n            out.append(0.0)\n            continue\n        grams = list(zip(words, words[1:], words[2:]))\n        out.append(-1.0 * (1.0 - len(set(grams)) / len(grams)))\n    return out\n\n# lit_dapo_overlong  [category: degeneration]  source: DAPO soft overlong punishment (Yu et al., 2025, Eq. 13), TRL implementation\n# 0 up to L_max - 512 tokens, then a linear penalty to -1 at L_max = 2048 tokens, -1 beyond.\ndef lit_dapo_overlong(prompts, completions, answer, **kwargs):\n    l_max, cache = 2048, 512\n    ids = kwargs.get(\"completion_ids\")\n    out = []\n    for i, c in enumerate(completions):\n        n = len(ids[i]) if ids is not None and i < len(ids) else int(len(c[0][\"content\"]) / 3.4)\n        if n <= l_max - cache:\n            out.append(0.0)\n        elif n <= l_max:\n            out.append((l_max - cache - n) / cache)\n        else:\n            out.append(-1.0)\n    return out\n\n# lit_reasoning_steps  [category: process]  source: Open-R1 reasoning_steps_reward\n# Counts step markers (Step n:, numbered lines, bullets, First/Second/Next/Finally); min(1, count/3).\ndef lit_reasoning_steps(prompts, completions, answer, **kwargs):\n    import re\n    pattern = re.compile(r\"(Step \\d+:|^\\d+\\.|\\n-|\\n\\*|First,|Second,|Next,|Finally,)\", re.MULTILINE)\n    return [min(1.0, len(pattern.findall(c[0][\"content\"])) / 3.0) for c in completions]\n\nDesign space. Spread the rewards over different mechanisms, at most 3 per category, and label each with a 'category' key: correctness shaping (partial credit, answer form, explicit penalties), efficiency (length relative to the other samples of the same question or to the budget), consistency (agreement among the samples of the same question; completions that share a prompt in one call are samples of the same question), degeneration (repetition, truncation, rambling), process (checking or verifying the answer, structured steps, correcting mistakes), domain validity (well-formed LaTeX, simplified final answers, units). GRPO normalizes rewards within the samples of one question, so a reward that gives every sample of a question the same score has no effect; each reward must separate samples of the same question.\n\nCRITICAL NOTES about function parameters:\n- `completions` is a list of completions, each is like [{'role': 'assistant', 'content': '...'}]\n- `answer` is a LIST of ground-truth answer strings, ONE PER COMPLETION. Iterate with zip(completions, answer).\n- `prompts` is a list of prompt message histories.\n- The model output uses <thinking>...</thinking> for reasoning and <solution>...</solution> for the final answer.\n\nExample structure (do not include in output, do not reuse its name):\ndef example_numeric_proximity(prompts, completions, answer, **kwargs):\n    import re\n    scores = []\n    for completion, true_answer in zip(completions, answer):\n        response = completion[0]['content']\n        m = re.search(r'<solution>(.*?)</solution>', response, re.DOTALL)\n        if m is None:\n            scores.append(-1.0)\n            continue\n        pred = m.group(1).strip()\n        if is_correct(pred, true_answer):\n            scores.append(5.0)\n        else:\n            scores.append(-1.0)\n    return scores\n\nSAMPLES (Q/A):\n\n[1] Q: Convert $2014_{10}$ to base 9.\nA: 2677_9\n\n[2] Q: Which of the following, when rounded to the nearest hundredth, does not round to 65.14?\nA) 65.141\nB) 65.138\nC) 65.1339999\nD) 65.1401\nE) 65.14444\n\nYour answer should be a letter: A, B, C, D, or E.\nA: C\n\n[3] Q: In triangle $ABC$, the measure of $\\angle A$ is $86$ degrees. The measure of $\\angle B$ is $22$ degrees more than three times the measure of $\\angle C$. What is the measure, in degrees, of $\\angle C$?\nA: 18 \\text{ degrees}\n\n[4] Q: A point is selected at random from the portion of the number line shown here. What is the probability that the point is closer to 4 than to 0? Express your answer as a decimal to the nearest tenth.\n\n[asy]unitsize(0.2inch);\ndraw((0,0)--(5,0));\ndraw((0,-0.1)--(0,0.1));\ndraw((1,-0.1)--(1,0.1));\ndraw((2,-0.1)--(2,0.1));\ndraw((3,-0.1)--(3,0.1));\ndraw((4,-0.1)--(4,0.1));\ndraw((5,-0.1)--(5,0.1));\nlabel(\"0\",(0,-0.1),S);\nlabel(\"1\",(1,-0.1),S);\nlabel(\"2\",(2,-0.1),S);\nlabel(\"3\",(3,-0.1),S);\nlabel(\"4\",(4,-0.1),S);\nlabel(\"5\",(5,-0.1),S);\n\n[/asy]\nA: .6\n\n[5] Q: The surface area of a sphere with radius $r$ is $4\\pi r^2$. Including the area of its circular base, what is the total surface area of a hemisphere with radius 6 cm? Express your answer in terms of $\\pi$.\n\n[asy]\n\nimport markers;\nsize(150);\nimport geometry;\ndraw((0,-7)--(0,-1),Arrow);\ndraw((10,10)--(5,5),Arrow);\nlabel(\"half of sphere\",(10,10),N);\nlabel(\"circular base\",(0,-7),S);\n\ndraw(scale(1,.2)*arc((0,0),10,0,180),dashed);\ndraw(scale(1,.2)*arc((0,0),10,180,360));\ndraw(Arc((0,0),10,0,180));\n\n[/asy]\nA: 108\\pi\n\n[6] Q: Express $\\frac{31}{2\\cdot5^6}$ as a terminating decimal.\nA: 0.000992\n\n[7] Q: Which of the cones below can be formed from a $252^{\\circ}$ sector of a circle of radius 10 by aligning the two straight sides?\n\n[asy]\ndraw((5.8,8.1)..(-10,0)--(0,0)--(3.1,-9.5)..cycle);\nlabel(\"10\",(-5,0),S);\nlabel(\"$252^{\\circ}$\",(0,0),NE);\n[/asy]\n\nA. base radius = 6, slant =10\n\nB. base radius = 6, height =10\n\nC. base radius = 7, slant =10\n\nD. base radius = 7, height =10\n\nE. base radius = 8, slant = 10\nA: C\n\n[8] Q: A cube with an edge length of 4 units has the same volume as a square-based pyramid with base edge lengths of 8 units and a height of $h$ units. What is the value of $h$?\nA: 3\n\n[9] Q: The three-digit positive integer $N$ has a ones digit of 3. What is the probability that $N$ is divisible by 3? Express your answer as a common fraction.\nA: \\frac{1}{3}\n\n[10] Q: Quantities $r$ and $s$ vary inversely. When $r$ is $1200,$ $s$ is $0.35.$ What is the value of $s$ when $r$ is $2400$? Express your answer as a decimal to the nearest thousandths.\nA: .175\n\n[11] Q: How many four-digit positive integers have at least one digit that is a 2 or a 3?\nA: 5416\n\n[12] Q: According to the chart shown, what was the average daily high temperature in Addington from September 15th, 2008 through September 19th, 2008, inclusive? Express your answer as a decimal to the nearest tenth. [asy]\nsize(300);\ndefaultpen(linewidth(.7pt)+fontsize(6pt));\n\nint[] highs={49,62,58,57,46};\nint[] lows={40,47,45,41,39};\n\npath unithump=(0,0)--(0,1)--(1,1)--(1,0);\npath unitcorner=(0,1)--(1,1)--(1,0);\n\nfor(int i = 0; i < 5; ++i)\n{\ntransform high=shift(5+20*i,0)*scale(5,highs[i]);\ntransform low=shift(10+20*i,0)*scale(5,lows[i]);\nfill(high*unitsquare,gray);\nfill(low*unitsquare,lightgray);\ndraw(high*unithump);\ndraw(low*unitcorner);\nlabel(Label(string(highs[i])), (7.5+20*i, highs[i]), N);\nlabel(Label(string(lows[i])), (12.5+20*i, lows[i]), N);\nlabel(Label(format(\"Sept %i\", i+15)), (10+20*i, 0), S);\n}\n\nxaxis(xmin=0, xmax=100, above=true);\nyaxis(ymin=0, ymax=77, Ticks(Step=10, begin=false, beginlabel=false, step=10, Size=3), above=true);\n\nlabel(rotate(90)*\"Temperature ($^{\\circ}$F)\", (-15,40), fontsize(8pt));\n\nlabel(\"Daily High/Low Temperature in Addington\", (50,90), fontsize(10pt));\nlabel(\"(September 15, 2008 -- September 19, 2008)\", (50, 85), fontsize(8pt));\nlabel(\"\\underline{KEY}\"\nA: 54.4\n\n[13] Q: Three positive integers have an arithmetic mean of 26 and median of 27. If the median is 5 less than the largest number, what is the smallest number?\nA: 19\n\n[14] Q: What is the sum of all the solutions of $x = \\left|2x-|60-2x|\\right|$?\nA: 92\n\n[15] Q: Let $\\mathbf{m},$ $\\mathbf{n},$ and $\\mathbf{p}$ be unit vectors such that the angle between $\\mathbf{m}$ and $\\mathbf{n}$ is $\\alpha,$ and the angle between $\\mathbf{p}$ and $\\mathbf{m} \\times \\mathbf{n}$ is also $\\alpha.$  If $\\mathbf{n} \\cdot (\\mathbf{p} \\times \\mathbf{m}) = \\frac{1}{4},$ find the smallest possible value of $\\alpha,$ in degrees.\nA: 30^\\circ\n\n[16] Q: The diagonal of a particular square is 5 inches.  The diameter of a particular circle is also 5 inches.  By how many square inches is the area of the circle greater than the area of square?  Express your answer as a decimal to the nearest tenth. [asy]\ndraw((0,0)--(2,0)--(2,2)--(0,2)--cycle);\ndraw((2,0)--(0,2));\n\ndraw(circle((4.5,1),1.414));\ndraw((2+3.5,0)--(0+3.5,2));\n[/asy]\nA: 7.1\n\n[17] Q: Let $a \\oslash b = (\\sqrt{2a+b})^3$. If $4 \\oslash x = 27$, find the value of $x$.\nA: 1\n\n[18] Q: How many perfect squares are factors of 180?\nA: 4\n\n[19] Q: The graph of $y = f(x)$ is shown below.\n\n[asy]\nunitsize(0.5 cm);\n\nreal func(real x) {\n  real y;\n  if (x >= -3 && x <= 0) {y = -2 - x;}\n  if (x >= 0 && x <= 2) {y = sqrt(4 - (x - 2)^2) - 2;}\n  if (x >= 2 && x <= 3) {y = 2*(x - 2);}\n  return(y);\n}\n\nint i, n;\n\nfor (i = -5; i <= 5; ++i) {\n  draw((i,-5)--(i,5),gray(0.7));\n  draw((-5,i)--(5,i),gray(0.7));\n}\n\ndraw((-5,0)--(5,0),Arrows(6));\ndraw((0,-5)--(0,5),Arrows(6));\n\nlabel(\"$x$\", (5,0), E);\nlabel(\"$y$\", (0,5), N);\n\ndraw(graph(func,-3,3),red);\n\nlabel(\"$y = f(x)$\", (3,-2), UnFill);\n[/asy]\n\nWhich is the graph of $y = f(|x|)$?\n\n[asy]\nunitsize(0.5 cm);\n\npicture[] graf;\nint i, n;\n\nreal func(real x) {\n  real y;\n  if (x >= -3 && x <= 0) {y = -2 - x;}\n  if (x >= 0 && x <= 2) {y = sqrt(4 - (x - 2)^2) - 2;}\n  if (x >= 2 && x <= 3) {y = 2*(x - 2);}\n  return(y);\n}\n\nreal funca(real x) {\n  return(func(abs(x)));\n}\n\nreal funcb(real x) {\n  real y = max(0,func(x));\n  return(y);\n}\n\nreal funcd(real x) {\n  return(abs(func(x)));\n}\n\nreal funce(real x) {\n  return(func(-abs(x)));\n}\n\nfor (n = 1; n <= 5; ++n) {\n  graf[n] = new picture;\n  for (i = -5; i <= 5; ++i) {\n    draw(graf[n],(i,-5)--(i,5),gray(0.7));\n    draw(graf[n],(-5,i)--(5,i),gray(0.7));\n  }\n  draw(g\nA: \\text{A}\n\n[20] Q: For what value of $x$ does $3^{2x^{2}-5x+2} = 3^{2x^{2}+7x-4}$? Express your answer as a common fraction.\nA: \\frac{1}{2}\n\nReturn a JSON array like: [{\"name\": \"func_name\", \"code\": \"def func_name(prompts, completions, answer, **kwargs):\\n    ...\", \"description\": \"...\", \"category\": \"...\"}]\nIMPORTANT: Output ONLY the JSON array.",
+  "rewards": [
+    {
+      "name": "truncation_detection",
+      "code": "def truncation_detection(prompts, completions, answer, **kwargs):\n    import re\n    scores = []\n    for c, gt in zip(completions, answer):\n        text = c[0]['content']\n        \n        if not text.strip():\n            scores.append(-2.0)\n            continue\n        \n        if not re.search(r'</solution>', text):\n            if is_correct(extract_solution(text), gt):\n                scores.append(2.0)\n            else:\n                scores.append(-1.0)\n        else:\n            scores.append(0.0)\n            if is_correct(extract_solution(text), gt):\n                scores.append(3.0)\n        \n        scores[-1] = scores[-1] if scores[-1] != 0 else (1.0 if is_correct(extract_solution(text), gt) else -0.5)\n    return scores",
+      "description": "Penalizes outputs that appear truncated (missing closing tags).",
+      "category": "degeneration",
+      "round": 1
+    },
+    {
+      "name": "rambling_detector",
+      "code": "def rambling_detector(prompts, completions, answer, **kwargs):\n    import re\n    scores = []\n    for c, gt in zip(completions, answer):\n        text = c[0]['content']\n        thinking = extract_thinking(text)\n        if not thinking:\n            scores.append(-1.0)\n            continue\n        \n        sentences = re.split(r'[.!?]\\s+', thinking)\n        if len(sentences) < 3:\n            scores.append(0.0)\n            continue\n        \n        avg_len = sum(len(s) for s in sentences) / len(sentences)\n        \n        if avg_len > 200:\n            score = -1.0\n        elif avg_len > 100:\n            score = 0.0\n        else:\n            score = 1.0\n        \n        if is_correct(extract_solution(text), gt):\n            score += 2.0\n        \n        scores.append(score)\n    return scores",
+      "description": "Penalizes overly long sentences in the thinking section which may indicate rambling.",
+      "category": "degeneration",
+      "round": 1
+    },
+    {
+      "name": "group_consistency_bonus",
+      "code": "def group_consistency_bonus(prompts, completions, answer, **kwargs):\n    groups = {}\n    for i, p in enumerate(prompts):\n        groups.setdefault(str(p[-1]['content']), []).append(i)\n    \n    out = [0.0] * len(completions)\n    for idx in groups.values():\n        if len(idx) < 2:\n            for i in idx:\n                out[i] = 0.0\n            continue\n        \n        preds = [extract_solution(completions[i][0]['content']) for i in idx]\n        valid_preds = [p for p in preds if p]\n        \n        if not valid_preds:\n            for i in idx:\n                out[i] = -1.0\n            continue\n        \n        clusters = []\n        for i, p in enumerate(preds):\n            if not p:\n                continue\n            for cl in clusters:\n                if is_correct(p, cl[0][1]):\n                    cl.append((i, p))\n                    break\n            else:\n                clusters.append([(i, p)])\n        \n        if not clusters:\n            for i in idx:\n                out[i] = -1.0\n            continue\n        \n        top_cluster = max(clusters, key=len)\n        top_size = len(top_cluster)\n        \n        for i in idx:\n            if i in [c[0] for c in top_cluster]:\n                out[i] = 1.0 + 0.5 * (top_size / len(idx))\n            else:\n                out[i] = -1.0\n    return out",
+      "description": "Rewards answers that match the majority answer within the same question group.",
+      "category": "consistency",
+      "round": 1
+    },
+    {
+      "name": "step_structure_bonus",
+      "code": "def step_structure_bonus(prompts, completions, answer, **kwargs):\n    import re\n    scores = []\n    for c, gt in zip(completions, answer):\n        text = c[0]['content']\n        thinking = extract_thinking(text)\n        if not thinking:\n            scores.append(-1.0)\n            continue\n        \n        step_patterns = [\n            r'Step \\d+:',\n            r'^\\d+\\.',\n            r'First,',\n            r'Second,',\n            r'Next,',\n            r'Finally,',\n            r'\\n-\\s',\n            r'\\n\\*\\s'\n        ]\n        \n        step_count = 0\n        for pat in step_patterns:\n            step_count += len(re.findall(pat, thinking, re.MULTILINE))\n        \n        structure_score = min(1.0, step_count / 3.0)\n        \n        if is_correct(extract_solution(text), gt):\n            scores.append(2.0 + structure_score)\n        else:\n            scores.append(structure_score - 1.0)\n    return scores",
+      "description": "Rewards structured reasoning with clear step markers.",
+      "category": "process",
+      "round": 1
+    },
+    {
+      "name": "ngram_repetition_penalty",
+      "code": "def ngram_repetition_penalty(prompts, completions, answer, **kwargs):\n    scores = []\n    for c, gt in zip(completions, answer):\n        text = c[0]['content'].lower()\n        words = text.split()\n        if len(words) < 5:\n            scores.append(0.0)\n            continue\n        \n        n = 3\n        grams = list(zip(words, words[1:], words[2:]))\n        if not grams:\n            scores.append(0.0)\n            continue\n        \n        unique_ratio = len(set(grams)) / len(grams)\n        penalty = -1.0 * (1.0 - unique_ratio)\n        \n        if is_correct(extract_solution(text), gt):\n            penalty += 1.0\n        \n        scores.append(penalty)\n    return scores",
+      "description": "Penalizes repetitive 3-gram patterns in the output text.",
+      "category": "degeneration",
+      "round": 1
+    },
+    {
+      "name": "latex_validity_check",
+      "code": "def latex_validity_check(prompts, completions, answer, **kwargs):\n    import re\n    scores = []\n    for c, gt in zip(completions, answer):\n        text = c[0]['content']\n        solution = extract_solution(text)\n        if not solution:\n            scores.append(-1.0)\n            continue\n        \n        if is_correct(solution, gt):\n            scores.append(5.0)\n            continue\n        \n        sol = solution.strip()\n        \n        if re.search(r'\\\\frac\\\\{[^}]*\\\\}\\\\{[^}]*\\\\}', sol):\n            if sol.count('{') != sol.count('}'):\n                scores.append(-1.0)\n            else:\n                scores.append(1.0)\n        elif re.search(r'[\\\\^_]', sol):\n            if sol.count('{') != sol.count('}'):\n                scores.append(-1.0)\n            else:\n                scores.append(0.5)\n        else:\n            scores.append(0.0)\n    return scores",
+      "description": "Checks if LaTeX expressions in the answer are well-formed.",
+      "category": "domain validity",
+      "round": 1
+    },
+    {
+      "name": "thinking_length_penalty",
+      "code": "def thinking_length_penalty(prompts, completions, answer, **kwargs):\n    import re\n    scores = []\n    for c, gt in zip(completions, answer):\n        text = c[0]['content']\n        m = re.search(r'<thinking>(.*?)</thinking>', text, re.DOTALL)\n        if not m:\n            scores.append(-1.0)\n            continue\n        \n        thinking = m.group(1)\n        length = len(thinking)\n        \n        if length > 5000:\n            score = -2.0\n        elif length > 3000:\n            score = -1.0\n        elif length > 1000:\n            score = 0.0\n        else:\n            score = 1.0\n        \n        if is_correct(extract_solution(text), gt):\n            score += 2.0\n        \n        scores.append(score)\n    return scores",
+      "description": "Penalizes excessively long thinking blocks to encourage concise reasoning.",
+      "category": "efficiency",
+      "round": 1
+    },
+    {
+      "name": "verification_mention_bonus",
+      "code": "def verification_mention_bonus(prompts, completions, answer, **kwargs):\n    import re\n    scores = []\n    for c, gt in zip(completions, answer):\n        text = c[0]['content']\n        thinking = extract_thinking(text)\n        if not thinking:\n            scores.append(-1.0)\n            continue\n        \n        verify_patterns = [\n            r'check',\n            r'verify',\n            r'confirm',\n            r'plug in',\n            r'substitute',\n            r'recalc',\n            r'alternative method',\n            r'double check'\n        ]\n        \n        verify_count = sum(1 for pat in verify_patterns if re.search(pat, thinking, re.IGNORECASE))\n        \n        if verify_count > 0:\n            score = 1.0\n        else:\n            score = 0.0\n        \n        if is_correct(extract_solution(text), gt):\n            score += 3.0\n        \n        scores.append(score)\n    return scores",
+      "description": "Rewards mentioning verification steps in the reasoning process.",
+      "category": "process",
+      "round": 1
+    },
+    {
+      "name": "group_variance_penalty",
+      "code": "def group_variance_penalty(prompts, completions, answer, **kwargs):\n    import math\n    groups = {}\n    for i, p in enumerate(prompts):\n        groups.setdefault(str(p[-1]['content']), []).append(i)\n    \n    out = [0.0] * len(completions)\n    for idx in groups.values():\n        if len(idx) < 2:\n            for i in idx:\n                out[i] = 0.0\n            continue\n        \n        correct_count = sum(1 for i in idx if is_correct(extract_solution(completions[i][0]['content']), answer[i]))\n        total = len(idx)\n        \n        for i in idx:\n            if is_correct(extract_solution(completions[i][0]['content']), answer[i]):\n                out[i] = 1.0\n            else:\n                out[i] = -1.0 - (correct_count / total)\n    return out",
+      "description": "Penalizes incorrect answers more heavily when other samples in the group are correct.",
+      "category": "consistency",
+      "round": 1
+    },
+    {
+      "name": "group_relative_efficiency",
+      "code": "def group_relative_efficiency(prompts, completions, answer, **kwargs):\n    groups = {}\n    for i, p in enumerate(prompts):\n        groups.setdefault(str(p[-1]['content']), []).append(i)\n    \n    out = [0.0] * len(completions)\n    for idx in groups.values():\n        correct_lens = []\n        for i in idx:\n            if is_correct(extract_solution(completions[i][0]['content']), answer[i]):\n                correct_lens.append(len(completions[i][0]['content']))\n        \n        if not correct_lens:\n            for i in idx:\n                out[i] = -1.0\n            continue\n        \n        min_len = min(correct_lens)\n        max_len = max(correct_lens)\n        \n        for i in idx:\n            if is_correct(extract_solution(completions[i][0]['content']), answer[i]):\n                if max_len == min_len:\n                    out[i] = 1.0\n                else:\n                    norm = (max_len - len(completions[i][0]['content'])) / (max_len - min_len)\n                    out[i] = 0.5 + 0.5 * norm\n            else:\n                out[i] = -1.0\n    return out",
+      "description": "Rewards correct answers that are shorter relative to other correct answers in the same group.",
+      "category": "efficiency",
+      "round": 1
+    }
+  ],
+  "candidates": [
+    {
+      "name": "partial_credit_numeric_proximity",
+      "code": "def partial_credit_numeric_proximity(prompts, completions, answer, **kwargs):\n    import re\n    import math\n    \n    def to_number(s):\n        if not s:\n            return None\n        s = s.replace('\\\\text{', '').replace('}', '').replace('\\\\circ', '').replace('\\\\degree', '').replace('\\\\pi', '3.141592653589793').replace('$', '').strip()\n        frac_match = re.search(r'\\\\frac\\\\{(.*?)\\\\}\\\\{(.*?)\\\\}', s)\n        if frac_match:\n            try:\n                return float(frac_match.group(1)) / float(frac_match.group(2))\n            except:\n                pass\n        s = s.replace(',', '')\n        try:\n            return float(s)\n        except:\n            return None\n    \n    scores = []\n    for c, gt in zip(completions, answer):\n        text = c[0]['content']\n        pred = extract_solution(text)\n        if is_correct(pred, gt):\n            scores.append(5.0)\n            continue\n        \n        gt_num = to_number(gt)\n        pred_num = to_number(pred)\n        \n        if gt_num is None or pred_num is None:\n            scores.append(-1.0)\n            continue\n        \n        if gt_num == 0:\n            scores.append(-1.0)\n        else:\n            rel_err = abs(pred_num - gt_num) / abs(gt_num)\n            if rel_err < 0.01:\n                scores.append(2.0)\n            elif rel_err < 0.05:\n                scores.append(1.0)\n            elif rel_err < 0.1:\n                scores.append(0.0)\n            else:\n                scores.append(-1.0)\n    return scores",
+      "description": "Gives partial credit based on relative numerical error if the answer is not exactly correct.",
+      "category": "correctness shaping",
+      "round": 1
+    },
+    {
+      "name": "format_tag_compliance",
+      "code": "def format_tag_compliance(prompts, completions, answer, **kwargs):\n    import re\n    scores = []\n    for c, gt in zip(completions, answer):\n        text = c[0]['content']\n        score = 0.0\n        if '<thinking>' in text and '</thinking>' in text:\n            score += 0.5\n        if '<solution>' in text and '</solution>' in text:\n            score += 0.5\n        \n        m = re.search(r'<solution>(.*?)</solution>', text, re.DOTALL)\n        if m:\n            sol = m.group(1).strip()\n            if sol:\n                score += 1.0\n            else:\n                score -= 1.0\n        else:\n            score -= 1.0\n            if extract_solution(text):\n                score += 0.5\n        \n        if is_correct(extract_solution(text), gt):\n            score += 2.0\n        \n        scores.append(score)\n    return scores",
+      "description": "Rewards proper usage of thinking and solution tags and non-empty solutions.",
+      "category": "correctness shaping",
+      "round": 1
+    },
+    {
+      "name": "answer_simplification_check",
+      "code": "def answer_simplification_check(prompts, completions, answer, **kwargs):\n    import re\n    scores = []\n    for c, gt in zip(completions, answer):\n        text = c[0]['content']\n        pred = extract_solution(text)\n        if not pred:\n            scores.append(-1.0)\n            continue\n        \n        if is_correct(pred, gt):\n            scores.append(5.0)\n            continue\n        \n        pred_clean = pred.replace(' ', '').replace('$', '')\n        gt_clean = gt.replace(' ', '').replace('$', '')\n        \n        if pred_clean == gt_clean:\n            scores.append(4.0)\n            continue\n        \n        if re.search(r'\\\\frac', pred_clean) and not re.search(r'\\\\frac', gt_clean):\n            scores.append(0.0)\n        elif re.search(r'\\\\frac', gt_clean) and not re.search(r'\\\\frac', pred_clean):\n            scores.append(1.0)\n        else:\n            scores.append(-1.0)\n    return scores",
+      "description": "Penalizes answers that are not in the expected simplified form (e.g. fraction vs decimal).",
+      "category": "domain validity",
+      "round": 1
+    },
+    {
+      "name": "group_relative_efficiency",
+      "code": "def group_relative_efficiency(prompts, completions, answer, **kwargs):\n    groups = {}\n    for i, p in enumerate(prompts):\n        groups.setdefault(str(p[-1]['content']), []).append(i)\n    \n    out = [0.0] * len(completions)\n    for idx in groups.values():\n        correct_lens = []\n        for i in idx:\n            if is_correct(extract_solution(completions[i][0]['content']), answer[i]):\n                correct_lens.append(len(completions[i][0]['content']))\n        \n        if not correct_lens:\n            for i in idx:\n                out[i] = -1.0\n            continue\n        \n        min_len = min(correct_lens)\n        max_len = max(correct_lens)\n        \n        for i in idx:\n            if is_correct(extract_solution(completions[i][0]['content']), answer[i]):\n                if max_len == min_len:\n                    out[i] = 1.0\n                else:\n                    norm = (max_len - len(completions[i][0]['content'])) / (max_len - min_len)\n                    out[i] = 0.5 + 0.5 * norm\n            else:\n                out[i] = -1.0\n    return out",
+      "description": "Rewards correct answers that are shorter relative to other correct answers in the same group.",
+      "category": "efficiency",
+      "round": 1
+    },
+    {
+      "name": "thinking_length_penalty",
+      "code": "def thinking_length_penalty(prompts, completions, answer, **kwargs):\n    import re\n    scores = []\n    for c, gt in zip(completions, answer):\n        text = c[0]['content']\n        m = re.search(r'<thinking>(.*?)</thinking>', text, re.DOTALL)\n        if not m:\n            scores.append(-1.0)\n            continue\n        \n        thinking = m.group(1)\n        length = len(thinking)\n        \n        if length > 5000:\n            score = -2.0\n        elif length > 3000:\n            score = -1.0\n        elif length > 1000:\n            score = 0.0\n        else:\n            score = 1.0\n        \n        if is_correct(extract_solution(text), gt):\n            score += 2.0\n        \n        scores.append(score)\n    return scores",
+      "description": "Penalizes excessively long thinking blocks to encourage concise reasoning.",
+      "category": "efficiency",
+      "round": 1
+    },
+    {
+      "name": "token_budget_compliance",
+      "code": "def token_budget_compliance(prompts, completions, answer, **kwargs):\n    scores = []\n    for c, gt in zip(completions, answer):\n        text = c[0]['content']\n        est_tokens = len(text) // 4\n        \n        if est_tokens > 2000:\n            score = -2.0\n        elif est_tokens > 1500:\n            score = -1.0\n        else:\n            score = 0.0\n        \n        if is_correct(extract_solution(text), gt):\n            score += 3.0\n        \n        scores.append(score)\n    return scores",
+      "description": "Penalizes outputs that exceed estimated token budget limits.",
+      "category": "efficiency",
+      "round": 1
+    },
+    {
+      "name": "group_consistency_bonus",
+      "code": "def group_consistency_bonus(prompts, completions, answer, **kwargs):\n    groups = {}\n    for i, p in enumerate(prompts):\n        groups.setdefault(str(p[-1]['content']), []).append(i)\n    \n    out = [0.0] * len(completions)\n    for idx in groups.values():\n        if len(idx) < 2:\n            for i in idx:\n                out[i] = 0.0\n            continue\n        \n        preds = [extract_solution(completions[i][0]['content']) for i in idx]\n        valid_preds = [p for p in preds if p]\n        \n        if not valid_preds:\n            for i in idx:\n                out[i] = -1.0\n            continue\n        \n        clusters = []\n        for i, p in enumerate(preds):\n            if not p:\n                continue\n            for cl in clusters:\n                if is_correct(p, cl[0][1]):\n                    cl.append((i, p))\n                    break\n            else:\n                clusters.append([(i, p)])\n        \n        if not clusters:\n            for i in idx:\n                out[i] = -1.0\n            continue\n        \n        top_cluster = max(clusters, key=len)\n        top_size = len(top_cluster)\n        \n        for i in idx:\n            if i in [c[0] for c in top_cluster]:\n                out[i] = 1.0 + 0.5 * (top_size / len(idx))\n            else:\n                out[i] = -1.0\n    return out",
+      "description": "Rewards answers that match the majority answer within the same question group.",
+      "category": "consistency",
+      "round": 1
+    },
+    {
+      "name": "self_agreement_score",
+      "code": "def self_agreement_score(prompts, completions, answer, **kwargs):\n    import re\n    scores = []\n    for c, gt in zip(completions, answer):\n        text = c[0]['content']\n        thinking = extract_thinking(text)\n        solution = extract_solution(text)\n        \n        if not thinking or not solution:\n            scores.append(-1.0)\n            continue\n        \n        if is_correct(solution, gt):\n            scores.append(5.0)\n            continue\n        \n        thinking_ans = None\n        m = re.search(r'(?:answer|result|value)\\s*(?:is|=|:)?\\s*([\\d.\\-]+|\\\\frac\\\\{[^}]+\\\\}\\\\{[^}]+\\\\}|[A-E])', thinking, re.IGNORECASE)\n        if m:\n            thinking_ans = m.group(1)\n        \n        if thinking_ans and is_correct(thinking_ans, solution):\n            scores.append(0.0)\n        else:\n            scores.append(-2.0)\n    return scores",
+      "description": "Checks if the final solution matches the answer mentioned in the thinking process.",
+      "category": "consistency",
+      "round": 1
+    },
+    {
+      "name": "group_variance_penalty",
+      "code": "def group_variance_penalty(prompts, completions, answer, **kwargs):\n    import math\n    groups = {}\n    for i, p in enumerate(prompts):\n        groups.setdefault(str(p[-1]['content']), []).append(i)\n    \n    out = [0.0] * len(completions)\n    for idx in groups.values():\n        if len(idx) < 2:\n            for i in idx:\n                out[i] = 0.0\n            continue\n        \n        correct_count = sum(1 for i in idx if is_correct(extract_solution(completions[i][0]['content']), answer[i]))\n        total = len(idx)\n        \n        for i in idx:\n            if is_correct(extract_solution(completions[i][0]['content']), answer[i]):\n                out[i] = 1.0\n            else:\n                out[i] = -1.0 - (correct_count / total)\n    return out",
+      "description": "Penalizes incorrect answers more heavily when other samples in the group are correct.",
+      "category": "consistency",
+      "round": 1
+    },
+    {
+      "name": "ngram_repetition_penalty",
+      "code": "def ngram_repetition_penalty(prompts, completions, answer, **kwargs):\n    scores = []\n    for c, gt in zip(completions, answer):\n        text = c[0]['content'].lower()\n        words = text.split()\n        if len(words) < 5:\n            scores.append(0.0)\n            continue\n        \n        n = 3\n        grams = list(zip(words, words[1:], words[2:]))\n        if not grams:\n            scores.append(0.0)\n            continue\n        \n        unique_ratio = len(set(grams)) / len(grams)\n        penalty = -1.0 * (1.0 - unique_ratio)\n        \n        if is_correct(extract_solution(text), gt):\n            penalty += 1.0\n        \n        scores.append(penalty)\n    return scores",
+      "description": "Penalizes repetitive 3-gram patterns in the output text.",
+      "category": "degeneration",
+      "round": 1
+    },
+    {
+      "name": "truncation_detection",
+      "code": "def truncation_detection(prompts, completions, answer, **kwargs):\n    import re\n    scores = []\n    for c, gt in zip(completions, answer):\n        text = c[0]['content']\n        \n        if not text.strip():\n            scores.append(-2.0)\n            continue\n        \n        if not re.search(r'</solution>', text):\n            if is_correct(extract_solution(text), gt):\n                scores.append(2.0)\n            else:\n                scores.append(-1.0)\n        else:\n            scores.append(0.0)\n            if is_correct(extract_solution(text), gt):\n                scores.append(3.0)\n        \n        scores[-1] = scores[-1] if scores[-1] != 0 else (1.0 if is_correct(extract_solution(text), gt) else -0.5)\n    return scores",
+      "description": "Penalizes outputs that appear truncated (missing closing tags).",
+      "category": "degeneration",
+      "round": 1
+    },
+    {
+      "name": "rambling_detector",
+      "code": "def rambling_detector(prompts, completions, answer, **kwargs):\n    import re\n    scores = []\n    for c, gt in zip(completions, answer):\n        text = c[0]['content']\n        thinking = extract_thinking(text)\n        if not thinking:\n            scores.append(-1.0)\n            continue\n        \n        sentences = re.split(r'[.!?]\\s+', thinking)\n        if len(sentences) < 3:\n            scores.append(0.0)\n            continue\n        \n        avg_len = sum(len(s) for s in sentences) / len(sentences)\n        \n        if avg_len > 200:\n            score = -1.0\n        elif avg_len > 100:\n            score = 0.0\n        else:\n            score = 1.0\n        \n        if is_correct(extract_solution(text), gt):\n            score += 2.0\n        \n        scores.append(score)\n    return scores",
+      "description": "Penalizes overly long sentences in the thinking section which may indicate rambling.",
+      "category": "degeneration",
+      "round": 1
+    },
+    {
+      "name": "step_structure_bonus",
+      "code": "def step_structure_bonus(prompts, completions, answer, **kwargs):\n    import re\n    scores = []\n    for c, gt in zip(completions, answer):\n        text = c[0]['content']\n        thinking = extract_thinking(text)\n        if not thinking:\n            scores.append(-1.0)\n            continue\n        \n        step_patterns = [\n            r'Step \\d+:',\n            r'^\\d+\\.',\n            r'First,',\n            r'Second,',\n            r'Next,',\n            r'Finally,',\n            r'\\n-\\s',\n            r'\\n\\*\\s'\n        ]\n        \n        step_count = 0\n        for pat in step_patterns:\n            step_count += len(re.findall(pat, thinking, re.MULTILINE))\n        \n        structure_score = min(1.0, step_count / 3.0)\n        \n        if is_correct(extract_solution(text), gt):\n            scores.append(2.0 + structure_score)\n        else:\n            scores.append(structure_score - 1.0)\n    return scores",
+      "description": "Rewards structured reasoning with clear step markers.",
+      "category": "process",
+      "round": 1
+    },
+    {
+      "name": "verification_mention_bonus",
+      "code": "def verification_mention_bonus(prompts, completions, answer, **kwargs):\n    import re\n    scores = []\n    for c, gt in zip(completions, answer):\n        text = c[0]['content']\n        thinking = extract_thinking(text)\n        if not thinking:\n            scores.append(-1.0)\n            continue\n        \n        verify_patterns = [\n            r'check',\n            r'verify',\n            r'confirm',\n            r'plug in',\n            r'substitute',\n            r'recalc',\n            r'alternative method',\n            r'double check'\n        ]\n        \n        verify_count = sum(1 for pat in verify_patterns if re.search(pat, thinking, re.IGNORECASE))\n        \n        if verify_count > 0:\n            score = 1.0\n        else:\n            score = 0.0\n        \n        if is_correct(extract_solution(text), gt):\n            score += 3.0\n        \n        scores.append(score)\n    return scores",
+      "description": "Rewards mentioning verification steps in the reasoning process.",
+      "category": "process",
+      "round": 1
+    },
+    {
+      "name": "mistake_correction_bonus",
+      "code": "def mistake_correction_bonus(prompts, completions, answer, **kwargs):\n    import re\n    scores = []\n    for c, gt in zip(completions, answer):\n        text = c[0]['content']\n        thinking = extract_thinking(text)\n        if not thinking:\n            scores.append(-1.0)\n            continue\n        \n        correction_patterns = [\n            r'wait',\n            r'actually',\n            r'correction',\n            r'mistake',\n            r'oops',\n            r'rethink',\n            r'let me try again',\n            r'alternative approach'\n        ]\n        \n        correction_count = sum(1 for pat in correction_patterns if re.search(pat, thinking, re.IGNORECASE))\n        \n        if correction_count > 0:\n            score = 0.5\n        else:\n            score = 0.0\n        \n        if is_correct(extract_solution(text), gt):\n            score += 3.0\n        \n        scores.append(score)\n    return scores",
+      "description": "Rewards self-correction and backtracking in the reasoning process.",
+      "category": "process",
+      "round": 1
+    },
+    {
+      "name": "latex_validity_check",
+      "code": "def latex_validity_check(prompts, completions, answer, **kwargs):\n    import re\n    scores = []\n    for c, gt in zip(completions, answer):\n        text = c[0]['content']\n        solution = extract_solution(text)\n        if not solution:\n            scores.append(-1.0)\n            continue\n        \n        if is_correct(solution, gt):\n            scores.append(5.0)\n            continue\n        \n        sol = solution.strip()\n        \n        if re.search(r'\\\\frac\\\\{[^}]*\\\\}\\\\{[^}]*\\\\}', sol):\n            if sol.count('{') != sol.count('}'):\n                scores.append(-1.0)\n            else:\n                scores.append(1.0)\n        elif re.search(r'[\\\\^_]', sol):\n            if sol.count('{') != sol.count('}'):\n                scores.append(-1.0)\n            else:\n                scores.append(0.5)\n        else:\n            scores.append(0.0)\n    return scores",
+      "description": "Checks if LaTeX expressions in the answer are well-formed.",
+      "category": "domain validity",
+      "round": 1
+    },
+    {
+      "name": "unit_consistency_check",
+      "code": "def unit_consistency_check(prompts, completions, answer, **kwargs):\n    import re\n    scores = []\n    for c, gt in zip(completions, answer):\n        text = c[0]['content']\n        solution = extract_solution(text)\n        if not solution:\n            scores.append(-1.0)\n            continue\n        \n        if is_correct(solution, gt):\n            scores.append(5.0)\n            continue\n        \n        sol = solution.lower()\n        gt_lower = gt.lower()\n        \n        gt_has_unit = bool(re.search(r'(degrees|cm|inches|units|ft|m|kg|s|ms)', gt_lower))\n        sol_has_unit = bool(re.search(r'(degrees|cm|inches|units|ft|m|kg|s|ms)', sol))\n        \n        if gt_has_unit and not sol_has_unit:\n            scores.append(1.0)\n        elif not gt_has_unit and sol_has_unit:\n            scores.append(0.0)\n        else:\n            scores.append(-1.0)\n    return scores",
+      "description": "Checks if units in the answer match the expected format.",
+      "category": "domain validity",
+      "round": 1
+    },
+    {
+      "name": "numeric_format_compliance",
+      "code": "def numeric_format_compliance(prompts, completions, answer, **kwargs):\n    import re\n    scores = []\n    for c, gt in zip(completions, answer):\n        text = c[0]['content']\n        solution = extract_solution(text)\n        if not solution:\n            scores.append(-1.0)\n            continue\n        \n        if is_correct(solution, gt):\n            scores.append(5.0)\n            continue\n        \n        sol = solution.strip()\n        gt = gt.strip()\n        \n        if re.search(r'\\\\frac', gt) and not re.search(r'\\\\frac', sol):\n            scores.append(1.0)\n        elif re.search(r'\\\\frac', sol) and not re.search(r'\\\\frac', gt):\n            scores.append(0.5)\n        elif re.search(r'\\\\pi', gt) and not re.search(r'\\\\pi', sol):\n            scores.append(1.0)\n        elif re.search(r'\\\\pi', sol) and not re.search(r'\\\\pi', gt):\n            scores.append(0.5)\n        else:\n            scores.append(-1.0)\n    return scores",
+      "description": "Checks if numeric format (fraction, pi, etc.) matches the expected answer format.",
+      "category": "domain validity",
+      "round": 1
+    }
+  ],
+  "diversity_report": [
+    {
+      "name": "partial_credit_numeric_proximity",
+      "category": "correctness shaping",
+      "varies": 0.745,
+      "max_rho_existing": [
+        "check_answer",
+        0.947
+      ],
+      "dropped": "duplicates check_answer (rho=0.95)"
+    },
+    {
+      "name": "answer_simplification_check",
+      "category": "domain validity",
+      "varies": 0.825,
+      "max_rho_existing": [
+        "check_answer",
+        0.901
+      ],
+      "dropped": "duplicates check_answer (rho=0.90)"
+    },
+    {
+      "name": "token_budget_compliance",
+      "category": "efficiency",
+      "varies": 0.73,
+      "max_rho_existing": [
+        "check_answer",
+        0.938
+      ],
+      "dropped": "duplicates check_answer (rho=0.94)"
+    },
+    {
+      "name": "self_agreement_score",
+      "category": "consistency",
+      "varies": 0.905,
+      "max_rho_existing": [
+        "check_answer",
+        0.944
+      ],
+      "dropped": "duplicates check_answer (rho=0.94)"
+    },
+    {
+      "name": "truncation_detection",
+      "category": "degeneration",
+      "varies": 0.15,
+      "max_rho_existing": [
+        "check_answer",
+        0.472
+      ],
+      "selected": true,
+      "min_distance": 0.528
+    },
+    {
+      "name": "rambling_detector",
+      "category": "degeneration",
+      "varies": 0.995,
+      "max_rho_existing": [
+        "check_answer",
+        0.723
+      ],
+      "selected": true,
+      "min_distance": 0.277
+    },
+    {
+      "name": "group_consistency_bonus",
+      "category": "consistency",
+      "varies": 0.96,
+      "max_rho_existing": [
+        "check_answer",
+        0.786
+      ],
+      "selected": true,
+      "min_distance": 0.214
+    },
+    {
+      "name": "step_structure_bonus",
+      "category": "process",
+      "varies": 1.0,
+      "max_rho_existing": [
+        "check_answer",
+        0.798
+      ],
+      "selected": true,
+      "min_distance": 0.202
+    },
+    {
+      "name": "ngram_repetition_penalty",
+      "category": "degeneration",
+      "varies": 1.0,
+      "max_rho_existing": [
+        "check_answer",
+        0.802
+      ],
+      "selected": true,
+      "min_distance": 0.198
+    },
+    {
+      "name": "latex_validity_check",
+      "category": "domain validity",
+      "varies": 0.96,
+      "max_rho_existing": [
+        "check_answer",
+        0.807
+      ],
+      "selected": true,
+      "min_distance": 0.183
+    },
+    {
+      "name": "thinking_length_penalty",
+      "category": "efficiency",
+      "varies": 0.98,
+      "max_rho_existing": [
+        "check_answer",
+        0.796
+      ],
+      "selected": true,
+      "min_distance": 0.16
+    },
+    {
+      "name": "verification_mention_bonus",
+      "category": "process",
+      "varies": 0.945,
+      "max_rho_existing": [
+        "check_answer",
+        0.821
+      ],
+      "selected": true,
+      "min_distance": 0.153
+    },
+    {
+      "name": "group_variance_penalty",
+      "category": "consistency",
+      "varies": 0.715,
+      "max_rho_existing": [
+        "check_answer",
+        0.851
+      ],
+      "selected": true,
+      "min_distance": 0.149
+    },
+    {
+      "name": "group_relative_efficiency",
+      "category": "efficiency",
+      "varies": 0.755,
+      "max_rho_existing": [
+        "check_answer",
+        0.889
+      ],
+      "selected": true,
+      "min_distance": 0.111
+    },
+    {
+      "name": "format_tag_compliance",
+      "category": "correctness shaping",
+      "varies": 0.905,
+      "max_rho_existing": [
+        "check_answer",
+        0.852
+      ],
+      "dropped": "not selected (quota or less diverse than the selected set)"
+    },
+    {
+      "name": "mistake_correction_bonus",
+      "category": "process",
+      "varies": 0.885,
+      "max_rho_existing": [
+        "check_answer",
+        0.874
+      ],
+      "dropped": "not selected (quota or less diverse than the selected set)"
+    },
+    {
+      "name": "unit_consistency_check",
+      "category": "domain validity",
+      "varies": 0.88,
+      "max_rho_existing": [
+        "check_answer",
+        0.878
+      ],
+      "dropped": "not selected (quota or less diverse than the selected set)"
+    },
+    {
+      "name": "numeric_format_compliance",
+      "category": "domain validity",
+      "varies": 0.83,
+      "max_rho_existing": [
+        "check_answer",
+        0.898
+      ],
+      "dropped": "not selected (quota or less diverse than the selected set)"
+    }
+  ],
+  "raw": [
+    {
+      "content": "[\n  {\n    \"name\": \"partial_credit_numeric_proximity\",\n    \"code\": \"def partial_credit_numeric_proximity(prompts, completions, answer, **kwargs):\\n    import re\\n    import math\\n    \\n    def to_number(s):\\n        if not s:\\n            return None\\n        s = s.replace('\\\\\\\\text{', '').replace('}', '').replace('\\\\\\\\circ', '').replace('\\\\\\\\degree', '').replace('\\\\\\\\pi', '3.141592653589793').replace('$', '').strip()\\n        frac_match = re.search(r'\\\\\\\\frac\\\\\\\\{(.*?)\\\\\\\\}\\\\\\\\{(.*?)\\\\\\\\}', s)\\n        if frac_match:\\n            try:\\n                return float(frac_match.group(1)) / float(frac_match.group(2))\\n            except:\\n                pass\\n        s = s.replace(',', '')\\n        try:\\n            return float(s)\\n        except:\\n            return None\\n    \\n    scores = []\\n    for c, gt in zip(completions, answer):\\n        text = c[0]['content']\\n        pred = extract_solution(text)\\n        if is_correct(pred, gt):\\n            scores.append(5.0)\\n            continue\\n        \\n        gt_num = to_number(gt)\\n        pred_num = to_number(pred)\\n        \\n        if gt_num is None or pred_num is None:\\n            scores.append(-1.0)\\n            continue\\n        \\n        if gt_num == 0:\\n            scores.append(-1.0)\\n        else:\\n            rel_err = abs(pred_num - gt_num) / abs(gt_num)\\n            if rel_err < 0.01:\\n                scores.append(2.0)\\n            elif rel_err < 0.05:\\n                scores.append(1.0)\\n            elif rel_err < 0.1:\\n                scores.append(0.0)\\n            else:\\n                scores.append(-1.0)\\n    return scores\",\n    \"description\": \"Gives partial credit based on relative numerical error if the answer is not exactly correct.\",\n    \"category\": \"correctness shaping\"\n  },\n  {\n    \"name\": \"format_tag_compliance\",\n    \"code\": \"def format_tag_compliance(prompts, completions, answer, **kwargs):\\n    import re\\n    scores = []\\n    for c, gt in zip(completions, answer):\\n        text = c[0]['content']\\n        score = 0.0\\n        if '<thinking>' in text and '</thinking>' in text:\\n            score += 0.5\\n        if '<solution>' in text and '</solution>' in text:\\n            score += 0.5\\n        \\n        m = re.search(r'<solution>(.*?)</solution>', text, re.DOTALL)\\n        if m:\\n            sol = m.group(1).strip()\\n            if sol:\\n                score += 1.0\\n            else:\\n                score -= 1.0\\n        else:\\n            score -= 1.0\\n            if extract_solution(text):\\n                score += 0.5\\n        \\n        if is_correct(extract_solution(text), gt):\\n            score += 2.0\\n        \\n        scores.append(score)\\n    return scores\",\n    \"description\": \"Rewards proper usage of thinking and solution tags and non-empty solutions.\",\n    \"category\": \"correctness shaping\"\n  },\n  {\n    \"name\": \"answer_simplification_check\",\n    \"code\": \"def answer_simplification_check(prompts, completions, answer, **kwargs):\\n    import re\\n    scores = []\\n    for c, gt in zip(completions, answer):\\n        text = c[0]['content']\\n        pred = extract_solution(text)\\n        if not pred:\\n            scores.append(-1.0)\\n            continue\\n        \\n        if is_correct(pred, gt):\\n            scores.append(5.0)\\n            continue\\n        \\n        pred_clean = pred.replace(' ', '').replace('$', '')\\n        gt_clean = gt.replace(' ', '').replace('$', '')\\n        \\n        if pred_clean == gt_clean:\\n            scores.append(4.0)\\n            continue\\n        \\n        if re.search(r'\\\\\\\\frac', pred_clean) and not re.search(r'\\\\\\\\frac', gt_clean):\\n            scores.append(0.0)\\n        elif re.search(r'\\\\\\\\frac', gt_clean) and not re.search(r'\\\\\\\\frac', pred_clean):\\n            scores.append(1.0)\\n        else:\\n            scores.append(-1.0)\\n    return scores\",\n    \"description\": \"Penalizes answers that are not in the expected simplified form (e.g. fraction vs decimal).\",\n    \"category\": \"domain validity\"\n  },\n  {\n    \"name\": \"group_relative_efficiency\",\n    \"code\": \"def group_relative_efficiency(prompts, completions, answer, **kwargs):\\n    groups = {}\\n    for i, p in enumerate(prompts):\\n        groups.setdefault(str(p[-1]['content']), []).append(i)\\n    \\n    out = [0.0] * len(completions)\\n    for idx in groups.values():\\n        correct_lens = []\\n        for i in idx:\\n            if is_correct(extract_solution(completions[i][0]['content']), answer[i]):\\n                correct_lens.append(len(completions[i][0]['content']))\\n        \\n        if not correct_lens:\\n            for i in idx:\\n                out[i] = -1.0\\n            continue\\n        \\n        min_len = min(correct_lens)\\n        max_len = max(correct_lens)\\n        \\n        for i in idx:\\n            if is_correct(extract_solution(completions[i][0]['content']), answer[i]):\\n                if max_len == min_len:\\n                    out[i] = 1.0\\n                else:\\n                    norm = (max_len - len(completions[i][0]['content'])) / (max_len - min_len)\\n                    out[i] = 0.5 + 0.5 * norm\\n            else:\\n                out[i] = -1.0\\n    return out\",\n    \"description\": \"Rewards correct answers that are shorter relative to other correct answers in the same group.\",\n    \"category\": \"efficiency\"\n  },\n  {\n    \"name\": \"thinking_length_penalty\",\n    \"code\": \"def thinking_length_penalty(prompts, completions, answer, **kwargs):\\n    import re\\n    scores = []\\n    for c, gt in zip(completions, answer):\\n        text = c[0]['content']\\n        m = re.search(r'<thinking>(.*?)</thinking>', text, re.DOTALL)\\n        if not m:\\n            scores.append(-1.0)\\n            continue\\n        \\n        thinking = m.group(1)\\n        length = len(thinking)\\n        \\n        if length > 5000:\\n            score = -2.0\\n        elif length > 3000:\\n            score = -1.0\\n        elif length > 1000:\\n            score = 0.0\\n        else:\\n            score = 1.0\\n        \\n        if is_correct(extract_solution(text), gt):\\n            score += 2.0\\n        \\n        scores.append(score)\\n    return scores\",\n    \"description\": \"Penalizes excessively long thinking blocks to encourage concise reasoning.\",\n    \"category\": \"efficiency\"\n  },\n  {\n    \"name\": \"token_budget_compliance\",\n    \"code\": \"def token_budget_compliance(prompts, completions, answer, **kwargs):\\n    scores = []\\n    for c, gt in zip(completions, answer):\\n        text = c[0]['content']\\n        est_tokens = len(text) // 4\\n        \\n        if est_tokens > 2000:\\n            score = -2.0\\n        elif est_tokens > 1500:\\n            score = -1.0\\n        else:\\n            score = 0.0\\n        \\n        if is_correct(extract_solution(text), gt):\\n            score += 3.0\\n        \\n        scores.append(score)\\n    return scores\",\n    \"description\": \"Penalizes outputs that exceed estimated token budget limits.\",\n    \"category\": \"efficiency\"\n  },\n  {\n    \"name\": \"group_consistency_bonus\",\n    \"code\": \"def group_consistency_bonus(prompts, completions, answer, **kwargs):\\n    groups = {}\\n    for i, p in enumerate(prompts):\\n        groups.setdefault(str(p[-1]['content']), []).append(i)\\n    \\n    out = [0.0] * len(completions)\\n    for idx in groups.values():\\n        if len(idx) < 2:\\n            for i in idx:\\n                out[i] = 0.0\\n            continue\\n        \\n        preds = [extract_solution(completions[i][0]['content']) for i in idx]\\n        valid_preds = [p for p in preds if p]\\n        \\n        if not valid_preds:\\n            for i in idx:\\n                out[i] = -1.0\\n            continue\\n        \\n        clusters = []\\n        for i, p in enumerate(preds):\\n            if not p:\\n                continue\\n            for cl in clusters:\\n                if is_correct(p, cl[0][1]):\\n                    cl.append((i, p))\\n                    break\\n            else:\\n                clusters.append([(i, p)])\\n        \\n        if not clusters:\\n            for i in idx:\\n                out[i] = -1.0\\n            continue\\n        \\n        top_cluster = max(clusters, key=len)\\n        top_size = len(top_cluster)\\n        \\n        for i in idx:\\n            if i in [c[0] for c in top_cluster]:\\n                out[i] = 1.0 + 0.5 * (top_size / len(idx))\\n            else:\\n                out[i] = -1.0\\n    return out\",\n    \"description\": \"Rewards answers that match the majority answer within the same question group.\",\n    \"category\": \"consistency\"\n  },\n  {\n    \"name\": \"self_agreement_score\",\n    \"code\": \"def self_agreement_score(prompts, completions, answer, **kwargs):\\n    import re\\n    scores = []\\n    for c, gt in zip(completions, answer):\\n        text = c[0]['content']\\n        thinking = extract_thinking(text)\\n        solution = extract_solution(text)\\n        \\n        if not thinking or not solution:\\n            scores.append(-1.0)\\n            continue\\n        \\n        if is_correct(solution, gt):\\n            scores.append(5.0)\\n            continue\\n        \\n        thinking_ans = None\\n        m = re.search(r'(?:answer|result|value)\\\\s*(?:is|=|:)?\\\\s*([\\\\d.\\\\-]+|\\\\\\\\frac\\\\\\\\{[^}]+\\\\\\\\}\\\\\\\\{[^}]+\\\\\\\\}|[A-E])', thinking, re.IGNORECASE)\\n        if m:\\n            thinking_ans = m.group(1)\\n        \\n        if thinking_ans and is_correct(thinking_ans, solution):\\n            scores.append(0.0)\\n        else:\\n            scores.append(-2.0)\\n    return scores\",\n    \"description\": \"Checks if the final solution matches the answer mentioned in the thinking process.\",\n    \"category\": \"consistency\"\n  },\n  {\n    \"name\": \"group_variance_penalty\",\n    \"code\": \"def group_variance_penalty(prompts, completions, answer, **kwargs):\\n    import math\\n    groups = {}\\n    for i, p in enumerate(prompts):\\n        groups.setdefault(str(p[-1]['content']), []).append(i)\\n    \\n    out = [0.0] * len(completions)\\n    for idx in groups.values():\\n        if len(idx) < 2:\\n            for i in idx:\\n                out[i] = 0.0\\n            continue\\n        \\n        correct_count = sum(1 for i in idx if is_correct(extract_solution(completions[i][0]['content']), answer[i]))\\n        total = len(idx)\\n        \\n        for i in idx:\\n            if is_correct(extract_solution(completions[i][0]['content']), answer[i]):\\n                out[i] = 1.0\\n            else:\\n                out[i] = -1.0 - (correct_count / total)\\n    return out\",\n    \"description\": \"Penalizes incorrect answers more heavily when other samples in the group are correct.\",\n    \"category\": \"consistency\"\n  },\n  {\n    \"name\": \"ngram_repetition_penalty\",\n    \"code\": \"def ngram_repetition_penalty(prompts, completions, answer, **kwargs):\\n    scores = []\\n    for c, gt in zip(completions, answer):\\n        text = c[0]['content'].lower()\\n        words = text.split()\\n        if len(words) < 5:\\n            scores.append(0.0)\\n            continue\\n        \\n        n = 3\\n        grams = list(zip(words, words[1:], words[2:]))\\n        if not grams:\\n            scores.append(0.0)\\n            continue\\n        \\n        unique_ratio = len(set(grams)) / len(grams)\\n        penalty = -1.0 * (1.0 - unique_ratio)\\n        \\n        if is_correct(extract_solution(text), gt):\\n            penalty += 1.0\\n        \\n        scores.append(penalty)\\n    return scores\",\n    \"description\": \"Penalizes repetitive 3-gram patterns in the output text.\",\n    \"category\": \"degeneration\"\n  },\n  {\n    \"name\": \"truncation_detection\",\n    \"code\": \"def truncation_detection(prompts, completions, answer, **kwargs):\\n    import re\\n    scores = []\\n    for c, gt in zip(completions, answer):\\n        text = c[0]['content']\\n        \\n        if not text.strip():\\n            scores.append(-2.0)\\n            continue\\n        \\n        if not re.search(r'</solution>', text):\\n            if is_correct(extract_solution(text), gt):\\n                scores.append(2.0)\\n            else:\\n                scores.append(-1.0)\\n        else:\\n            scores.append(0.0)\\n            if is_correct(extract_solution(text), gt):\\n                scores.append(3.0)\\n        \\n        scores[-1] = scores[-1] if scores[-1] != 0 else (1.0 if is_correct(extract_solution(text), gt) else -0.5)\\n    return scores\",\n    \"description\": \"Penalizes outputs that appear truncated (missing closing tags).\",\n    \"category\": \"degeneration\"\n  },\n  {\n    \"name\": \"rambling_detector\",\n    \"code\": \"def rambling_detector(prompts, completions, answer, **kwargs):\\n    import re\\n    scores = []\\n    for c, gt in zip(completions, answer):\\n        text = c[0]['content']\\n        thinking = extract_thinking(text)\\n        if not thinking:\\n            scores.append(-1.0)\\n            continue\\n        \\n        sentences = re.split(r'[.!?]\\\\s+', thinking)\\n        if len(sentences) < 3:\\n            scores.append(0.0)\\n            continue\\n        \\n        avg_len = sum(len(s) for s in sentences) / len(sentences)\\n        \\n        if avg_len > 200:\\n            score = -1.0\\n        elif avg_len > 100:\\n            score = 0.0\\n        else:\\n            score = 1.0\\n        \\n        if is_correct(extract_solution(text), gt):\\n            score += 2.0\\n        \\n        scores.append(score)\\n    return scores\",\n    \"description\": \"Penalizes overly long sentences in the thinking section which may indicate rambling.\",\n    \"category\": \"degeneration\"\n  },\n  {\n    \"name\": \"step_structure_bonus\",\n    \"code\": \"def step_structure_bonus(prompts, completions, answer, **kwargs):\\n    import re\\n    scores = []\\n    for c, gt in zip(completions, answer):\\n        text = c[0]['content']\\n        thinking = extract_thinking(text)\\n        if not thinking:\\n            scores.append(-1.0)\\n            continue\\n        \\n        step_patterns = [\\n            r'Step \\\\d+:',\\n            r'^\\\\d+\\\\.',\\n            r'First,',\\n            r'Second,',\\n            r'Next,',\\n            r'Finally,',\\n            r'\\\\n-\\\\s',\\n            r'\\\\n\\\\*\\\\s'\\n        ]\\n        \\n        step_count = 0\\n        for pat in step_patterns:\\n            step_count += len(re.findall(pat, thinking, re.MULTILINE))\\n        \\n        structure_score = min(1.0, step_count / 3.0)\\n        \\n        if is_correct(extract_solution(text), gt):\\n            scores.append(2.0 + structure_score)\\n        else:\\n            scores.append(structure_score - 1.0)\\n    return scores\",\n    \"description\": \"Rewards structured reasoning with clear step markers.\",\n    \"category\": \"process\"\n  },\n  {\n    \"name\": \"verification_mention_bonus\",\n    \"code\": \"def verification_mention_bonus(prompts, completions, answer, **kwargs):\\n    import re\\n    scores = []\\n    for c, gt in zip(completions, answer):\\n        text = c[0]['content']\\n        thinking = extract_thinking(text)\\n        if not thinking:\\n            scores.append(-1.0)\\n            continue\\n        \\n        verify_patterns = [\\n            r'check',\\n            r'verify',\\n            r'confirm',\\n            r'plug in',\\n            r'substitute',\\n            r'recalc',\\n            r'alternative method',\\n            r'double check'\\n        ]\\n        \\n        verify_count = sum(1 for pat in verify_patterns if re.search(pat, thinking, re.IGNORECASE))\\n        \\n        if verify_count > 0:\\n            score = 1.0\\n        else:\\n            score = 0.0\\n        \\n        if is_correct(extract_solution(text), gt):\\n            score += 3.0\\n        \\n        scores.append(score)\\n    return scores\",\n    \"description\": \"Rewards mentioning verification steps in the reasoning process.\",\n    \"category\": \"process\"\n  },\n  {\n    \"name\": \"mistake_correction_bonus\",\n    \"code\": \"def mistake_correction_bonus(prompts, completions, answer, **kwargs):\\n    import re\\n    scores = []\\n    for c, gt in zip(completions, answer):\\n        text = c[0]['content']\\n        thinking = extract_thinking(text)\\n        if not thinking:\\n            scores.append(-1.0)\\n            continue\\n        \\n        correction_patterns = [\\n            r'wait',\\n            r'actually',\\n            r'correction',\\n            r'mistake',\\n            r'oops',\\n            r'rethink',\\n            r'let me try again',\\n            r'alternative approach'\\n        ]\\n        \\n        correction_count = sum(1 for pat in correction_patterns if re.search(pat, thinking, re.IGNORECASE))\\n        \\n        if correction_count > 0:\\n            score = 0.5\\n        else:\\n            score = 0.0\\n        \\n        if is_correct(extract_solution(text), gt):\\n            score += 3.0\\n        \\n        scores.append(score)\\n    return scores\",\n    \"description\": \"Rewards self-correction and backtracking in the reasoning process.\",\n    \"category\": \"process\"\n  },\n  {\n    \"name\": \"latex_validity_check\",\n    \"code\": \"def latex_validity_check(prompts, completions, answer, **kwargs):\\n    import re\\n    scores = []\\n    for c, gt in zip(completions, answer):\\n        text = c[0]['content']\\n        solution = extract_solution(text)\\n        if not solution:\\n            scores.append(-1.0)\\n            continue\\n        \\n        if is_correct(solution, gt):\\n            scores.append(5.0)\\n            continue\\n        \\n        sol = solution.strip()\\n        \\n        if re.search(r'\\\\\\\\frac\\\\\\\\{[^}]*\\\\\\\\}\\\\\\\\{[^}]*\\\\\\\\}', sol):\\n            if sol.count('{') != sol.count('}'):\\n                scores.append(-1.0)\\n            else:\\n                scores.append(1.0)\\n        elif re.search(r'[\\\\\\\\^_]', sol):\\n            if sol.count('{') != sol.count('}'):\\n                scores.append(-1.0)\\n            else:\\n                scores.append(0.5)\\n        else:\\n            scores.append(0.0)\\n    return scores\",\n    \"description\": \"Checks if LaTeX expressions in the answer are well-formed.\",\n    \"category\": \"domain validity\"\n  },\n  {\n    \"name\": \"unit_consistency_check\",\n    \"code\": \"def unit_consistency_check(prompts, completions, answer, **kwargs):\\n    import re\\n    scores = []\\n    for c, gt in zip(completions, answer):\\n        text = c[0]['content']\\n        solution = extract_solution(text)\\n        if not solution:\\n            scores.append(-1.0)\\n            continue\\n        \\n        if is_correct(solution, gt):\\n            scores.append(5.0)\\n            continue\\n        \\n        sol = solution.lower()\\n        gt_lower = gt.lower()\\n        \\n        gt_has_unit = bool(re.search(r'(degrees|cm|inches|units|ft|m|kg|s|ms)', gt_lower))\\n        sol_has_unit = bool(re.search(r'(degrees|cm|inches|units|ft|m|kg|s|ms)', sol))\\n        \\n        if gt_has_unit and not sol_has_unit:\\n            scores.append(1.0)\\n        elif not gt_has_unit and sol_has_unit:\\n            scores.append(0.0)\\n        else:\\n            scores.append(-1.0)\\n    return scores\",\n    \"description\": \"Checks if units in the answer match the expected format.\",\n    \"category\": \"domain validity\"\n  },\n  {\n    \"name\": \"numeric_format_compliance\",\n    \"code\": \"def numeric_format_compliance(prompts, completions, answer, **kwargs):\\n    import re\\n    scores = []\\n    for c, gt in zip(completions, answer):\\n        text = c[0]['content']\\n        solution = extract_solution(text)\\n        if not solution:\\n            scores.append(-1.0)\\n            continue\\n        \\n        if is_correct(solution, gt):\\n            scores.append(5.0)\\n            continue\\n        \\n        sol = solution.strip()\\n        gt = gt.strip()\\n        \\n        if re.search(r'\\\\\\\\frac', gt) and not re.search(r'\\\\\\\\frac', sol):\\n            scores.append(1.0)\\n        elif re.search(r'\\\\\\\\frac', sol) and not re.search(r'\\\\\\\\frac', gt):\\n            scores.append(0.5)\\n        elif re.search(r'\\\\\\\\pi', gt) and not re.search(r'\\\\\\\\pi', sol):\\n            scores.append(1.0)\\n        elif re.search(r'\\\\\\\\pi', sol) and not re.search(r'\\\\\\\\pi', gt):\\n            scores.append(0.5)\\n        else:\\n            scores.append(-1.0)\\n    return scores\",\n    \"description\": \"Checks if numeric format (fraction, pi, etc.) matches the expected answer format.\",\n    \"category\": \"domain validity\"\n  }\n]",
+      "reasoning": "",
+      "model": "Qwen/Qwen3.8-27B",
+      "think": false,
+      "seconds": 194.9,
+      "usage": {
+        "completion_tokens": 5487,
+        "prompt_tokens": 5000,
+        "total_tokens": 10487,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": null
+      }
+    }
+  ]
+}

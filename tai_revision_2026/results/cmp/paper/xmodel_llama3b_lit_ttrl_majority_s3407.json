@@ -1,0 +1,31 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/paper/links/xmodel_llama3b_s3407:lit_ttrl_majority:base3",
+   "items": 2772,
+   "cand_pooled": 0.4280753968253968,
+   "ref_pooled": 0.4410624098124098,
+   "diff": -0.012987012987012988,
+   "cand_suite": 0.2054243423471675,
+   "ref_suite": 0.2133000361018381
+  }
+ ],
+ "pairs": 2772,
+ "diff": -0.012987012987012988,
+ "ci_pairs": [
+  -0.02403612012987013,
+  -0.001984126984126984
+ ],
+ "ci_items_cluster": [
+  -0.024305555555555556,
+  -0.0018026244588744754
+ ],
+ "wins": 115,
+ "losses": 155,
+ "p_sign": 0.017459662912942143,
+ "cand_suite_mean": 0.2054243423471675,
+ "ref_suite_mean": 0.2133000361018381,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/paper/links/xmodel_llama3b_s3407:lit_ttrl_majority:base3 --out cmp/paper/xmodel_llama3b_lit_ttrl_majority_s3407.json"
+}

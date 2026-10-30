@@ -1,0 +1,30 @@
+{
+  "model": "qwen3-4b-base",
+  "lora": "runs/dapo/qwen3-4b-base/outputs/ens_top3_s3407/lora",
+  "max_tokens": 4096,
+  "benchmarks": {
+    "gpqa": {
+      "n": 198,
+      "k": 8,
+      "acc_strict": 0.3384,
+      "acc_flex": 0.3472,
+      "ci_flex": null,
+      "truncated_rate": 0.036,
+      "mean_tokens": 663.1,
+      "seconds": 274.0
+    },
+    "medqa": {
+      "n": 1273,
+      "k": 1,
+      "acc_strict": 0.6253,
+      "acc_flex": 0.6284,
+      "ci_flex": [
+        0.6017282010997643,
+        0.6543597800471328
+      ],
+      "truncated_rate": 0.0071,
+      "mean_tokens": 279.8,
+      "seconds": 97.3
+    }
+  }
+}

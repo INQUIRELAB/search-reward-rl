@@ -1,0 +1,31 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/paper/links/math_s1234:best_single:base3",
+   "items": 2772,
+   "cand_pooled": 0.6746933621933622,
+   "ref_pooled": 0.656700937950938,
+   "diff": 0.017992424242424244,
+   "cand_suite": 0.4141983000970057,
+   "ref_suite": 0.41053401101390713
+  }
+ ],
+ "pairs": 2772,
+ "diff": 0.017992424242424244,
+ "ci_pairs": [
+  0.006764069264069264,
+  0.0294011544011544
+ ],
+ "ci_items_cluster": [
+  0.00726010101010101,
+  0.02922077922077922
+ ],
+ "wins": 171,
+ "losses": 122,
+ "p_sign": 0.004958522930712235,
+ "cand_suite_mean": 0.4141983000970057,
+ "ref_suite_mean": 0.41053401101390713,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s1234:best_single:base3 --out cmp/paper/ranked_best_single_s1234.json"
+}

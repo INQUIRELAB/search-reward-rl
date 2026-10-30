@@ -1,0 +1,31 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/paper/links/lit_s3407:lit_ttrl_majority:base3",
+   "items": 2772,
+   "cand_pooled": 0.663961038961039,
+   "ref_pooled": 0.6533639971139971,
+   "diff": 0.010597041847041848,
+   "cand_suite": 0.4200180893740069,
+   "ref_suite": 0.39398655601018406
+  }
+ ],
+ "pairs": 2772,
+ "diff": 0.010597041847041848,
+ "ci_pairs": [
+  -0.001397907647907648,
+  0.02223124098124098
+ ],
+ "ci_items_cluster": [
+  -0.0014892225829725824,
+  0.02250293109668108
+ ],
+ "wins": 180,
+ "losses": 139,
+ "p_sign": 0.024965815231276802,
+ "cand_suite_mean": 0.4200180893740069,
+ "ref_suite_mean": 0.39398655601018406,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/paper/links/lit_s3407:lit_ttrl_majority:base3 --out cmp/paper/lit_lit_ttrl_majority_s3407.json"
+}

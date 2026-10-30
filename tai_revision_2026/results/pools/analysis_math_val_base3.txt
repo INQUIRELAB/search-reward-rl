@@ -1,0 +1,55 @@
+baselines: {'random_choice': 0.4983, 'majority_vote': 0.691, 'oracle_pass_at_k': 0.806, 'n_questions': 500}
+
+source       n  null%  dup% useful% bon mean bon max auc mean gap mean
+lit         10    0.0   0.0   100.0   0.5043  0.6975   0.5518  +0.0108
+base         3    0.0   0.0   100.0   0.4933  0.5233   0.5294  -0.0306
+hc           5    0.0   0.0   100.0   0.5175  0.5329   0.5601  -0.0778
+math        50   22.0  30.0    48.0   0.5038  0.5399   0.5222  +0.1517
+math_fa     50   18.0   0.0    82.0   0.5085  0.5739   0.5349  -0.0592
+dapo        50   16.0   4.0    80.0   0.5047  0.5706   0.5324  -0.0027
+
+best blind selectors (best-of-k accuracy):
+  lit:lit_ttrl_majority                                        bon=0.6975 auc=0.8850 gap=+0.0381 screen=None
+  math_fa:reward_logical_flow                                  bon=0.5739 auc=0.6088 gap=-0.0918 screen=0.664
+  dapo:reward_correct_intermediate_logic                       bon=0.5706 auc=0.6381 gap=-0.0377 screen=0.262
+  dapo:reward_step_verification_markers                        bon=0.5467 auc=0.5935 gap=+0.0351 screen=0.276
+  dapo:reward_structured_enumeration                           bon=0.5461 auc=0.5863 gap=-0.0723 screen=0.272
+  math_fa:reward_logical_implication_chain                     bon=0.5426 auc=0.5925 gap=-0.1887 screen=0.652
+  math:consistency_check                                       bon=0.5399 auc=0.5605 gap=+0.1603 screen=0.674
+  dapo:reward_final_answer_clarity                             bon=0.5399 auc=0.6022 gap=-0.0599 screen=0.264
+  math_fa:reward_final_answer_simplicity                       bon=0.5385 auc=0.6013 gap=-0.1664 screen=0.646
+  math_fa:reward_concise_final_answer                          bon=0.5378 auc=0.5986 gap=-0.1651 screen=0.636
+  math_fa:reward_systematic_enumeration                        bon=0.5365 auc=0.6026 gap=-0.1636 screen=0.638
+  math_fa:reward_logical_coherence                             bon=0.5357 auc=0.5832 gap=-0.0796 screen=0.654
+  dapo:reward_correct_intermediate_steps                       bon=0.5357 auc=0.6006 gap=-0.0408 screen=0.276
+  math_fa:reward_thinking_structure                            bon=0.5350 auc=0.5834 gap=-0.0763 screen=0.71
+  dapo:reward_step_by_step_verification                        bon=0.5336 auc=0.5805 gap=-0.0475 screen=0.258
+
+literature, base and handwritten rewards:
+  lit:lit_dapo_overlong              bon=0.5005 auc=0.5074 gap=-0.0048 tie=0.187 varies=0.13 rho_ca=+0.04
+  base:match_format_exactly          bon=0.5132 auc=0.5458 gap=-0.1165 tie=0.280 varies=0.50 rho_ca=+0.15
+  lit:lit_tag_count                  bon=0.5233 auc=0.5733 gap=-0.0364 tie=0.328 varies=0.66 rho_ca=+0.16
+  lit:lit_spurious_random            bon=0.5009 auc=0.4983 gap=-0.0417 tie=0.826 varies=0.99 rho_ca=+0.05
+  base:match_format_approximately    bon=0.5233 auc=0.5733 gap=-0.1790 tie=0.328 varies=0.66 rho_ca=+0.16
+  hc:hc_has_arithmetic               bon=0.5143 auc=0.5539 gap=-0.0915 tie=0.343 varies=0.64 rho_ca=+0.09
+  lit:lit_r1_strict_format           bon=0.5179 auc=0.5533 gap=-0.0569 tie=0.552 varies=0.76 rho_ca=+0.12
+  hc:hc_thinking_length_window       bon=0.4878 auc=0.5110 gap=-0.0619 tie=0.395 varies=0.72 rho_ca=+0.24
+  hc:hc_solution_is_clean            bon=0.5328 auc=0.5865 gap=-0.0731 tie=0.451 varies=0.83 rho_ca=+0.20
+  lit:lit_reasoning_steps            bon=0.5181 auc=0.5469 gap=-0.0109 tie=0.680 varies=0.95 rho_ca=-0.04
+  hc:hc_steps_count                  bon=0.5200 auc=0.5626 gap=-0.1034 tie=0.359 varies=0.65 rho_ca=+0.05
+  hc:hc_numeric_density              bon=0.5329 auc=0.5864 gap=-0.0590 tie=0.320 varies=0.89 rho_ca=+0.18
+  lit:lit_repetition_penalty         bon=0.3753 auc=0.4322 gap=-0.0039 tie=0.487 varies=1.00 rho_ca=+0.10
+  base:check_answer                  bon=0.4434 auc=0.4691 gap=+0.2039 tie=0.081 varies=0.83 rho_ca=+1.00
+  lit:lit_cosine_length              bon=0.4460 auc=0.5386 gap=+0.1155 tie=0.132 varies=1.00 rho_ca=+0.83
+  lit:lit_grpo_lead_accuracy         bon=0.4983 auc=0.5000 gap=+0.1215 tie=0.147 varies=0.80 rho_ca=+0.89
+  lit:lit_kimi_length                bon=0.4655 auc=0.4825 gap=-0.0121 tie=0.824 varies=1.00 rho_ca=+0.30
+  lit:lit_ttrl_majority              bon=0.6975 auc=0.8850 gap=+0.0381 tie=0.116 varies=0.93 rho_ca=+0.74
+
+Spearman with 500-step screening validation accuracy (generated rewards):
+  dapo       n= 40 bon_blind=+0.02 auc_blind=+0.04 adv_gap_delta=-0.03 tie_break=+0.07 rho_correct=-0.00 varies_aware=+0.07 rho_check_answer=-0.01
+  math       n= 50 bon_blind=+0.09 auc_blind=+0.16 adv_gap_delta=+0.22 tie_break=+0.12 rho_correct=+0.26 varies_aware=+0.13 rho_check_answer=+0.27
+  math_fa    n= 50 bon_blind=+0.09 auc_blind=+0.03 adv_gap_delta=+0.12 tie_break=-0.05 rho_correct=+0.15 varies_aware=-0.06 rho_check_answer=+0.20
+  MATH pooled n=100 bon_blind=+0.09 auc_blind=+0.09 adv_gap_delta=+0.16 tie_break=-0.01 rho_correct=+0.20 varies_aware=+0.03 rho_check_answer=+0.23
+  MATH pooled useful: n= 65 mean screen val 0.6621 sd 0.0182
+  MATH pooled null  : n= 20 mean screen val 0.6557 sd 0.0126
+  MATH pooled dup   : n= 15 mean screen val 0.6648 sd 0.0177

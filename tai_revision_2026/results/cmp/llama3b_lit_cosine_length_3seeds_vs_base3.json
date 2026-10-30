@@ -1,0 +1,49 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/llama3b_s3407:lit_cosine_length_s3407:bl_base3_s3407",
+   "items": 2772,
+   "cand_pooled": 0.43159271284271283,
+   "ref_pooled": 0.4410624098124098,
+   "diff": -0.00946969696969697,
+   "cand_suite": 0.2021320548159525,
+   "ref_suite": 0.2133000361018381
+  },
+  {
+   "pair": "cmp/llama3b_s1234:lit_cosine_length_s1234:bl_base3_s1234",
+   "items": 2772,
+   "cand_pooled": 0.43596681096681095,
+   "ref_pooled": 0.4326749639249639,
+   "diff": 0.003291847041847042,
+   "cand_suite": 0.2076890497112461,
+   "ref_suite": 0.20793221650443927
+  },
+  {
+   "pair": "cmp/llama3b_s2025:lit_cosine_length_s2025:bl_base3_s2025",
+   "items": 2772,
+   "cand_pooled": 0.4136453823953824,
+   "ref_pooled": 0.4391684704184704,
+   "diff": -0.025523088023088024,
+   "cand_suite": 0.19118454687016523,
+   "ref_suite": 0.20935147124882084
+  }
+ ],
+ "pairs": 8316,
+ "diff": -0.010566979316979317,
+ "ci_pairs": [
+  -0.017376518157768157,
+  -0.003486877705627711
+ ],
+ "ci_items_cluster": [
+  -0.01766211219336219,
+  -0.003727377946127951
+ ],
+ "wins": 406,
+ "losses": 506,
+ "p_sign": 0.0010338491791481662,
+ "cand_suite_mean": 0.2003352171324546,
+ "ref_suite_mean": 0.21019457461836608,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/llama3b_s3407:lit_cosine_length_s3407:bl_base3_s3407 --pair cmp/llama3b_s1234:lit_cosine_length_s1234:bl_base3_s1234 --pair cmp/llama3b_s2025:lit_cosine_length_s2025:bl_base3_s2025 --out cmp/llama3b_lit_cosine_length_3seeds_vs_base3.json"
+}

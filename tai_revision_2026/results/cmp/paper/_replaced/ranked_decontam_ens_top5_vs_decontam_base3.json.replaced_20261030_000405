@@ -1,0 +1,31 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/paper/links/lit_s3407:decontam_ens_top5:base3",
+   "items": 2772,
+   "cand_pooled": 0.671672077922078,
+   "ref_pooled": 0.6533639971139971,
+   "diff": 0.018308080808080808,
+   "cand_suite": 0.42361569676556654,
+   "ref_suite": 0.39398655601018406
+  }
+ ],
+ "pairs": 2772,
+ "diff": 0.018308080808080808,
+ "ci_pairs": [
+  0.007258973665223665,
+  0.029716810966810968
+ ],
+ "ci_items_cluster": [
+  0.006898223304473304,
+  0.029536435786435788
+ ],
+ "wins": 176,
+ "losses": 115,
+ "p_sign": 0.0004172996008738888,
+ "cand_suite_mean": 0.42361569676556654,
+ "ref_suite_mean": 0.39398655601018406,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/paper/links/lit_s3407:decontam_ens_top5:base3 --out cmp/paper/ranked_decontam_ens_top5_vs_decontam_base3.json"
+}

@@ -1,0 +1,31 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/paper/links/math_s3407:loo_without_fraction_equivalence_check:base3",
+   "items": 2772,
+   "cand_pooled": 0.6640061327561327,
+   "ref_pooled": 0.6749188311688312,
+   "diff": -0.010912698412698412,
+   "cand_suite": 0.41181642291588755,
+   "ref_suite": 0.4144317211379012
+  }
+ ],
+ "pairs": 2772,
+ "diff": -0.010912698412698412,
+ "ci_pairs": [
+  -0.021554834054834056,
+  -0.00018037518037518038
+ ],
+ "ci_items_cluster": [
+  -0.0215559613997114,
+  -0.0001792478354978519
+ ],
+ "wins": 118,
+ "losses": 144,
+ "p_sign": 0.12230130671769322,
+ "cand_suite_mean": 0.41181642291588755,
+ "ref_suite_mean": 0.4144317211379012,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s3407:loo_without_fraction_equivalence_check:base3 --out cmp/paper/ranked_loo_without_fraction_equivalence_check_s3407.json"
+}

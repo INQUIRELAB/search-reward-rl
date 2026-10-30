@@ -1,0 +1,49 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/qwen3-1.7b-base_s3407:lit_cosine_length_s3407:bl_base3_s3407",
+   "items": 2772,
+   "cand_pooled": 0.4081439393939394,
+   "ref_pooled": 0.4365530303030303,
+   "diff": -0.028409090909090908,
+   "cand_suite": 0.24842972987490528,
+   "ref_suite": 0.26616537203315427
+  },
+  {
+   "pair": "cmp/qwen3-1.7b-base_s1234:lit_cosine_length_s1234:bl_base3_s1234",
+   "items": 2772,
+   "cand_pooled": 0.39655483405483405,
+   "ref_pooled": 0.4172077922077922,
+   "diff": -0.020652958152958152,
+   "cand_suite": 0.24746996704634708,
+   "ref_suite": 0.2590995095664251
+  },
+  {
+   "pair": "cmp/qwen3-1.7b-base_s2025:lit_cosine_length_s2025:bl_base3_s2025",
+   "items": 2772,
+   "cand_pooled": 0.43001443001443,
+   "ref_pooled": 0.4355609668109668,
+   "diff": -0.005546536796536797,
+   "cand_suite": 0.26430107785781726,
+   "ref_suite": 0.2703963396369079
+  }
+ ],
+ "pairs": 8316,
+ "diff": -0.018202861952861953,
+ "ci_pairs": [
+  -0.02598905723905724,
+  -0.01023591570466571
+ ],
+ "ci_items_cluster": [
+  -0.02623030904280904,
+  -0.010235915704665711
+ ],
+ "wins": 534,
+ "losses": 696,
+ "p_sign": 4.287754616820761e-06,
+ "cand_suite_mean": 0.25340025825968987,
+ "ref_suite_mean": 0.26522040707882905,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/qwen3-1.7b-base_s3407:lit_cosine_length_s3407:bl_base3_s3407 --pair cmp/qwen3-1.7b-base_s1234:lit_cosine_length_s1234:bl_base3_s1234 --pair cmp/qwen3-1.7b-base_s2025:lit_cosine_length_s2025:bl_base3_s2025 --out cmp/qwen3-1.7b-base_lit_cosine_length_3seeds_vs_base3.json"
+}

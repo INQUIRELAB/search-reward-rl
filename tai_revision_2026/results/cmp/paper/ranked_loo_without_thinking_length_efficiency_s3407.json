@@ -1,0 +1,31 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/paper/links/math_s3407:loo_without_thinking_length_efficiency:base3",
+   "items": 2772,
+   "cand_pooled": 0.6768578643578643,
+   "ref_pooled": 0.6749188311688312,
+   "diff": 0.001939033189033189,
+   "cand_suite": 0.42076600848648055,
+   "ref_suite": 0.4144317211379012
+  }
+ ],
+ "pairs": 2772,
+ "diff": 0.001939033189033189,
+ "ci_pairs": [
+  -0.008883477633477634,
+  0.012447014790764774
+ ],
+ "ci_items_cluster": [
+  -0.008704229797979798,
+  0.012175324675324676
+ ],
+ "wins": 130,
+ "losses": 125,
+ "p_sign": 0.8022683388581098,
+ "cand_suite_mean": 0.42076600848648055,
+ "ref_suite_mean": 0.4144317211379012,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s3407:loo_without_thinking_length_efficiency:base3 --out cmp/paper/ranked_loo_without_thinking_length_efficiency_s3407.json"
+}

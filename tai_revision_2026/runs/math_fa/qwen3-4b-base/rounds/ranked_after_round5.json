@@ -1,0 +1,502 @@
+[
+ {
+  "name": "reward_thinking_structure",
+  "description": "Rewards structured reasoning in the <thinking> section, including numbered steps, clear sections, problem identification, and verification.",
+  "round": 1,
+  "trial": "round1_reward_thinking_structure",
+  "accuracy": 0.71,
+  "f1": 0.8304,
+  "strict_accuracy": 0.71,
+  "failed": false
+ },
+ {
+  "name": "reward_no_truncation_penalty",
+  "description": "Penalizes truncated outputs with unclosed tags, abrupt endings, or repetitive generation loops. Rewards well-formed, complete responses.",
+  "round": 4,
+  "trial": "round4_reward_no_truncation_penalty",
+  "accuracy": 0.694,
+  "f1": 0.8194,
+  "strict_accuracy": 0.694,
+  "failed": false
+ },
+ {
+  "name": "reward_answer_type_consistency",
+  "description": "Ensures the final answer format matches the question type. Penalizes giving a mathematical expression for a multiple-choice question or a letter for a calculation question.",
+  "round": 3,
+  "trial": "round3_reward_answer_type_consistency",
+  "accuracy": 0.692,
+  "f1": 0.818,
+  "strict_accuracy": 0.692,
+  "failed": false
+ },
+ {
+  "name": "reward_final_answer_format_match",
+  "description": "Checks if the format of the predicted answer (fraction, decimal, integer, radical, percent) matches the format of the ground truth answer. Rewards consistent formatting and penalizes mismatches.",
+  "round": 2,
+  "trial": "round2_reward_final_answer_format_match",
+  "accuracy": 0.69,
+  "f1": 0.8166,
+  "strict_accuracy": 0.69,
+  "failed": false
+ },
+ {
+  "name": "reward_boundary_condition_check",
+  "description": "Rewards the model for explicitly considering boundary conditions, constraints, or extreme values in problems that ask for minima, maxima, or ranges.",
+  "round": 3,
+  "trial": "round3_reward_boundary_condition_check",
+  "accuracy": 0.686,
+  "f1": 0.8138,
+  "strict_accuracy": 0.686,
+  "failed": false
+ },
+ {
+  "name": "reward_problem_identification",
+  "description": "Rewards the model for correctly identifying the type of mathematical problem (e.g., geometry, algebra) in its thinking process. Penalizes misidentification.",
+  "round": 3,
+  "trial": "round3_reward_problem_identification",
+  "accuracy": 0.684,
+  "f1": 0.8124,
+  "strict_accuracy": 0.684,
+  "failed": false
+ },
+ {
+  "name": "reward_no_common_mistakes",
+  "description": "Penalizes outputs that contain common mathematical mistakes or lack verification steps.",
+  "round": 1,
+  "trial": "round1_reward_no_common_mistakes",
+  "accuracy": 0.684,
+  "f1": 0.8109,
+  "strict_accuracy": 0.682,
+  "failed": false
+ },
+ {
+  "name": "reward_correct_intermediate_values",
+  "description": "Rewards thinking sections that contain multiple explicitly stated intermediate numerical values. This suggests a step-by-step approach where calculations are shown, rather than jumping to a final answer.",
+  "round": 2,
+  "trial": "round2_reward_correct_intermediate_values",
+  "accuracy": 0.682,
+  "f1": 0.8109,
+  "strict_accuracy": 0.682,
+  "failed": false
+ },
+ {
+  "name": "reward_geometry_coordinate_fidelity",
+  "description": "Penalizes geometry problems where the model hallucinates specific coordinates not present in the prompt's Asymptote code or description. Rewards referencing the given figure or constraints.",
+  "round": 3,
+  "trial": "round3_reward_geometry_coordinate_fidelity",
+  "accuracy": 0.682,
+  "f1": 0.8095,
+  "strict_accuracy": 0.68,
+  "failed": false
+ },
+ {
+  "name": "reward_no_hallucinated_geometry",
+  "description": "Specifically targets geometry problems. Penalizes hallucinating coordinates or points that were not provided in the prompt. Rewards referencing the given diagram or constraints.",
+  "round": 2,
+  "trial": "round2_reward_no_hallucinated_geometry",
+  "accuracy": 0.676,
+  "f1": 0.8067,
+  "strict_accuracy": 0.676,
+  "failed": false
+ },
+ {
+  "name": "reward_no_contradiction",
+  "description": "Checks for consistency between the thinking section and the final solution. Rewards if the final answer is derived or mentioned in the thinking. Penalizes if the thinking explicitly states a different answer than the final solution.",
+  "round": 2,
+  "trial": "round2_reward_no_contradiction",
+  "accuracy": 0.676,
+  "f1": 0.8067,
+  "strict_accuracy": 0.676,
+  "failed": false
+ },
+ {
+  "name": "reward_no_brute_force_search",
+  "description": "Penalizes reasoning that relies on brute-force searching, iterative guessing, or repetitive trial-and-error calculations instead of deriving a closed-form solution or using logical deduction.",
+  "round": 4,
+  "trial": "round4_reward_no_brute_force_search",
+  "accuracy": 0.676,
+  "f1": 0.8067,
+  "strict_accuracy": 0.676,
+  "failed": false
+ },
+ {
+  "name": "reward_consistent_notation",
+  "description": "Rewards consistent mathematical notation between the thinking process and the final solution. Penalizes introducing new variables or changing notation styles (e.g., LaTeX vs plain text).",
+  "round": 3,
+  "trial": "round3_reward_consistent_notation",
+  "accuracy": 0.674,
+  "f1": 0.8053,
+  "strict_accuracy": 0.674,
+  "failed": false
+ },
+ {
+  "name": "reward_answer_simplification",
+  "description": "Rewards final answers that are simplified and concise. Penalizes answers with reducible fractions or unnecessary formatting.",
+  "round": 4,
+  "trial": "round4_reward_answer_simplification",
+  "accuracy": 0.674,
+  "f1": 0.801,
+  "strict_accuracy": 0.668,
+  "failed": false
+ },
+ {
+  "name": "reward_step_by_step_verification",
+  "description": "Rewards outputs that show step-by-step reasoning with intermediate calculations and clear justifications.",
+  "round": 1,
+  "trial": "round1_reward_step_by_step_verification",
+  "accuracy": 0.67,
+  "f1": 0.8024,
+  "strict_accuracy": 0.67,
+  "failed": false
+ },
+ {
+  "name": "reward_answer_extraction_consistency",
+  "description": "Evaluates the quality of the extracted final answer. Rewards concise, plausible mathematical expressions and penalizes verbose, sentence-like, or structurally invalid final answers.",
+  "round": 2,
+  "trial": "round2_reward_answer_extraction_consistency",
+  "accuracy": 0.666,
+  "f1": 0.7981,
+  "strict_accuracy": 0.664,
+  "failed": false
+ },
+ {
+  "name": "reward_triangle_inequality_check",
+  "description": "Rewards explicit use of the triangle inequality for side length problems. Penalizes missing this key constraint (addressing failure F2 and F6).",
+  "round": 5,
+  "trial": "round5_reward_triangle_inequality_check",
+  "accuracy": 0.664,
+  "f1": 0.7981,
+  "strict_accuracy": 0.664,
+  "failed": false
+ },
+ {
+  "name": "reward_logical_flow",
+  "description": "Rewards outputs that show clear logical flow with transitions, problem setup, and step-by-step reasoning.",
+  "round": 1,
+  "trial": "round1_reward_logical_flow",
+  "accuracy": 0.664,
+  "f1": 0.7952,
+  "strict_accuracy": 0.66,
+  "failed": false
+ },
+ {
+  "name": "reward_solution_tag_integrity",
+  "description": "Rewards outputs that correctly use the <solution> tag and contain a non-empty, plausible mathematical answer. Penalizes missing tags or empty solutions.",
+  "round": 1,
+  "trial": "round1_reward_solution_tag_integrity",
+  "accuracy": 0.662,
+  "f1": 0.7966,
+  "strict_accuracy": 0.662,
+  "failed": false
+ },
+ {
+  "name": "reward_no_hallucinated_constraints",
+  "description": "Penalizes outputs that appear to hallucinate constraints or make unjustified assumptions. Rewards correct problem type identification.",
+  "round": 1,
+  "trial": "round1_reward_no_hallucinated_constraints",
+  "accuracy": 0.662,
+  "f1": 0.7966,
+  "strict_accuracy": 0.662,
+  "failed": false
+ },
+ {
+  "name": "reward_no_truncation_or_loops",
+  "description": "Penalizes truncated outputs (unclosed tags) and repetitive generation loops. Rewards well-formed, non-repetitive responses.",
+  "round": 3,
+  "trial": "round3_reward_no_truncation_or_loops",
+  "accuracy": 0.662,
+  "f1": 0.7966,
+  "strict_accuracy": 0.662,
+  "failed": false
+ },
+ {
+  "name": "reward_intermediate_calculation_accuracy",
+  "description": "Verifies the correctness of explicit arithmetic calculations (a op b = c) found in the thinking section. Rewards accurate intermediate steps.",
+  "round": 3,
+  "trial": "round3_reward_intermediate_calculation_accuracy",
+  "accuracy": 0.662,
+  "f1": 0.7966,
+  "strict_accuracy": 0.662,
+  "failed": false
+ },
+ {
+  "name": "reward_numeric_precision",
+  "description": "Rewards numerical answers that are close to the ground truth, even if not exactly correct. Penalizes large deviations.",
+  "round": 1,
+  "trial": "round1_reward_numeric_precision",
+  "accuracy": 0.662,
+  "f1": 0.7952,
+  "strict_accuracy": 0.66,
+  "failed": false
+ },
+ {
+  "name": "reward_spherical_geometry_check",
+  "description": "Rewards correct identification of spherical geometry problems and explicit calculation of longitude differences. Penalizes use of flat geometry (addressing failure F7).",
+  "round": 5,
+  "trial": "round5_reward_spherical_geometry_check",
+  "accuracy": 0.662,
+  "f1": 0.7952,
+  "strict_accuracy": 0.66,
+  "failed": false
+ },
+ {
+  "name": "reward_answer_format_consistency",
+  "description": "Rewards answers that match the expected format (fraction, decimal, integer) of the ground truth.",
+  "round": 1,
+  "trial": "round1_reward_answer_format_consistency",
+  "accuracy": 0.66,
+  "f1": 0.7952,
+  "strict_accuracy": 0.66,
+  "failed": false
+ },
+ {
+  "name": "reward_arithmetic_accuracy_check",
+  "description": "Scans the thinking section for explicit arithmetic calculations (a op b = c) and verifies their correctness. Penalizes outputs that contain simple arithmetic mistakes in the reasoning steps.",
+  "round": 2,
+  "trial": "round2_reward_arithmetic_accuracy_check",
+  "accuracy": 0.66,
+  "f1": 0.7952,
+  "strict_accuracy": 0.66,
+  "failed": false
+ },
+ {
+  "name": "reward_intermediate_step_density",
+  "description": "Rewards thinking sections that contain a moderate number of distinct lines/steps, include explicit calculations (using '=' or '->'), and use structured formatting like numbered lists. Penalizes overly short or unstructured reasoning.",
+  "round": 2,
+  "trial": "round2_reward_intermediate_step_density",
+  "accuracy": 0.658,
+  "f1": 0.7937,
+  "strict_accuracy": 0.658,
+  "failed": false
+ },
+ {
+  "name": "reward_interval_notation_format",
+  "description": "Rewards correct interval notation format for inequality solutions. Penalizes verbose or incorrect formats (addressing failure F7 where the model might have used incorrect notation).",
+  "round": 5,
+  "trial": "round5_reward_interval_notation_format",
+  "accuracy": 0.658,
+  "f1": 0.7937,
+  "strict_accuracy": 0.658,
+  "failed": false
+ },
+ {
+  "name": "reward_no_contradictory_statements",
+  "description": "Penalizes outputs where the thinking section states a different answer than the final solution, or where the model shows signs of confusion and self-correction without clear resolution.",
+  "round": 4,
+  "trial": "round4_reward_no_contradictory_statements",
+  "accuracy": 0.656,
+  "f1": 0.7923,
+  "strict_accuracy": 0.656,
+  "failed": false
+ },
+ {
+  "name": "reward_no_unjustified_assumptions",
+  "description": "Penalizes unjustified assumptions in the thinking process. Rewards explicit reference to the given problem statement.",
+  "round": 3,
+  "trial": "round3_reward_no_unjustified_assumptions",
+  "accuracy": 0.656,
+  "f1": 0.7908,
+  "strict_accuracy": 0.654,
+  "failed": false
+ },
+ {
+  "name": "reward_final_answer_clarity",
+  "description": "Rewards final answers that are clear, unambiguous, and properly formatted as mathematical expressions.",
+  "round": 1,
+  "trial": "round1_reward_final_answer_clarity",
+  "accuracy": 0.654,
+  "f1": 0.7908,
+  "strict_accuracy": 0.654,
+  "failed": false
+ },
+ {
+  "name": "reward_logical_coherence",
+  "description": "Rewards thinking sections that use logical connectors (therefore, because, etc.), explicitly identify the problem, and include a verification step. Penalizes disjointed or unconnected reasoning.",
+  "round": 2,
+  "trial": "round2_reward_logical_coherence",
+  "accuracy": 0.654,
+  "f1": 0.7908,
+  "strict_accuracy": 0.654,
+  "failed": false
+ },
+ {
+  "name": "reward_efficient_reasoning",
+  "description": "Rewards reasoning that is concise and within an ideal length range. Penalizes overly short, overly long, or repetitive reasoning that suggests inefficiency or generation loops.",
+  "round": 2,
+  "trial": "round2_reward_efficient_reasoning",
+  "accuracy": 0.654,
+  "f1": 0.7908,
+  "strict_accuracy": 0.654,
+  "failed": false
+ },
+ {
+  "name": "reward_arithmetic_consistency_check",
+  "description": "Verifies the correctness of explicit arithmetic steps in the thinking section. Penalizes outputs containing simple calculation errors, which often lead to wrong final answers.",
+  "round": 4,
+  "trial": "round4_reward_arithmetic_consistency_check",
+  "accuracy": 0.654,
+  "f1": 0.7908,
+  "strict_accuracy": 0.654,
+  "failed": false
+ },
+ {
+  "name": "reward_logical_implication_chain",
+  "description": "Rewards reasoning that uses explicit logical connectors and step-by-step structure, indicating a coherent derivation rather than a disjointed list of observations.",
+  "round": 4,
+  "trial": "round4_reward_logical_implication_chain",
+  "accuracy": 0.652,
+  "f1": 0.7893,
+  "strict_accuracy": 0.652,
+  "failed": false
+ },
+ {
+  "name": "reward_combinatorial_method_accuracy",
+  "description": "Rewards combinatorics solutions that explicitly count cases and use appropriate methods like complementary counting or inclusion-exclusion. Penalizes naive multiplication of probabilities without justification.",
+  "round": 4,
+  "trial": "round4_reward_combinatorial_method_accuracy",
+  "accuracy": 0.652,
+  "f1": 0.7893,
+  "strict_accuracy": 0.652,
+  "failed": false
+ },
+ {
+  "name": "reward_completeness_and_termination",
+  "description": "Rewards outputs that contain both <thinking> and <solution> tags, are properly closed, and have non-empty solution content. Penalizes missing tags, unclosed tags, and empty solutions which often indicate truncation or generation failure.",
+  "round": 2,
+  "trial": "round2_reward_completeness_and_termination",
+  "accuracy": 0.652,
+  "f1": 0.7879,
+  "strict_accuracy": 0.65,
+  "failed": false
+ },
+ {
+  "name": "reward_no_repetition_penalty",
+  "description": "Penalizes outputs that contain repetitive lines (likely generation loops) or show signs of truncation. Rewards well-formed, concise outputs.",
+  "round": 1,
+  "trial": "round1_reward_no_repetition_penalty",
+  "accuracy": 0.65,
+  "f1": 0.7864,
+  "strict_accuracy": 0.648,
+  "failed": false
+ },
+ {
+  "name": "reward_modular_arithmetic_efficiency",
+  "description": "Rewards efficient modular arithmetic or algebraic simplification for divisibility problems. Penalizes brute-force code generation or explicit loops which are inefficient and often incorrect in LLMs.",
+  "round": 3,
+  "trial": "round3_reward_modular_arithmetic_efficiency",
+  "accuracy": 0.648,
+  "f1": 0.7849,
+  "strict_accuracy": 0.646,
+  "failed": false
+ },
+ {
+  "name": "reward_final_answer_simplicity",
+  "description": "Rewards concise, clean final answers. Penalizes verbose explanations, code blocks, or overly complex formatting in the solution tag.",
+  "round": 3,
+  "trial": "round3_reward_final_answer_simplicity",
+  "accuracy": 0.646,
+  "f1": 0.7849,
+  "strict_accuracy": 0.646,
+  "failed": false
+ },
+ {
+  "name": "reward_extremal_case_verification",
+  "description": "Rewards the model for explicitly checking extremal cases (like symmetry or equality conditions) and verifying the tightness of bounds in optimization problems. Penalizes assuming a symmetric case is optimal without proof.",
+  "round": 4,
+  "trial": "round4_reward_extremal_case_verification",
+  "accuracy": 0.646,
+  "f1": 0.7849,
+  "strict_accuracy": 0.646,
+  "failed": false
+ },
+ {
+  "name": "reward_coordinate_precision",
+  "description": "Rewards careful use of coordinates and explicit reference to given figures. Penalizes large, unexplained coordinates that may be hallucinated (addressing failure F5 and F6).",
+  "round": 5,
+  "trial": "round5_reward_coordinate_precision",
+  "accuracy": 0.642,
+  "f1": 0.782,
+  "strict_accuracy": 0.642,
+  "failed": false
+ },
+ {
+  "name": "reward_geometric_constraint_fidelity",
+  "description": "Penalizes geometry problems where the model introduces large, specific numerical values not present in the problem statement or derived from simple arithmetic on given values, suggesting hallucination of coordinates or lengths.",
+  "round": 4,
+  "trial": "round4_reward_geometric_constraint_fidelity",
+  "accuracy": 0.64,
+  "f1": 0.7805,
+  "strict_accuracy": 0.64,
+  "failed": false
+ },
+ {
+  "name": "reward_complex_number_awareness",
+  "description": "Rewards awareness of complex numbers in polynomial problems. Penalizes unjustified dismissal of complex roots (addressing failure F8).",
+  "round": 5,
+  "trial": "round5_reward_complex_number_awareness",
+  "accuracy": 0.64,
+  "f1": 0.7805,
+  "strict_accuracy": 0.64,
+  "failed": false
+ },
+ {
+  "name": "reward_probabilistic_reasoning",
+  "description": "Rewards explicit probabilistic reasoning, including checking independence and using complements. Penalizes naive multiplication (addressing failure F3 and F16).",
+  "round": 5,
+  "trial": "round5_reward_probabilistic_reasoning",
+  "accuracy": 0.64,
+  "f1": 0.7805,
+  "strict_accuracy": 0.64,
+  "failed": false
+ },
+ {
+  "name": "reward_systematic_enumeration",
+  "description": "Rewards systematic enumeration and case analysis in the thinking process. Penalizes short, unstructured responses that likely skip necessary cases (addressing failure F1 and F2).",
+  "round": 5,
+  "trial": "round5_reward_systematic_enumeration",
+  "accuracy": 0.638,
+  "f1": 0.779,
+  "strict_accuracy": 0.638,
+  "failed": false
+ },
+ {
+  "name": "reward_variable_definition_clarity",
+  "description": "Rewards the model for explicitly defining variables before using them in the reasoning process, which improves clarity and reduces ambiguity.",
+  "round": 4,
+  "trial": "round4_reward_variable_definition_clarity",
+  "accuracy": 0.636,
+  "f1": 0.776,
+  "strict_accuracy": 0.634,
+  "failed": false
+ },
+ {
+  "name": "reward_concise_final_answer",
+  "description": "Rewards concise, clean final answers. Penalizes verbose or explanatory text in the solution tag (addressing general formatting issues and potential truncation artifacts).",
+  "round": 5,
+  "trial": "round5_reward_concise_final_answer",
+  "accuracy": 0.636,
+  "f1": 0.7745,
+  "strict_accuracy": 0.632,
+  "failed": false
+ },
+ {
+  "name": "reward_equation_verification",
+  "description": "Rewards the model for explicitly verifying its solution by substituting values back or checking consistency. Penalizes missing verification steps (addressing failure F3 and F4 where errors went unchecked).",
+  "round": 5,
+  "trial": "round5_reward_equation_verification",
+  "accuracy": 0.618,
+  "f1": 0.7624,
+  "strict_accuracy": 0.616,
+  "failed": false
+ },
+ {
+  "name": "reward_polynomial_remainder_method",
+  "description": "Rewards the use of appropriate polynomial remainder theorems or modular arithmetic for high-degree polynomials. Penalizes brute-force expansion (addressing failure F4 and F20).",
+  "round": 5,
+  "trial": "round5_reward_polynomial_remainder_method",
+  "accuracy": 0.616,
+  "f1": 0.7608,
+  "strict_accuracy": 0.614,
+  "failed": false
+ }
+]

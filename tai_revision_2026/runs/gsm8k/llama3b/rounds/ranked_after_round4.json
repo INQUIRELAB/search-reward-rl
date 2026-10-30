@@ -1,0 +1,362 @@
+[
+ {
+  "name": "solution_format_reward",
+  "description": "Rewards presence of a non-empty numeric solution and penalizes missing or non-numeric final answers.",
+  "round": 1,
+  "accuracy": 0.868,
+  "f1": 0.9201,
+  "strict_accuracy": 0.852,
+  "failed": false
+ },
+ {
+  "name": "concise_solution_reward",
+  "description": "Prefers concise bare-number final answers and penalizes verbose or non-numeric solution text.",
+  "round": 1,
+  "accuracy": 0.866,
+  "f1": 0.9247,
+  "strict_accuracy": 0.86,
+  "failed": false
+ },
+ {
+  "name": "numeric_relative_error",
+  "description": "Gives partial credit based on numeric relative error when the final answer is close but not exact.",
+  "round": 1,
+  "accuracy": 0.866,
+  "f1": 0.9201,
+  "strict_accuracy": 0.852,
+  "failed": false
+ },
+ {
+  "name": "thinking_before_solution_reward",
+  "description": "Rewards placing the thinking tag before the solution tag and penalizes reversed or missing tag order.",
+  "round": 2,
+  "accuracy": 0.866,
+  "f1": 0.9154,
+  "strict_accuracy": 0.844,
+  "failed": false
+ },
+ {
+  "name": "no_nested_tags_reward",
+  "description": "Rewards well-formed, non-overlapping thinking and solution tags and penalizes nested or overlapping tag structures.",
+  "round": 4,
+  "accuracy": 0.864,
+  "f1": 0.9236,
+  "strict_accuracy": 0.858,
+  "failed": false
+ },
+ {
+  "name": "reasoning_prose_balance_reward",
+  "description": "Rewards a balanced reasoning section with enough prose, numbers, and arithmetic without being equation-heavy.",
+  "round": 3,
+  "accuracy": 0.86,
+  "f1": 0.9201,
+  "strict_accuracy": 0.852,
+  "failed": false
+ },
+ {
+  "name": "tag_balance_reward",
+  "description": "Rewards balanced, non-empty thinking and solution tags and penalizes unclosed or missing tags.",
+  "round": 2,
+  "accuracy": 0.858,
+  "f1": 0.9213,
+  "strict_accuracy": 0.854,
+  "failed": false
+ },
+ {
+  "name": "single_thinking_tag_reward",
+  "description": "Rewards exactly one non-empty thinking tag pair and penalizes missing, empty, or repeated thinking tags.",
+  "round": 2,
+  "accuracy": 0.858,
+  "f1": 0.9213,
+  "strict_accuracy": 0.854,
+  "failed": false
+ },
+ {
+  "name": "arithmetic_process_reward",
+  "description": "Rewards visible arithmetic operations or equations in the reasoning section.",
+  "round": 1,
+  "accuracy": 0.858,
+  "f1": 0.9189,
+  "strict_accuracy": 0.85,
+  "failed": false
+ },
+ {
+  "name": "thinking_no_repetition_reward",
+  "description": "Rewards non-repetitive reasoning and penalizes repeated sentences or lines in the thinking tag.",
+  "round": 3,
+  "accuracy": 0.858,
+  "f1": 0.9189,
+  "strict_accuracy": 0.85,
+  "failed": false
+ },
+ {
+  "name": "arithmetic_no_contradiction_reward",
+  "description": "Rewards internally consistent arithmetic equations and penalizes stated results that do not evaluate correctly.",
+  "round": 3,
+  "accuracy": 0.858,
+  "f1": 0.9177,
+  "strict_accuracy": 0.848,
+  "failed": false
+ },
+ {
+  "name": "final_answer_correctness",
+  "description": "Primary reward for exact correctness of the extracted solution; missing solution is penalized.",
+  "round": 1,
+  "accuracy": 0.858,
+  "f1": 0.9166,
+  "strict_accuracy": 0.846,
+  "failed": false
+ },
+ {
+  "name": "avoid_prompt_number_copy_reward",
+  "description": "Penalizes incorrect final answers that merely copy a number from the prompt.",
+  "round": 3,
+  "accuracy": 0.856,
+  "f1": 0.9154,
+  "strict_accuracy": 0.844,
+  "failed": false
+ },
+ {
+  "name": "unit_conversion_factor_reward",
+  "description": "Rewards reasoning that engages units and arithmetic when the prompt appears to require unit conversion.",
+  "round": 3,
+  "accuracy": 0.856,
+  "f1": 0.9119,
+  "strict_accuracy": 0.838,
+  "failed": false
+ },
+ {
+  "name": "nonnegative_intermediate_values_reward",
+  "description": "Rewards nonnegative intermediate numeric values in reasoning and solution, with stronger penalties for negative final answers.",
+  "round": 4,
+  "accuracy": 0.856,
+  "f1": 0.9107,
+  "strict_accuracy": 0.836,
+  "failed": false
+ },
+ {
+  "name": "integer_representation_reward",
+  "description": "Rewards final answers represented as integers when the ground truth is integer, and as decimals when the ground truth is decimal.",
+  "round": 2,
+  "accuracy": 0.854,
+  "f1": 0.9213,
+  "strict_accuracy": 0.854,
+  "failed": false
+ },
+ {
+  "name": "percent_fraction_conversion_reward",
+  "description": "Rewards explicit handling of percentages or fractions when the prompt contains them.",
+  "round": 3,
+  "accuracy": 0.854,
+  "f1": 0.9177,
+  "strict_accuracy": 0.848,
+  "failed": false
+ },
+ {
+  "name": "entity_condition_grounding_reward",
+  "description": "Rewards reasoning that references meaningful non-numeric entities or conditions from the prompt.",
+  "round": 3,
+  "accuracy": 0.854,
+  "f1": 0.9177,
+  "strict_accuracy": 0.848,
+  "failed": false
+ },
+ {
+  "name": "thinking_effort_reward",
+  "description": "Encourages a reasonable amount of reasoning in the thinking tag without rewarding extreme length.",
+  "round": 1,
+  "accuracy": 0.854,
+  "f1": 0.9154,
+  "strict_accuracy": 0.844,
+  "failed": false
+ },
+ {
+  "name": "thinking_contains_correct_answer_reward",
+  "description": "Gives partial credit when the correct ground-truth number appears in the reasoning, especially if the final answer is wrong.",
+  "round": 2,
+  "accuracy": 0.854,
+  "f1": 0.913,
+  "strict_accuracy": 0.84,
+  "failed": false
+ },
+ {
+  "name": "only_expected_tags_reward",
+  "description": "Rewards completions that use only the expected thinking and solution tags and penalizes unexpected custom tags.",
+  "round": 4,
+  "accuracy": 0.854,
+  "f1": 0.9095,
+  "strict_accuracy": 0.834,
+  "failed": false
+ },
+ {
+  "name": "structured_reasoning_steps_reward",
+  "description": "Rewards structured multi-line or step-marked reasoning and penalizes a single unstructured block.",
+  "round": 4,
+  "accuracy": 0.854,
+  "f1": 0.9059,
+  "strict_accuracy": 0.828,
+  "failed": false
+ },
+ {
+  "name": "single_solution_tag_reward",
+  "description": "Checks that exactly one solution tag pair is present and non-empty.",
+  "round": 1,
+  "accuracy": 0.852,
+  "f1": 0.9189,
+  "strict_accuracy": 0.85,
+  "failed": false
+ },
+ {
+  "name": "last_number_is_solution_reward",
+  "description": "Rewards the final solution number being the last numeric token in the response and penalizes trailing numbers after it.",
+  "round": 2,
+  "accuracy": 0.852,
+  "f1": 0.9177,
+  "strict_accuracy": 0.848,
+  "failed": false
+ },
+ {
+  "name": "prompt_number_grounding_reward",
+  "description": "Rewards reasoning that references numeric values from the prompt, with stronger credit for multiple grounded numbers.",
+  "round": 2,
+  "accuracy": 0.852,
+  "f1": 0.9166,
+  "strict_accuracy": 0.846,
+  "failed": false
+ },
+ {
+  "name": "starts_with_thinking_tag_reward",
+  "description": "Rewards responses that begin directly with the thinking tag and penalizes preamble or starting with the solution tag.",
+  "round": 4,
+  "accuracy": 0.85,
+  "f1": 0.9166,
+  "strict_accuracy": 0.846,
+  "failed": false
+ },
+ {
+  "name": "composite_quality_reward",
+  "description": "Combines correctness, numeric format, and reasoning presence into a single quality score.",
+  "round": 1,
+  "accuracy": 0.85,
+  "f1": 0.9095,
+  "strict_accuracy": 0.834,
+  "failed": false
+ },
+ {
+  "name": "plausible_magnitude_reward",
+  "description": "Penalizes implausible negative or extremely large answers relative to prompt numbers, with full credit for correctness.",
+  "round": 1,
+  "accuracy": 0.848,
+  "f1": 0.9154,
+  "strict_accuracy": 0.844,
+  "failed": false
+ },
+ {
+  "name": "solution_tag_terminates_response_reward",
+  "description": "Rewards completions that end with the closing solution tag and penalizes trailing text or tags after the final answer.",
+  "round": 4,
+  "accuracy": 0.848,
+  "f1": 0.9154,
+  "strict_accuracy": 0.844,
+  "failed": false
+ },
+ {
+  "name": "last_arithmetic_result_matches_solution_reward",
+  "description": "Rewards the final arithmetic result in the reasoning matching the stated solution or ground truth.",
+  "round": 3,
+  "accuracy": 0.848,
+  "f1": 0.913,
+  "strict_accuracy": 0.84,
+  "failed": false
+ },
+ {
+  "name": "no_speculative_thinking_reward",
+  "description": "Rewards confident reasoning and penalizes hedging or uncertainty language inside the thinking tag.",
+  "round": 4,
+  "accuracy": 0.848,
+  "f1": 0.9107,
+  "strict_accuracy": 0.836,
+  "failed": false
+ },
+ {
+  "name": "no_self_correction_reward",
+  "description": "Rewards reasoning without self-correction language and penalizes phrases indicating the model is redoing or correcting its work.",
+  "round": 4,
+  "accuracy": 0.848,
+  "f1": 0.9083,
+  "strict_accuracy": 0.832,
+  "failed": false
+ },
+ {
+  "name": "answer_in_thinking_consistency",
+  "description": "Rewards consistency between the final numeric answer and numbers mentioned in the reasoning.",
+  "round": 1,
+  "accuracy": 0.846,
+  "f1": 0.9166,
+  "strict_accuracy": 0.846,
+  "failed": false
+ },
+ {
+  "name": "thinking_number_count_moderate_reward",
+  "description": "Rewards a moderate number of numeric tokens in the reasoning, penalizing no numbers or excessively many.",
+  "round": 2,
+  "accuracy": 0.846,
+  "f1": 0.9154,
+  "strict_accuracy": 0.844,
+  "failed": false
+ },
+ {
+  "name": "operation_variety_reward",
+  "description": "Rewards use of multiple distinct arithmetic operators when the prompt contains several quantities, and gives smaller credit for single-operator reasoning.",
+  "round": 4,
+  "accuracy": 0.844,
+  "f1": 0.9095,
+  "strict_accuracy": 0.834,
+  "failed": false
+ },
+ {
+  "name": "no_placeholder_answer_reward",
+  "description": "Rewards a concrete final answer and penalizes placeholder or refusal text in the solution tag.",
+  "round": 4,
+  "accuracy": 0.844,
+  "f1": 0.9023,
+  "strict_accuracy": 0.822,
+  "failed": false
+ },
+ {
+  "name": "no_uncertainty_in_solution_reward",
+  "description": "Rewards confident final answers and penalizes uncertainty words, hedges, or question marks in the solution tag.",
+  "round": 2,
+  "accuracy": 0.84,
+  "f1": 0.9095,
+  "strict_accuracy": 0.834,
+  "failed": false
+ },
+ {
+  "name": "multi_step_prompt_arithmetic_reward",
+  "description": "Rewards multi-step arithmetic in the reasoning that is grounded in prompt numbers, with a small correctness bonus.",
+  "round": 3,
+  "accuracy": 0.84,
+  "f1": 0.9071,
+  "strict_accuracy": 0.83,
+  "failed": false
+ },
+ {
+  "name": "implicit_operation_alignment_reward",
+  "description": "Rewards reasoning that uses arithmetic operations implied by prompt keywords such as per, left, more, or twice.",
+  "round": 3,
+  "accuracy": 0.834,
+  "f1": 0.9047,
+  "strict_accuracy": 0.826,
+  "failed": false
+ },
+ {
+  "name": "arithmetic_result_consistency_reward",
+  "description": "Rewards arithmetic equations in the reasoning that evaluate to the ground-truth answer or the predicted answer.",
+  "round": 2,
+  "accuracy": 0.832,
+  "f1": 0.9035,
+  "strict_accuracy": 0.824,
+  "failed": false
+ }
+]

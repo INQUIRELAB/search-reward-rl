@@ -1,0 +1,31 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/paper/links/dapo_s1234:best_single:base3",
+   "items": 2772,
+   "cand_pooled": 0.654265873015873,
+   "ref_pooled": 0.6691919191919192,
+   "diff": -0.014926046176046176,
+   "cand_suite": 0.40303440559659653,
+   "ref_suite": 0.41197426289176214
+  }
+ ],
+ "pairs": 2772,
+ "diff": -0.014926046176046176,
+ "ci_pairs": [
+  -0.02588496572871573,
+  -0.004058441558441558
+ ],
+ "ci_items_cluster": [
+  -0.025883838383838384,
+  -0.004237689393939411
+ ],
+ "wins": 111,
+ "losses": 151,
+ "p_sign": 0.015815824857793426,
+ "cand_suite_mean": 0.40303440559659653,
+ "ref_suite_mean": 0.41197426289176214,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/paper/links/dapo_s1234:best_single:base3 --out cmp/paper/dapo_best_single_s1234.json"
+}

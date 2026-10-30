@@ -1,0 +1,12 @@
+runs/gsm8k/llama3b                       trained runs   51  train GPU h    28.8  bench GPU h    0.0
+runs/math/qwen3-4b-base                  trained runs  116  train GPU h   135.8  bench GPU h    5.3
+runs/math_fa/qwen3-4b-base               trained runs   64  train GPU h    93.7  bench GPU h    0.0
+runs/math_lit/qwen3-4b-base              trained runs   24  train GPU h    44.7  bench GPU h   11.0
+runs/math_v4/qwen3-4b-base               trained runs   62  train GPU h   108.0  bench GPU h    3.8
+runs/dapo/qwen3-4b-base                  trained runs   65  train GPU h   149.8  bench GPU h    4.5
+runs/medmcqa/qwen3-4b-base               trained runs   45  train GPU h    65.4  bench GPU h    0.0
+runs/math_lowvar/qwen3-4b-base           trained runs    5  train GPU h     7.7  bench GPU h    0.0
+runs/math_xmodel/qwen3.5-4b-base         trained runs   12  train GPU h    20.2  bench GPU h   14.3
+runs/math_xmodel/llama3b                 trained runs   12  train GPU h    16.3  bench GPU h    6.2
+runs/math_xmodel/qwen3-1.7b-base         trained runs   12  train GPU h     5.4  bench GPU h    4.3
+TOTAL trained runs 468  train GPU hours 676  benchmark GPU hours 49

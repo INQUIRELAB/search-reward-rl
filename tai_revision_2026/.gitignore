@@ -1,0 +1,2 @@
+# keep the per run train_meta.json files (the repository root ignores outputs/)
+!outputs/

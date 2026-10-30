@@ -1,0 +1,89 @@
+{
+  "model": "qwen3-4b-base",
+  "lora": "runs/math/qwen3-4b-base/outputs/ens_top5_s3407/lora",
+  "max_tokens": 4096,
+  "benchmarks": {
+    "gsm8k": {
+      "n": 1319,
+      "k": 1,
+      "acc_strict": 0.884,
+      "acc_flex": 0.8848,
+      "ci_flex": [
+        0.8673237300985596,
+        0.9014404852160728
+      ],
+      "truncated_rate": 0.0015,
+      "mean_tokens": 207.0,
+      "seconds": 52.4
+    },
+    "math500": {
+      "n": 500,
+      "k": 1,
+      "acc_strict": 0.716,
+      "acc_flex": 0.72,
+      "ci_flex": [
+        0.68,
+        0.76
+      ],
+      "truncated_rate": 0.028,
+      "mean_tokens": 584.9,
+      "seconds": 64.1
+    },
+    "minerva": {
+      "n": 272,
+      "k": 1,
+      "acc_strict": 0.3309,
+      "acc_flex": 0.3309,
+      "ci_flex": [
+        0.2757352941176471,
+        0.3860294117647059
+      ],
+      "truncated_rate": 0.0588,
+      "mean_tokens": 724.5,
+      "seconds": 72.8
+    },
+    "olympiadbench": {
+      "n": 581,
+      "k": 1,
+      "acc_strict": 0.3821,
+      "acc_flex": 0.3855,
+      "ci_flex": [
+        0.3459552495697074,
+        0.4268502581755594
+      ],
+      "truncated_rate": 0.0998,
+      "mean_tokens": 1039.6,
+      "seconds": 166.2
+    },
+    "amc23": {
+      "n": 40,
+      "k": 8,
+      "acc_strict": 0.4313,
+      "acc_flex": 0.4375,
+      "ci_flex": null,
+      "truncated_rate": 0.0469,
+      "mean_tokens": 935.5,
+      "seconds": 64.7
+    },
+    "aime24": {
+      "n": 30,
+      "k": 8,
+      "acc_strict": 0.0917,
+      "acc_flex": 0.0917,
+      "ci_flex": null,
+      "truncated_rate": 0.1833,
+      "mean_tokens": 1469.2,
+      "seconds": 95.5
+    },
+    "aime25": {
+      "n": 30,
+      "k": 8,
+      "acc_strict": 0.0792,
+      "acc_flex": 0.0792,
+      "ci_flex": null,
+      "truncated_rate": 0.0333,
+      "mean_tokens": 966.8,
+      "seconds": 90.9
+    }
+  }
+}

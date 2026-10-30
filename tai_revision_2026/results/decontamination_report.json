@@ -1,0 +1,234 @@
+{
+ "gsm8k": {
+  "gsm8k": {
+   "train_rows": 7473,
+   "exact_matches": 0,
+   "13gram_overlaps": 4,
+   "benchmark_items_touched": 3,
+   "benchmark_n": 1319
+  },
+  "math500": {
+   "train_rows": 7473,
+   "exact_matches": 0,
+   "13gram_overlaps": 0,
+   "benchmark_items_touched": 0,
+   "benchmark_n": 500
+  },
+  "minerva": {
+   "train_rows": 7473,
+   "exact_matches": 0,
+   "13gram_overlaps": 0,
+   "benchmark_items_touched": 0,
+   "benchmark_n": 272
+  },
+  "olympiadbench": {
+   "train_rows": 7473,
+   "exact_matches": 0,
+   "13gram_overlaps": 0,
+   "benchmark_items_touched": 0,
+   "benchmark_n": 581
+  },
+  "amc23": {
+   "train_rows": 7473,
+   "exact_matches": 0,
+   "13gram_overlaps": 0,
+   "benchmark_items_touched": 0,
+   "benchmark_n": 40
+  },
+  "aime24": {
+   "train_rows": 7473,
+   "exact_matches": 0,
+   "13gram_overlaps": 0,
+   "benchmark_items_touched": 0,
+   "benchmark_n": 30
+  },
+  "aime25": {
+   "train_rows": 7473,
+   "exact_matches": 0,
+   "13gram_overlaps": 0,
+   "benchmark_items_touched": 0,
+   "benchmark_n": 30
+  },
+  "medqa": {
+   "train_rows": 7473,
+   "exact_matches": 0,
+   "13gram_overlaps": 0,
+   "benchmark_items_touched": 0,
+   "benchmark_n": 1273
+  }
+ },
+ "math": {
+  "gsm8k": {
+   "train_rows": 5584,
+   "exact_matches": 0,
+   "13gram_overlaps": 0,
+   "benchmark_items_touched": 0,
+   "benchmark_n": 1319
+  },
+  "math500": {
+   "train_rows": 5584,
+   "exact_matches": 2,
+   "13gram_overlaps": 133,
+   "benchmark_items_touched": 51,
+   "benchmark_n": 500
+  },
+  "minerva": {
+   "train_rows": 5584,
+   "exact_matches": 0,
+   "13gram_overlaps": 0,
+   "benchmark_items_touched": 0,
+   "benchmark_n": 272
+  },
+  "olympiadbench": {
+   "train_rows": 5584,
+   "exact_matches": 2,
+   "13gram_overlaps": 8,
+   "benchmark_items_touched": 8,
+   "benchmark_n": 581
+  },
+  "amc23": {
+   "train_rows": 5584,
+   "exact_matches": 0,
+   "13gram_overlaps": 16,
+   "benchmark_items_touched": 11,
+   "benchmark_n": 40
+  },
+  "aime24": {
+   "train_rows": 5584,
+   "exact_matches": 0,
+   "13gram_overlaps": 68,
+   "benchmark_items_touched": 9,
+   "benchmark_n": 30
+  },
+  "aime25": {
+   "train_rows": 5584,
+   "exact_matches": 0,
+   "13gram_overlaps": 67,
+   "benchmark_items_touched": 9,
+   "benchmark_n": 30
+  },
+  "medqa": {
+   "train_rows": 5584,
+   "exact_matches": 0,
+   "13gram_overlaps": 0,
+   "benchmark_items_touched": 0,
+   "benchmark_n": 1273
+  }
+ },
+ "dapo": {
+  "gsm8k": {
+   "train_rows": 8000,
+   "exact_matches": 0,
+   "13gram_overlaps": 0,
+   "benchmark_items_touched": 0,
+   "benchmark_n": 1319
+  },
+  "math500": {
+   "train_rows": 8000,
+   "exact_matches": 4,
+   "13gram_overlaps": 160,
+   "benchmark_items_touched": 28,
+   "benchmark_n": 500
+  },
+  "minerva": {
+   "train_rows": 8000,
+   "exact_matches": 0,
+   "13gram_overlaps": 0,
+   "benchmark_items_touched": 0,
+   "benchmark_n": 272
+  },
+  "olympiadbench": {
+   "train_rows": 8000,
+   "exact_matches": 5,
+   "13gram_overlaps": 39,
+   "benchmark_items_touched": 36,
+   "benchmark_n": 581
+  },
+  "amc23": {
+   "train_rows": 8000,
+   "exact_matches": 6,
+   "13gram_overlaps": 61,
+   "benchmark_items_touched": 25,
+   "benchmark_n": 40
+  },
+  "aime24": {
+   "train_rows": 8000,
+   "exact_matches": 0,
+   "13gram_overlaps": 179,
+   "benchmark_items_touched": 9,
+   "benchmark_n": 30
+  },
+  "aime25": {
+   "train_rows": 8000,
+   "exact_matches": 0,
+   "13gram_overlaps": 160,
+   "benchmark_items_touched": 9,
+   "benchmark_n": 30
+  },
+  "medqa": {
+   "train_rows": 8000,
+   "exact_matches": 0,
+   "13gram_overlaps": 0,
+   "benchmark_items_touched": 0,
+   "benchmark_n": 1273
+  }
+ },
+ "medmcqa": {
+  "gsm8k": {
+   "train_rows": 8000,
+   "exact_matches": 0,
+   "13gram_overlaps": 0,
+   "benchmark_items_touched": 0,
+   "benchmark_n": 1319
+  },
+  "math500": {
+   "train_rows": 8000,
+   "exact_matches": 0,
+   "13gram_overlaps": 0,
+   "benchmark_items_touched": 0,
+   "benchmark_n": 500
+  },
+  "minerva": {
+   "train_rows": 8000,
+   "exact_matches": 0,
+   "13gram_overlaps": 0,
+   "benchmark_items_touched": 0,
+   "benchmark_n": 272
+  },
+  "olympiadbench": {
+   "train_rows": 8000,
+   "exact_matches": 0,
+   "13gram_overlaps": 0,
+   "benchmark_items_touched": 0,
+   "benchmark_n": 581
+  },
+  "amc23": {
+   "train_rows": 8000,
+   "exact_matches": 0,
+   "13gram_overlaps": 0,
+   "benchmark_items_touched": 0,
+   "benchmark_n": 40
+  },
+  "aime24": {
+   "train_rows": 8000,
+   "exact_matches": 0,
+   "13gram_overlaps": 0,
+   "benchmark_items_touched": 0,
+   "benchmark_n": 30
+  },
+  "aime25": {
+   "train_rows": 8000,
+   "exact_matches": 0,
+   "13gram_overlaps": 0,
+   "benchmark_items_touched": 0,
+   "benchmark_n": 30
+  },
+  "medqa": {
+   "train_rows": 8000,
+   "exact_matches": 0,
+   "13gram_overlaps": 1,
+   "benchmark_items_touched": 1,
+   "benchmark_n": 1273
+  }
+ }
+}

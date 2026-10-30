@@ -1,0 +1,49 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/llama3b_s3407:lit_t2t_s3407:bl_base3_s3407",
+   "items": 2772,
+   "cand_pooled": 0.4244227994227994,
+   "ref_pooled": 0.4410624098124098,
+   "diff": -0.016639610389610388,
+   "cand_suite": 0.19832041218252058,
+   "ref_suite": 0.2133000361018381
+  },
+  {
+   "pair": "cmp/llama3b_s1234:lit_t2t_s1234:bl_base3_s1234",
+   "items": 2772,
+   "cand_pooled": 0.4356962481962482,
+   "ref_pooled": 0.4326749639249639,
+   "diff": 0.0030212842712842715,
+   "cand_suite": 0.20524291883007303,
+   "ref_suite": 0.20793221650443927
+  },
+  {
+   "pair": "cmp/llama3b_s2025:lit_t2t_s2025:bl_base3_s2025",
+   "items": 2772,
+   "cand_pooled": 0.4503517316017316,
+   "ref_pooled": 0.4391684704184704,
+   "diff": 0.011183261183261184,
+   "cand_suite": 0.21706609485825076,
+   "ref_suite": 0.20935147124882084
+  }
+ ],
+ "pairs": 8316,
+ "diff": -0.0008116883116883117,
+ "ci_pairs": [
+  -0.007545695045695046,
+  0.006253757816257806
+ ],
+ "ci_items_cluster": [
+  -0.008447946729196729,
+  0.006673881673881674
+ ],
+ "wins": 435,
+ "losses": 453,
+ "p_sign": 0.5683749353322365,
+ "cand_suite_mean": 0.20687647529028144,
+ "ref_suite_mean": 0.21019457461836608,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/llama3b_s3407:lit_t2t_s3407:bl_base3_s3407 --pair cmp/llama3b_s1234:lit_t2t_s1234:bl_base3_s1234 --pair cmp/llama3b_s2025:lit_t2t_s2025:bl_base3_s2025 --out cmp/llama3b_lit_t2t_3seeds_vs_base3.json"
+}

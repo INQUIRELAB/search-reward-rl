@@ -1,0 +1,49 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/paper/links/math_s3407:ens_diverse5:base3",
+   "items": 2772,
+   "cand_pooled": 0.6809163059163059,
+   "ref_pooled": 0.6749188311688312,
+   "diff": 0.005997474747474747,
+   "cand_suite": 0.4277163320661348,
+   "ref_suite": 0.4144317211379012
+  },
+  {
+   "pair": "cmp/paper/links/math_s1234:ens_diverse5:base3",
+   "items": 2772,
+   "cand_pooled": 0.6764069264069265,
+   "ref_pooled": 0.656700937950938,
+   "diff": 0.019705988455988456,
+   "cand_suite": 0.42086037147533456,
+   "ref_suite": 0.41053401101390713
+  },
+  {
+   "pair": "cmp/paper/links/math_s2025:ens_diverse5:base3",
+   "items": 2772,
+   "cand_pooled": 0.66242784992785,
+   "ref_pooled": 0.6667117604617605,
+   "diff": -0.004283910533910534,
+   "cand_suite": 0.4084782882836265,
+   "ref_suite": 0.4154792762775891
+  }
+ ],
+ "pairs": 8316,
+ "diff": 0.00713985088985089,
+ "ci_pairs": [
+  0.0006459686147186148,
+  0.013633357383357383
+ ],
+ "ci_items_cluster": [
+  0.0007962812650312649,
+  0.013513107263107262
+ ],
+ "wins": 453,
+ "losses": 391,
+ "p_sign": 0.03569240357480275,
+ "cand_suite_mean": 0.41901833060836524,
+ "ref_suite_mean": 0.4134816694764658,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s3407:ens_diverse5:base3 --pair cmp/paper/links/math_s1234:ens_diverse5:base3 --pair cmp/paper/links/math_s2025:ens_diverse5:base3 --out cmp/paper/ranked_ens_diverse5_3seeds.json"
+}

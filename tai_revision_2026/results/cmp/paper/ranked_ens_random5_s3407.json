@@ -1,0 +1,31 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/paper/links/math_s3407:ens_random5:base3",
+   "items": 2772,
+   "cand_pooled": 0.6662608225108225,
+   "ref_pooled": 0.6749188311688312,
+   "diff": -0.008658008658008658,
+   "cand_suite": 0.4167350033517065,
+   "ref_suite": 0.4144317211379012
+  }
+ ],
+ "pairs": 2772,
+ "diff": -0.008658008658008658,
+ "ci_pairs": [
+  -0.019120896464646465,
+  0.0018488455988455988
+ ],
+ "ci_items_cluster": [
+  -0.01889542748917749,
+  0.001893939393939394
+ ],
+ "wins": 120,
+ "losses": 138,
+ "p_sign": 0.28986710308621605,
+ "cand_suite_mean": 0.4167350033517065,
+ "ref_suite_mean": 0.4144317211379012,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s3407:ens_random5:base3 --out cmp/paper/ranked_ens_random5_s3407.json"
+}

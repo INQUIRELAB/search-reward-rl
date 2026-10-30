@@ -1,0 +1,102 @@
+[
+ {
+  "name": "reward_correct_intermediate_steps",
+  "description": "Rewards completions that contain multiple equation-based or logical step lines in the thinking process, indicating detailed problem-solving.",
+  "round": 1,
+  "trial": "round1_reward_correct_intermediate_steps",
+  "accuracy": 0.276,
+  "f1": 0.4301,
+  "strict_accuracy": 0.274,
+  "failed": false
+ },
+ {
+  "name": "penalize_repetitive_loops",
+  "description": "Penalizes completions that exhibit repetitive looping behavior (e.g., repeating the same number or phrase many times), which is a common failure mode in truncated or stuck generations.",
+  "round": 1,
+  "trial": "round1_penalize_repetitive_loops",
+  "accuracy": 0.268,
+  "f1": 0.4102,
+  "strict_accuracy": 0.258,
+  "failed": false
+ },
+ {
+  "name": "penalize_early_truncation",
+  "description": "Penalizes completions that appear to be truncated, either by being very short without a final answer or by ending abruptly inside a thinking block.",
+  "round": 1,
+  "trial": "round1_penalize_early_truncation",
+  "accuracy": 0.264,
+  "f1": 0.4152,
+  "strict_accuracy": 0.262,
+  "failed": false
+ },
+ {
+  "name": "penalize_hallucinated_constraints",
+  "description": "Penalizes long thinking processes that result in very short, incorrect answers, which may indicate the model is overthinking or hallucinating complex steps that don't lead to the correct result.",
+  "round": 1,
+  "trial": "round1_penalize_hallucinated_constraints",
+  "accuracy": 0.264,
+  "f1": 0.4152,
+  "strict_accuracy": 0.262,
+  "failed": false
+ },
+ {
+  "name": "reward_final_answer_clarity",
+  "description": "Rewards clear, concise final answers in the <solution> tag and penalizes verbose or unclear final answers.",
+  "round": 1,
+  "trial": "round1_reward_final_answer_clarity",
+  "accuracy": 0.264,
+  "f1": 0.4152,
+  "strict_accuracy": 0.262,
+  "failed": false
+ },
+ {
+  "name": "reward_complete_thinking_structure",
+  "description": "Rewards completions that contain both a non-empty <thinking> block and a <solution> block, encouraging structured reasoning before answering.",
+  "round": 1,
+  "trial": "round1_reward_complete_thinking_structure",
+  "accuracy": 0.264,
+  "f1": 0.4102,
+  "strict_accuracy": 0.258,
+  "failed": false
+ },
+ {
+  "name": "penalize_missing_units_or_context",
+  "description": "Slightly penalizes solutions that are bare numbers without any explanatory text in the <solution> tag, encouraging more complete answers.",
+  "round": 1,
+  "trial": "round1_penalize_missing_units_or_context",
+  "accuracy": 0.258,
+  "f1": 0.4102,
+  "strict_accuracy": 0.258,
+  "failed": false
+ },
+ {
+  "name": "reward_step_by_step_verification",
+  "description": "Rewards completions that include explicit verification or conclusion steps in the thinking process, encouraging self-checking.",
+  "round": 1,
+  "trial": "round1_reward_step_by_step_verification",
+  "accuracy": 0.258,
+  "f1": 0.4026,
+  "strict_accuracy": 0.252,
+  "failed": false
+ },
+ {
+  "name": "reward_numeric_consistency",
+  "description": "Rewards completions where the final numerical answer in the <solution> tag also appears in the <thinking> section, promoting consistency between reasoning and conclusion.",
+  "round": 1,
+  "trial": "round1_reward_numeric_consistency",
+  "accuracy": 0.238,
+  "f1": 0.3845,
+  "strict_accuracy": 0.238,
+  "failed": false
+ },
+ {
+  "name": "penalize_obvious_arithmetic_errors",
+  "description": "Penalizes incorrect answers that are very close to the ground truth (off-by-one or simple factor errors), suggesting the model was on the right track but made a minor mistake.",
+  "round": 1,
+  "trial": "round1_penalize_obvious_arithmetic_errors",
+  "accuracy": 0.23,
+  "f1": 0.3633,
+  "strict_accuracy": 0.222,
+  "failed": false
+ }
+]

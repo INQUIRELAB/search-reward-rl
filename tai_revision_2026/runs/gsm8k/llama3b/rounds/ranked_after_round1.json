@@ -1,0 +1,92 @@
+[
+ {
+  "name": "solution_format_reward",
+  "description": "Rewards presence of a non-empty numeric solution and penalizes missing or non-numeric final answers.",
+  "round": 1,
+  "accuracy": 0.868,
+  "f1": 0.9201,
+  "strict_accuracy": 0.852,
+  "failed": false
+ },
+ {
+  "name": "concise_solution_reward",
+  "description": "Prefers concise bare-number final answers and penalizes verbose or non-numeric solution text.",
+  "round": 1,
+  "accuracy": 0.866,
+  "f1": 0.9247,
+  "strict_accuracy": 0.86,
+  "failed": false
+ },
+ {
+  "name": "numeric_relative_error",
+  "description": "Gives partial credit based on numeric relative error when the final answer is close but not exact.",
+  "round": 1,
+  "accuracy": 0.866,
+  "f1": 0.9201,
+  "strict_accuracy": 0.852,
+  "failed": false
+ },
+ {
+  "name": "arithmetic_process_reward",
+  "description": "Rewards visible arithmetic operations or equations in the reasoning section.",
+  "round": 1,
+  "accuracy": 0.858,
+  "f1": 0.9189,
+  "strict_accuracy": 0.85,
+  "failed": false
+ },
+ {
+  "name": "final_answer_correctness",
+  "description": "Primary reward for exact correctness of the extracted solution; missing solution is penalized.",
+  "round": 1,
+  "accuracy": 0.858,
+  "f1": 0.9166,
+  "strict_accuracy": 0.846,
+  "failed": false
+ },
+ {
+  "name": "thinking_effort_reward",
+  "description": "Encourages a reasonable amount of reasoning in the thinking tag without rewarding extreme length.",
+  "round": 1,
+  "accuracy": 0.854,
+  "f1": 0.9154,
+  "strict_accuracy": 0.844,
+  "failed": false
+ },
+ {
+  "name": "single_solution_tag_reward",
+  "description": "Checks that exactly one solution tag pair is present and non-empty.",
+  "round": 1,
+  "accuracy": 0.852,
+  "f1": 0.9189,
+  "strict_accuracy": 0.85,
+  "failed": false
+ },
+ {
+  "name": "composite_quality_reward",
+  "description": "Combines correctness, numeric format, and reasoning presence into a single quality score.",
+  "round": 1,
+  "accuracy": 0.85,
+  "f1": 0.9095,
+  "strict_accuracy": 0.834,
+  "failed": false
+ },
+ {
+  "name": "plausible_magnitude_reward",
+  "description": "Penalizes implausible negative or extremely large answers relative to prompt numbers, with full credit for correctness.",
+  "round": 1,
+  "accuracy": 0.848,
+  "f1": 0.9154,
+  "strict_accuracy": 0.844,
+  "failed": false
+ },
+ {
+  "name": "answer_in_thinking_consistency",
+  "description": "Rewards consistency between the final numeric answer and numbers mentioned in the reasoning.",
+  "round": 1,
+  "accuracy": 0.846,
+  "f1": 0.9166,
+  "strict_accuracy": 0.846,
+  "failed": false
+ }
+]

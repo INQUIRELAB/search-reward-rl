@@ -1,0 +1,33 @@
+{
+  "accuracy": 0.602,
+  "accuracy_flex": 0.624,
+  "precision": 0.6704,
+  "recall": 0.8551,
+  "f1": 0.7516,
+  "extraction_rate": 0.898,
+  "ci_lower": 0.558,
+  "ci_upper": 0.646,
+  "tp": 301,
+  "fp": 148,
+  "fn": 51,
+  "total": 500,
+  "mean_completion_chars": 1639.0,
+  "truncated_rate": 0.058,
+  "rewards": [
+    "check_answer"
+  ],
+  "steps": 500,
+  "seed": 3407,
+  "lr": 5e-06,
+  "beta": 0.0,
+  "num_generations": 4,
+  "grad_accum": 4,
+  "train_seconds": 7370.1,
+  "model": "qwen3-4b-base",
+  "task": "math",
+  "trial": "bl_outcome_only_s3407",
+  "split": "val",
+  "lora_dir": "runs/math/qwen3-4b-base/outputs/bl_outcome_only_s3407/lora",
+  "eval_seconds": 86.8,
+  "gpu": "2"
+}

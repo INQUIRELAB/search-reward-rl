@@ -1,0 +1,182 @@
+[
+ {
+  "name": "truncation_detection",
+  "description": "Penalizes outputs that appear truncated (missing closing tags).",
+  "round": 1,
+  "trial": "round1_truncation_detection",
+  "accuracy": 0.682,
+  "f1": 0.8109,
+  "strict_accuracy": 0.682,
+  "failed": false
+ },
+ {
+  "name": "step_structure_bonus",
+  "description": "Rewards structured reasoning with clear step markers.",
+  "round": 1,
+  "trial": "round1_step_structure_bonus",
+  "accuracy": 0.678,
+  "f1": 0.8081,
+  "strict_accuracy": 0.678,
+  "failed": false
+ },
+ {
+  "name": "group_consistency_bonus",
+  "description": "Rewards answers that match the majority answer within the same question group.",
+  "round": 1,
+  "trial": "round1_group_consistency_bonus",
+  "accuracy": 0.676,
+  "f1": 0.8067,
+  "strict_accuracy": 0.676,
+  "failed": false
+ },
+ {
+  "name": "ngram_repetition_penalty",
+  "description": "Penalizes repetitive 3-gram patterns in the output text.",
+  "round": 1,
+  "trial": "round1_ngram_repetition_penalty",
+  "accuracy": 0.668,
+  "f1": 0.7981,
+  "strict_accuracy": 0.664,
+  "failed": false
+ },
+ {
+  "name": "repetition_density_penalty",
+  "description": "Penalizes outputs with high 4-gram repetition, indicating degenerate or looping reasoning.",
+  "round": 2,
+  "trial": "round2_repetition_density_penalty",
+  "accuracy": 0.666,
+  "f1": 0.7995,
+  "strict_accuracy": 0.666,
+  "failed": false
+ },
+ {
+  "name": "verification_mention_bonus",
+  "description": "Rewards mentioning verification steps in the reasoning process.",
+  "round": 1,
+  "trial": "round1_verification_mention_bonus",
+  "accuracy": 0.662,
+  "f1": 0.7966,
+  "strict_accuracy": 0.662,
+  "failed": false
+ },
+ {
+  "name": "step_count_efficiency",
+  "description": "Rewards correct answers with a reasonable number of reasoning steps, penalizing overly step-heavy incorrect solutions.",
+  "round": 2,
+  "trial": "round2_step_count_efficiency",
+  "accuracy": 0.658,
+  "f1": 0.7923,
+  "strict_accuracy": 0.656,
+  "failed": false
+ },
+ {
+  "name": "answer_repetition_penalty",
+  "description": "Penalizes answers that are repeated excessively in the output, indicating potential degeneration or lack of confidence.",
+  "round": 2,
+  "trial": "round2_answer_repetition_penalty",
+  "accuracy": 0.654,
+  "f1": 0.7908,
+  "strict_accuracy": 0.654,
+  "failed": false
+ },
+ {
+  "name": "final_answer_position",
+  "description": "Rewards correct answers that appear near the end of the output, as expected for a final answer, penalizing early placements.",
+  "round": 2,
+  "trial": "round2_final_answer_position",
+  "accuracy": 0.654,
+  "f1": 0.7908,
+  "strict_accuracy": 0.654,
+  "failed": false
+ },
+ {
+  "name": "latex_validity_check",
+  "description": "Checks if LaTeX expressions in the answer are well-formed.",
+  "round": 1,
+  "trial": "round1_latex_validity_check",
+  "accuracy": 0.652,
+  "f1": 0.7893,
+  "strict_accuracy": 0.652,
+  "failed": false
+ },
+ {
+  "name": "partial_credit_numeric_proximity",
+  "description": "Gives partial credit based on the relative numerical distance between the predicted answer and the ground truth. Correct answers get 5.0, near-misses get positive scores proportional to closeness, and far misses get negative scores.",
+  "round": 3,
+  "trial": "round3_partial_credit_numeric_proximity",
+  "accuracy": 0.648,
+  "f1": 0.7864,
+  "strict_accuracy": 0.648,
+  "failed": false
+ },
+ {
+  "name": "group_relative_length_efficiency",
+  "description": "Rewards correct answers that are shorter than the average length of other correct answers in the same question group, penalizing verbose correct solutions.",
+  "round": 2,
+  "trial": "round2_group_relative_length_efficiency",
+  "accuracy": 0.646,
+  "f1": 0.7849,
+  "strict_accuracy": 0.646,
+  "failed": false
+ },
+ {
+  "name": "rambling_sentence_length",
+  "description": "Penalizes outputs with many overly long sentences, which may indicate rambling or poor structure.",
+  "round": 2,
+  "trial": "round2_rambling_sentence_length",
+  "accuracy": 0.642,
+  "f1": 0.779,
+  "strict_accuracy": 0.638,
+  "failed": false
+ },
+ {
+  "name": "thinking_length_balance",
+  "description": "Rewards a balanced ratio of thinking to solution length, penalizing outputs that are all thinking or all solution.",
+  "round": 2,
+  "trial": "round2_thinking_length_balance",
+  "accuracy": 0.636,
+  "f1": 0.7775,
+  "strict_accuracy": 0.636,
+  "failed": false
+ },
+ {
+  "name": "rambling_detector",
+  "description": "Penalizes overly long sentences in the thinking section which may indicate rambling.",
+  "round": 1,
+  "trial": "round1_rambling_detector",
+  "accuracy": 0.63,
+  "f1": 0.77,
+  "strict_accuracy": 0.626,
+  "failed": false
+ },
+ {
+  "name": "thinking_length_penalty",
+  "description": "Penalizes excessively long thinking blocks to encourage concise reasoning.",
+  "round": 1,
+  "trial": "round1_thinking_length_penalty",
+  "accuracy": 0.628,
+  "f1": 0.7715,
+  "strict_accuracy": 0.628,
+  "failed": false
+ },
+ {
+  "name": "group_variance_penalty",
+  "description": "Penalizes incorrect answers more heavily when other samples in the group are correct.",
+  "round": 1,
+  "trial": "round1_group_variance_penalty",
+  "accuracy": 0.628,
+  "f1": 0.7715,
+  "strict_accuracy": 0.628,
+  "failed": false
+ },
+ {
+  "name": "group_relative_efficiency",
+  "description": "Rewards correct answers that are shorter relative to other correct answers in the same group.",
+  "round": 1,
+  "trial": "round1_group_relative_efficiency",
+  "accuracy": 0.62,
+  "f1": 0.7654,
+  "strict_accuracy": 0.62,
+  "failed": false
+ }
+]

@@ -1,0 +1,92 @@
+[
+ {
+  "name": "latex_format_validity",
+  "description": "Penalizes malformed LaTeX (unbalanced braces) and rewards correct answers.",
+  "round": 1,
+  "accuracy": 0.704,
+  "f1": 0.8263,
+  "strict_accuracy": 0.704,
+  "failed": false
+ },
+ {
+  "name": "final_answer_clarity",
+  "description": "Penalizes overly verbose solution tags and rewards concise, correct answers.",
+  "round": 1,
+  "accuracy": 0.678,
+  "f1": 0.8081,
+  "strict_accuracy": 0.678,
+  "failed": false
+ },
+ {
+  "name": "consistency_check",
+  "description": "Rewards consistency between the final number in the thinking process and the final answer in the solution tag.",
+  "round": 1,
+  "accuracy": 0.674,
+  "f1": 0.8038,
+  "strict_accuracy": 0.672,
+  "failed": false
+ },
+ {
+  "name": "no_hallucination_penalty",
+  "description": "Penalizes non-committal or error messages in the solution tag, and rewards correct answers.",
+  "round": 1,
+  "accuracy": 0.672,
+  "f1": 0.8024,
+  "strict_accuracy": 0.67,
+  "failed": false
+ },
+ {
+  "name": "structure_compliance_bonus",
+  "description": "Rewards proper use of thinking and solution tags, with a large bonus for correct answers within the tags.",
+  "round": 1,
+  "accuracy": 0.67,
+  "f1": 0.8024,
+  "strict_accuracy": 0.67,
+  "failed": false
+ },
+ {
+  "name": "reasoning_length_quality",
+  "description": "Combines answer correctness with a bonus for having a sufficiently long reasoning section.",
+  "round": 1,
+  "accuracy": 0.67,
+  "f1": 0.8024,
+  "strict_accuracy": 0.67,
+  "failed": false
+ },
+ {
+  "name": "step_by_step_verification",
+  "description": "Rewards the presence of logical transition keywords in the thinking section and correct final answer.",
+  "round": 1,
+  "accuracy": 0.644,
+  "f1": 0.7805,
+  "strict_accuracy": 0.64,
+  "failed": false
+ },
+ {
+  "name": "binary_answer_correctness",
+  "description": "Simple binary reward: +5.0 if the extracted solution is correct, -1.0 if incorrect or missing.",
+  "round": 1,
+  "accuracy": 0.64,
+  "f1": 0.7805,
+  "strict_accuracy": 0.64,
+  "failed": false
+ },
+ {
+  "name": "numeric_magnitude_proximity",
+  "description": "For numeric answers, gives partial credit based on the relative error between the predicted and true values.",
+  "round": 1,
+  "accuracy": 0.638,
+  "f1": 0.7775,
+  "strict_accuracy": 0.636,
+  "failed": false
+ },
+ {
+  "name": "reward_final_answer_correctness",
+  "description": "Reward correct final answer in solution tag, penalize missing or wrong answers.",
+  "round": 1,
+  "accuracy": 0.634,
+  "f1": 0.776,
+  "strict_accuracy": 0.634,
+  "failed": false
+ }
+]

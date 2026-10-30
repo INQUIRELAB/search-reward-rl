@@ -1,0 +1,111 @@
+{
+  "model": "qwen3.5-4b-base",
+  "lora": "runs/math_xmodel/qwen3.5-4b-base/outputs/lit_cosine_length_s3407/lora",
+  "max_tokens": 4096,
+  "benchmarks": {
+    "gpqa": {
+      "n": 198,
+      "k": 8,
+      "acc_strict": 0.4754,
+      "acc_flex": 0.5183,
+      "ci_flex": null,
+      "truncated_rate": 0.1723,
+      "mean_tokens": 1299.0,
+      "seconds": 1319.3,
+      "data_sha": "d0a8566f346d6620"
+    },
+    "medqa": {
+      "n": 1273,
+      "k": 1,
+      "acc_strict": 0.7541,
+      "acc_flex": 0.7573,
+      "ci_flex": [
+        0.7336999214454045,
+        0.7808326787117046
+      ],
+      "truncated_rate": 0.0173,
+      "mean_tokens": 328.7,
+      "seconds": 297.5,
+      "data_sha": "20dec03930ae8f85"
+    }
+  },
+  "manifest": {
+    "kind": "bench",
+    "time": "2026-10-25 05:44:58 -0500",
+    "host": "deimos",
+    "argv": [
+      "v3/eval_benchmarks.py",
+      "--model",
+      "qwen3.5-4b-base",
+      "--lora",
+      "runs/math_xmodel/qwen3.5-4b-base/outputs/lit_cosine_length_s3407/lora",
+      "--benchmarks",
+      "gpqa,medqa",
+      "--out",
+      "runs/math_xmodel/qwen3.5-4b-base/bench/lit_cosine_length_s3407_ood.json",
+      "--gpu-util",
+      "0.2",
+      "--max-tokens",
+      "4096"
+    ],
+    "cwd": "/home/deimos/reward-search",
+    "pid": 3753130,
+    "code_sha": "58d880d112c77d1e",
+    "env": {
+      "CUDA_VISIBLE_DEVICES": "1",
+      "CUDA_DEVICE_ORDER": "PCI_BUS_ID",
+      "HF_HUB_OFFLINE": "1"
+    },
+    "versions": {
+      "python": "3.12.3",
+      "torch": "2.13.0",
+      "vllm": "0.28.0",
+      "trl": "1.13.0",
+      "transformers": "5.17.0",
+      "peft": "0.20.0",
+      "datasets": "5.0.1",
+      "accelerate": "1.15.0",
+      "bitsandbytes": "0.50.2",
+      "math-verify": "0.9.0",
+      "sympy": "1.14.0",
+      "numpy": "2.3.5",
+      "flash-linear-attention": "0.6.0",
+      "huggingface-hub": "1.31.0"
+    },
+    "gpus": [
+      [
+        "1",
+        "GPU-1d565d61-e1b9-1e2b-b91e-5f0d943c2de2",
+        "NVIDIA RTX PRO 6000 Blackwell Workstation Edition",
+        "00000000:41:00.0",
+        "595.99.02"
+      ]
+    ],
+    "models": [
+      {
+        "path": "/home/deimos/models/Qwen3.5-4B-Base-chatml",
+        "resolved": "/home/deimos/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B-Base/blobs",
+        "snapshot": "blobs"
+      }
+    ],
+    "lora": "runs/math_xmodel/qwen3.5-4b-base/outputs/lit_cosine_length_s3407/lora",
+    "lora_sha": "50e1d69083309f86",
+    "sampling": {
+      "greedy_k1": {
+        "temperature": 0.0,
+        "top_p": 1.0
+      },
+      "sampled": {
+        "temperature": 0.6,
+        "top_p": 0.95,
+        "k": {
+          "aime24": 8,
+          "aime25": 8,
+          "amc23": 8,
+          "gpqa": 8
+        }
+      },
+      "seed": 3407
+    }
+  }
+}

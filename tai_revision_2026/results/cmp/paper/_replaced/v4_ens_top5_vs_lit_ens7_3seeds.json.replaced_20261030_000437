@@ -1,0 +1,49 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/paper/links/lit_s3407:v4_ens_top5:lit_ens7",
+   "items": 2772,
+   "cand_pooled": 0.6634650072150072,
+   "ref_pooled": 0.6623827561327561,
+   "diff": 0.0010822510822510823,
+   "cand_suite": 0.41543545632078566,
+   "ref_suite": 0.41453315814802955
+  },
+  {
+   "pair": "cmp/paper/links/lit_s1234:v4_ens_top5:lit_ens7",
+   "items": 2772,
+   "cand_pooled": 0.6730699855699855,
+   "ref_pooled": 0.6791125541125541,
+   "diff": -0.006042568542568543,
+   "cand_suite": 0.41503811550287606,
+   "ref_suite": 0.42574575232551987
+  },
+  {
+   "pair": "cmp/paper/links/lit_s2025:v4_ens_top5:lit_ens7",
+   "items": 2772,
+   "cand_pooled": 0.6581890331890332,
+   "ref_pooled": 0.6479076479076479,
+   "diff": 0.010281385281385282,
+   "cand_suite": 0.4031721477359361,
+   "ref_suite": 0.40101222666510267
+  }
+ ],
+ "pairs": 8316,
+ "diff": 0.0017736892736892737,
+ "ci_pairs": [
+  -0.004494724025974026,
+  0.007966570466570467
+ ],
+ "ci_items_cluster": [
+  -0.004359442640692641,
+  0.007891414141414142
+ ],
+ "wins": 408,
+ "losses": 398,
+ "p_sign": 0.7512573074004141,
+ "cand_suite_mean": 0.41121523985319924,
+ "ref_suite_mean": 0.41376371237955073,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/paper/links/lit_s3407:v4_ens_top5:lit_ens7 --pair cmp/paper/links/lit_s1234:v4_ens_top5:lit_ens7 --pair cmp/paper/links/lit_s2025:v4_ens_top5:lit_ens7 --out cmp/paper/v4_ens_top5_vs_lit_ens7_3seeds.json"
+}

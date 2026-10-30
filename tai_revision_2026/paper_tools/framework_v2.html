@@ -1,0 +1,159 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>framework v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=block" rel="stylesheet">
+<style>
+  :root{--ink:#1a1a1a;--line:#d0d0d0;--line2:#bebebe}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#fff;width:1100px;height:1356px}
+  body{position:relative;font-family:"Cormorant Garamond",serif;color:var(--ink);font-weight:600}
+  .frame{position:absolute;border:1.6px solid var(--line);border-radius:26px}
+  .ftitle{position:absolute;background:#fff;padding:0 12px;font:900 17px "Segoe UI Black","Segoe UI",sans-serif}
+  .box{position:absolute;border:1.6px solid var(--line2);border-radius:16px;background:#fff;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.18}
+  .t{font-size:21px;font-weight:700}
+  .m{font:400 13.5px/1.3 "IBM Plex Mono",monospace;color:#222}
+  .num{position:absolute;width:34px;height:34px;border-radius:50%;background:#b4b4b4;color:#fff;font:600 19px "Segoe UI",sans-serif;display:flex;align-items:center;justify-content:center;border:3px solid #fff;box-shadow:0 0 0 1px #c8c8c8;z-index:3}
+  .lab{display:inline-flex;align-items:center;justify-content:center;width:112px;height:27px;border-radius:5px;color:#fff;font:700 12.5px "Segoe UI",Arial,sans-serif;flex:none}
+  .row{display:flex;align-items:center;gap:16px;margin:10px 0}
+  .row .txt{font-size:18.5px;line-height:1.15;text-align:left}
+  .code{background:#262626;border-radius:4px;padding:8px 14px;font:400 12px/1.45 "IBM Plex Mono",monospace;color:#e8e8e8;text-align:left;white-space:pre}
+  .k{color:#f78c6c}.f{color:#ffcb6b}.p{color:#89ddff}.c{color:#9e9e9e}.s{color:#c3e88d}
+  .ic{width:21px;height:21px;vertical-align:-3px;margin-right:6px}
+  svg.wires{position:absolute;left:0;top:0;width:1100px;height:1356px;overflow:visible;z-index:1}
+  .note{position:absolute;text-align:center;z-index:2}
+  .chip{position:absolute;border:1.6px solid var(--line2);border-radius:5px;background:#fff;font-size:17px;display:flex;align-items:center;justify-content:center;white-space:nowrap;z-index:2}
+  .box{z-index:2}
+</style></head><body>
+
+<!-- ===================== Panel A ===================== -->
+<div class="frame" style="left:2px;top:14px;width:1094px;height:886px"></div>
+<div class="ftitle" style="left:20px;top:3px">A) Round r of a search (five rounds; 10 to 20 candidates per round)</div>
+
+<!-- 3 prompt anatomy -->
+<div class="box" style="left:232px;top:40px;width:842px;height:404px;display:block;text-align:left;padding:16px 24px 10px">
+  <div class="m" style="font-size:16.5px;margin-bottom:4px">Anatomy of the generator prompt:</div>
+  <div class="row"><span class="lab" style="background:#c31d3a">Role</span><span class="txt">You are a reward generator for GRPO fine tuning on reasoning tasks. Produce N new reward functions per round (N = 10, or 20 with literature seeding).</span></div>
+  <div class="row"><span class="lab" style="background:#b8860a">Signature</span><div class="code"><span class="k">def</span> <span class="f">reward_name</span>(<span class="p">prompts</span>, <span class="p">completions</span>, <span class="p">answer</span>, **<span class="k">kwargs</span>):
+    <span class="c"># Returns: list[float]; may call is_correct(), extract_solution()</span></div></div>
+  <div class="row"><span class="lab" style="background:#2e7d32">Constraints</span><span class="txt">Python <b>stdlib</b> and <b>regex</b> only. Unique function names. Do not redefine <b>match_format_exactly</b>, <b>match_format_approximately</b> or <b>check_answer</b>. Must handle empty or malformed outputs</span></div>
+  <div class="row"><span class="lab" style="background:#5c4ea0">Anti-Duplication</span><span class="txt">Names and one-line descriptions of all earlier rewards are injected here so the generator avoids semantic repeats</span></div>
+  <div class="row"><span class="lab" style="background:#00796b">Feedback</span><span class="txt"><b>Ranked:</b> earlier rewards with validation accuracy. <b>Failure:</b> plus eight failed validation questions and reward statistics. <b>Literature:</b> six published rewards as exemplars</span></div>
+  <div class="row"><span class="lab" style="background:#0f4861">Output format</span><div class="code">[{<span class="s">"name"</span>: <span class="s">"func_name"</span>, <span class="s">"code"</span>: <span class="s">"def func_name(...): ..."</span>, <span class="s">"description"</span>: <span class="s">"..."</span>}]</div></div>
+</div>
+<div class="num" style="left:213px;top:418px">3</div>
+
+<!-- 1 training examples -->
+<div class="box" style="left:38px;top:496px;width:212px;height:118px;flex-direction:column;padding:6px 8px">
+  <div class="t"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><rect x="4" y="2.5" width="16" height="19" rx="2"/><path d="M8 7h8M8 11.5h2M14 11.5h2M8 16h2M14 16h2"/></svg>20 examples of the training split</div>
+  <div class="m" style="margin-top:4px">GSM8K, MATH L3-5, DAPO-Math-17k or MedMCQA</div>
+</div>
+<div class="num" style="left:20px;top:479px">1</div>
+
+<!-- 2 generator -->
+<div class="box" style="left:287px;top:496px;width:202px;height:118px;flex-direction:column;padding:6px 8px">
+  <div class="t"><svg class="ic" viewBox="0 0 24 24" fill="#111"><rect x="1.5" y="1.5" width="21" height="21" rx="4"/><path d="M12 5.2l1.7 4.4 4.6.4-3.5 3 1.1 4.6L12 15.2l-3.9 2.4 1.1-4.6-3.5-3 4.6-.4z" fill="#fff"/></svg>Qwen3.8-27B generates the rewards</div>
+  <div class="m" style="margin-top:4px">A local LLM served with vLLM</div>
+</div>
+<div class="num" style="left:268px;top:479px">2</div>
+<div class="note m" style="left:287px;top:624px;width:205px;font-size:14px">Generates 10 to 20 candidate reward functions</div>
+
+<!-- right block: 4 5 6 7 -->
+<div class="box" style="left:610px;top:464px;width:466px;height:306px"></div>
+<div class="box" style="left:628px;top:478px;width:152px;height:72px">
+  <div class="t" style="font-size:19.5px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.2"><path d="M7 3h10v5a5 5 0 0 1-10 0z"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4M12 13v4M8 21h8M10 17h4"/></svg>For each reward function</div>
+</div>
+<div class="num" style="left:611px;top:526px">4</div>
+<div class="box" style="left:810px;top:478px;width:250px;height:72px;padding:0 10px">
+  <div class="t" style="font-size:19.5px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.4"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg>Sandbox: syntax tree check, compile, probe call</div>
+</div>
+<div class="num" style="left:1043px;top:526px">5</div>
+<div class="box" style="left:646px;top:570px;width:414px;height:54px;padding:0 12px">
+  <div style="font-size:17.5px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><path d="M3 4h18l-7 8v6l-4 2v-8z"/></svg>Diversity filter (literature seeding): drop group constant rewards and |&rho;| &ge; 0.9 copies</div>
+</div>
+<div class="num" style="left:628px;top:580px">6</div>
+<div class="box" style="left:646px;top:644px;width:414px;height:114px;justify-content:flex-start;padding:0 8px 0 12px;gap:8px">
+  <div style="width:214px;text-align:center;line-height:1.12">
+    <div class="t" style="font-size:19.5px"><svg class="ic" style="width:24px;height:24px" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#1aa37a"/><path d="M6 15l3.5-4 3 2.5L18 8" stroke="#fff" stroke-width="2.2" fill="none"/></svg>GRPO screening, 500 steps</div>
+    <div class="m" style="font-size:12px;margin-top:3px">Qwen3-4B-Base or Llama-3.2-3B-Instruct + LoRA on the training split</div>
+  </div>
+  <div class="box" style="position:relative;width:172px;height:92px;flex-direction:column;border-radius:12px">
+    <div style="font-size:16.5px">Plus the three fixed base rewards:</div>
+    <div class="m" style="font-size:10.8px;margin-top:2px">match_format_exactly<br>match_format_approximately<br>check_answer</div>
+  </div>
+</div>
+<div class="num" style="left:628px;top:726px">7</div>
+
+<!-- 8 evaluate, 9 ranked -->
+<div class="box" style="left:287px;top:792px;width:300px;height:88px;padding:0 12px">
+  <div class="t" style="font-size:19.5px"><svg class="ic" viewBox="0 0 24 24" fill="#111"><rect x="3" y="14" width="3.4" height="7"/><rect x="8.2" y="10" width="3.4" height="11"/><rect x="13.4" y="6" width="3.4" height="15"/><rect x="18.6" y="2.5" width="3.4" height="18.5"/></svg>Evaluate on the validation split (500 questions carved from the training data); rank by accuracy</div>
+</div>
+<div class="num" style="left:268px;top:776px">8</div>
+<div class="box" style="left:624px;top:802px;width:286px;height:66px;padding:0 10px">
+  <div class="t" style="font-size:19.5px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><circle cx="12" cy="15" r="6"/><path d="M8 3l2.5 6M16 3l-2.5 6M10 15l1.5 1.5 3-3"/></svg>Ranked rewards for round r</div>
+</div>
+<div class="num" style="left:606px;top:786px">9</div>
+<div class="note m" style="left:34px;top:656px;width:220px;font-size:13.5px">Ranking, failures or published exemplars injected into the next round</div>
+
+<!-- ===================== Panel B ===================== -->
+<div class="frame" style="left:2px;top:938px;width:1094px;height:412px"></div>
+<div class="ftitle" style="left:20px;top:927px">B) Confirmation, ensembles and held out evaluation</div>
+
+<div class="box" style="left:34px;top:1034px;width:206px;height:118px;flex-direction:column;padding:0 10px">
+  <div class="t">Pool of ranked rewards</div>
+  <div class="m" style="margin-top:4px">259 screened rewards from six searches</div>
+</div>
+<div class="box" style="left:276px;top:1034px;width:206px;height:118px;flex-direction:column;padding:0 10px">
+  <div class="t" style="font-size:19.5px">Seed confirmation</div>
+  <div class="m" style="margin-top:4px">Literature seeded MATH: top 10 retrained at seeds 1234 and 2025, ranked by mean paired gain</div>
+</div>
+<div class="chip" style="left:534px;top:966px;width:196px;height:30px">top 3, top 7, top 10</div>
+<div class="chip" style="left:534px;top:1006px;width:196px;height:30px">top 5, three seeds</div>
+<div class="chip" style="left:534px;top:1046px;width:196px;height:30px">diverse 5, three seeds</div>
+<div class="chip" style="left:534px;top:1086px;width:196px;height:30px">random 5</div>
+<div class="chip" style="left:534px;top:1126px;width:196px;height:30px">best single, retrained</div>
+<div class="chip" style="left:534px;top:1166px;width:196px;height:30px">top 5 at 2,000 steps</div>
+<div class="note m" style="left:520px;top:1206px;width:224px;font-size:13px">Each ensemble adds its rewards to the base rewards</div>
+
+<div class="box" style="left:786px;top:966px;width:290px;height:136px;flex-direction:column;padding:0 12px">
+  <div class="t" style="font-size:19.5px"><svg class="ic" viewBox="0 0 24 24" fill="#111"><rect x="3" y="14" width="3.4" height="7"/><rect x="8.2" y="10" width="3.4" height="11"/><rect x="13.4" y="6" width="3.4" height="15"/><rect x="18.6" y="2.5" width="3.4" height="18.5"/></svg>Tested once on held out data</div>
+  <div class="m" style="margin-top:5px">7 math benchmarks (2,772 items), GPQA-Diamond, MedQA; paired tests against the base rewards at the same seeds</div>
+</div>
+<div class="box" style="left:786px;top:1122px;width:290px;height:120px;flex-direction:column;padding:0 12px">
+  <div class="t" style="font-size:19.5px">Baselines, same recipe</div>
+  <div class="m" style="margin-top:5px">base rewards, correctness only, handwritten 5, 11 published rewards, compute matched (2,000 steps)</div>
+</div>
+<div class="box" style="left:34px;top:1186px;width:448px;height:120px;flex-direction:column;padding:0 14px">
+  <div class="t" style="font-size:19.5px">Policies</div>
+  <div class="m" style="margin-top:5px">Search: Llama-3.2-3B-Instruct (GSM8K), Qwen3-4B-Base (MATH, DAPO, MedMCQA). Transfer of published rewards: Qwen3.5-4B-Base, Qwen3-1.7B-Base, Llama-3.2-3B-Instruct on MATH</div>
+</div>
+
+<!-- ===================== wires ===================== -->
+<svg class="wires">
+  <defs><marker id="ar" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 1L9 5L0 9z" fill="#a6a6a6"/></marker></defs>
+  <g stroke="#bdbdbd" stroke-width="3" fill="none">
+    <path d="M250 555H284" marker-end="url(#ar)"/>
+    <path d="M388 496V448" marker-end="url(#ar)"/>
+    <path d="M489 540C545 540 545 484 598 484" marker-end="url(#ar)" stroke="#d6d6d6" stroke-width="2"/>
+    <path d="M489 546C548 546 548 532 598 532" marker-end="url(#ar)" stroke="#d6d6d6" stroke-width="2"/>
+    <path d="M489 552C550 552 550 580 598 580" marker-end="url(#ar)" stroke="#d6d6d6" stroke-width="2"/>
+    <path d="M489 558C550 558 550 628 598 628" marker-end="url(#ar)" stroke="#d6d6d6" stroke-width="2"/>
+    <path d="M489 564C548 564 548 676 598 676" marker-end="url(#ar)" stroke="#d6d6d6" stroke-width="2"/>
+    <path d="M489 570C545 570 545 724 598 724" marker-end="url(#ar)" stroke="#d6d6d6" stroke-width="2"/>
+    <path d="M780 508H806" marker-end="url(#ar)"/>
+    <path d="M935 550V566" marker-end="url(#ar)" stroke-width="2.6"/>
+    <path d="M853 624V640" marker-end="url(#ar)" stroke-width="2.6"/>
+    <path d="M610 746H565V788" marker-end="url(#ar)" stroke-width="2.6"/>
+    <path d="M587 835H620" marker-end="url(#ar)"/>
+    <path d="M767 868V886H18V561H34" marker-end="url(#ar)" stroke-width="2.6"/>
+    <path d="M240 1093H272" marker-end="url(#ar)"/>
+    <path d="M482 1093C508 1093 508 981 530 981" stroke="#d6d6d6" stroke-width="2" marker-end="url(#ar)"/>
+    <path d="M482 1093C510 1093 510 1021 530 1021" stroke="#d6d6d6" stroke-width="2" marker-end="url(#ar)"/>
+    <path d="M482 1093C512 1093 512 1061 530 1061" stroke="#d6d6d6" stroke-width="2" marker-end="url(#ar)"/>
+    <path d="M482 1093C512 1093 512 1101 530 1101" stroke="#d6d6d6" stroke-width="2" marker-end="url(#ar)"/>
+    <path d="M482 1093C510 1093 510 1141 530 1141" stroke="#d6d6d6" stroke-width="2" marker-end="url(#ar)"/>
+    <path d="M482 1093C508 1093 508 1181 530 1181" stroke="#d6d6d6" stroke-width="2" marker-end="url(#ar)"/>
+    <path d="M730 1061H782" marker-end="url(#ar)"/>
+    <path d="M730 1181H782" marker-end="url(#ar)" stroke-dasharray="6 5"/>
+    <path d="M137 1152V1182" marker-end="url(#ar)" stroke-dasharray="6 5"/>
+  </g>
+</svg>
+</body></html>

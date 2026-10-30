@@ -1,0 +1,31 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/paper/links/lit_s3407:lit_grpo_lead_accuracy:base3",
+   "items": 2772,
+   "cand_pooled": 0.6599025974025974,
+   "ref_pooled": 0.6533639971139971,
+   "diff": 0.006538600288600289,
+   "cand_suite": 0.4041119590875527,
+   "ref_suite": 0.39398655601018406
+  }
+ ],
+ "pairs": 2772,
+ "diff": 0.006538600288600289,
+ "ci_pairs": [
+  -0.003339195526695526,
+  0.016639610389610388
+ ],
+ "ci_items_cluster": [
+  -0.003968253968253968,
+  0.016459235209235208
+ ],
+ "wins": 129,
+ "losses": 110,
+ "p_sign": 0.24423531796411022,
+ "cand_suite_mean": 0.4041119590875527,
+ "ref_suite_mean": 0.39398655601018406,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/paper/links/lit_s3407:lit_grpo_lead_accuracy:base3 --out cmp/paper/lit_lit_grpo_lead_accuracy_s3407.json"
+}

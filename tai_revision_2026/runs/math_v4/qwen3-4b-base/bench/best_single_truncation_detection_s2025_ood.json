@@ -1,0 +1,30 @@
+{
+  "model": "qwen3-4b-base",
+  "lora": "runs/math_v4/qwen3-4b-base/outputs/best_single_truncation_detection_s2025/lora",
+  "max_tokens": 4096,
+  "benchmarks": {
+    "gpqa": {
+      "n": 198,
+      "k": 8,
+      "acc_strict": 0.3516,
+      "acc_flex": 0.3567,
+      "ci_flex": null,
+      "truncated_rate": 0.0309,
+      "mean_tokens": 664.0,
+      "seconds": 274.5
+    },
+    "medqa": {
+      "n": 1273,
+      "k": 1,
+      "acc_strict": 0.6253,
+      "acc_flex": 0.6269,
+      "ci_flex": [
+        0.6001571091908877,
+        0.6527886881382561
+      ],
+      "truncated_rate": 0.0063,
+      "mean_tokens": 293.3,
+      "seconds": 108.1
+    }
+  }
+}

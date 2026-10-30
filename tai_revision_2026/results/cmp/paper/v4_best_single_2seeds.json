@@ -1,0 +1,40 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/paper/links/lit_s1234:v4_best_single:base3",
+   "items": 2772,
+   "cand_pooled": 0.6860119047619048,
+   "ref_pooled": 0.6786616161616161,
+   "diff": 0.0073502886002886,
+   "cand_suite": 0.43511110575335293,
+   "ref_suite": 0.42628766423264136
+  },
+  {
+   "pair": "cmp/paper/links/lit_s2025:v4_best_single:base3",
+   "items": 2772,
+   "cand_pooled": 0.6667117604617605,
+   "ref_pooled": 0.6566558441558441,
+   "diff": 0.010055916305916306,
+   "cand_suite": 0.41059933233092094,
+   "ref_suite": 0.4001558362386032
+  }
+ ],
+ "pairs": 5544,
+ "diff": 0.008703102453102454,
+ "ci_pairs": [
+  0.0009244227994227994,
+  0.01634762806637805
+ ],
+ "ci_items_cluster": [
+  0.0008793290043290044,
+  0.01688818993506493
+ ],
+ "wins": 289,
+ "losses": 241,
+ "p_sign": 0.04109514587801475,
+ "cand_suite_mean": 0.42285521904213696,
+ "ref_suite_mean": 0.41322175023562224,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/paper/links/lit_s1234:v4_best_single:base3 --pair cmp/paper/links/lit_s2025:v4_best_single:base3 --out cmp/paper/v4_best_single_2seeds.json"
+}

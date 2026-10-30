@@ -1,0 +1,31 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/paper/links/xmodel_qwen3.5-4b-base_s3407:lit_ttrl_majority:base3",
+   "items": 2772,
+   "cand_pooled": 0.7287157287157288,
+   "ref_pooled": 0.7326839826839827,
+   "diff": -0.003968253968253968,
+   "cand_suite": 0.48739463854725373,
+   "ref_suite": 0.5106963766164502
+  }
+ ],
+ "pairs": 2772,
+ "diff": -0.003968253968253968,
+ "ci_pairs": [
+  -0.01488095238095238,
+  0.0073502886002886
+ ],
+ "ci_items_cluster": [
+  -0.01474679834054834,
+  0.006899350649350649
+ ],
+ "wins": 129,
+ "losses": 153,
+ "p_sign": 0.1706919895992152,
+ "cand_suite_mean": 0.48739463854725373,
+ "ref_suite_mean": 0.5106963766164502,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/paper/links/xmodel_qwen3.5-4b-base_s3407:lit_ttrl_majority:base3 --out cmp/paper/xmodel_qwen3.5-4b-base_lit_ttrl_majority_s3407.json"
+}

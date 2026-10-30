@@ -1,0 +1,363 @@
+=== q4_base3_vs_untrained
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s3407:base3:base_model --pair cmp/paper/links/math_s1234:base3:base_model --pair cmp/paper/links/math_s2025:base3:base_model --out cmp/paper/q4_base3_vs_untrained.json
+Traceback (most recent call last):
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 74, in <module>
+    main()
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 38, in main
+    data = load(d)
+           ^^^^^^^
+  File "/home/deimos/reward-search/v3/bench_compare.py", line 17, in load
+    for line in open(f, encoding="utf-8"):
+  File "<frozen codecs>", line 322, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x88 in position 0: invalid start byte
+FAILED cmp/paper/q4_base3_vs_untrained.json
+=== ranked_ens_top5_3seeds
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s3407:ens_top5:base3 --pair cmp/paper/links/math_s1234:ens_top5:base3 --pair cmp/paper/links/math_s2025:ens_top5:base3 --out cmp/paper/ranked_ens_top5_3seeds.json
+Traceback (most recent call last):
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 74, in <module>
+    main()
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 38, in main
+    data = load(d)
+           ^^^^^^^
+  File "/home/deimos/reward-search/v3/bench_compare.py", line 17, in load
+    for line in open(f, encoding="utf-8"):
+  File "<frozen codecs>", line 322, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x88 in position 0: invalid start byte
+FAILED cmp/paper/ranked_ens_top5_3seeds.json
+=== ranked_ens_diverse5_3seeds
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s3407:ens_diverse5:base3 --pair cmp/paper/links/math_s1234:ens_diverse5:base3 --pair cmp/paper/links/math_s2025:ens_diverse5:base3 --out cmp/paper/ranked_ens_diverse5_3seeds.json
+Traceback (most recent call last):
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 74, in <module>
+    main()
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 38, in main
+    data = load(d)
+           ^^^^^^^
+  File "/home/deimos/reward-search/v3/bench_compare.py", line 17, in load
+    for line in open(f, encoding="utf-8"):
+  File "<frozen codecs>", line 322, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x88 in position 0: invalid start byte
+FAILED cmp/paper/ranked_ens_diverse5_3seeds.json
+=== ranked_best_single_2seeds
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s1234:best_single:base3 --pair cmp/paper/links/math_s2025:best_single:base3 --out cmp/paper/ranked_best_single_2seeds.json
+Traceback (most recent call last):
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 74, in <module>
+    main()
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 38, in main
+    data = load(d)
+           ^^^^^^^
+  File "/home/deimos/reward-search/v3/bench_compare.py", line 17, in load
+    for line in open(f, encoding="utf-8"):
+  File "<frozen codecs>", line 322, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xc8 in position 4096: invalid continuation byte
+FAILED cmp/paper/ranked_best_single_2seeds.json
+=== ranked_best_single_s1234
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s1234:best_single:base3 --out cmp/paper/ranked_best_single_s1234.json
+cmp/paper/links/math_s1234:best_single:base3: pooled 0.6747 vs 0.6567 diff +0.0180; suite 0.4142 vs 0.4105
+pooled over 2772 pairs: diff +0.0180 [+0.0068, +0.0294] (cluster by item [+0.0073, +0.0292]), wins/losses 171/122, p_sign 0.0050; suite means 0.4142 vs 0.4105
+=== ranked_ens_top3_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s3407:ens_top3:base3 --out cmp/paper/ranked_ens_top3_s3407.json
+Traceback (most recent call last):
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 74, in <module>
+    main()
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 38, in main
+    data = load(d)
+           ^^^^^^^
+  File "/home/deimos/reward-search/v3/bench_compare.py", line 17, in load
+    for line in open(f, encoding="utf-8"):
+  File "<frozen codecs>", line 322, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x88 in position 0: invalid start byte
+FAILED cmp/paper/ranked_ens_top3_s3407.json
+=== ranked_ens_top7_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s3407:ens_top7:base3 --out cmp/paper/ranked_ens_top7_s3407.json
+Traceback (most recent call last):
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 74, in <module>
+    main()
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 38, in main
+    data = load(d)
+           ^^^^^^^
+  File "/home/deimos/reward-search/v3/bench_compare.py", line 17, in load
+    for line in open(f, encoding="utf-8"):
+  File "<frozen codecs>", line 322, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x88 in position 0: invalid start byte
+FAILED cmp/paper/ranked_ens_top7_s3407.json
+=== ranked_ens_top10_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s3407:ens_top10:base3 --out cmp/paper/ranked_ens_top10_s3407.json
+Traceback (most recent call last):
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 74, in <module>
+    main()
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 38, in main
+    data = load(d)
+           ^^^^^^^
+  File "/home/deimos/reward-search/v3/bench_compare.py", line 17, in load
+    for line in open(f, encoding="utf-8"):
+  File "<frozen codecs>", line 322, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x88 in position 0: invalid start byte
+FAILED cmp/paper/ranked_ens_top10_s3407.json
+=== ranked_ens_random5_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s3407:ens_random5:base3 --out cmp/paper/ranked_ens_random5_s3407.json
+Traceback (most recent call last):
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 74, in <module>
+    main()
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 38, in main
+    data = load(d)
+           ^^^^^^^
+  File "/home/deimos/reward-search/v3/bench_compare.py", line 17, in load
+    for line in open(f, encoding="utf-8"):
+  File "<frozen codecs>", line 322, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x88 in position 0: invalid start byte
+FAILED cmp/paper/ranked_ens_random5_s3407.json
+=== ranked_bl_expert_hc5_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s3407:bl_expert_hc5:base3 --out cmp/paper/ranked_bl_expert_hc5_s3407.json
+Traceback (most recent call last):
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 74, in <module>
+    main()
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 38, in main
+    data = load(d)
+           ^^^^^^^
+  File "/home/deimos/reward-search/v3/bench_compare.py", line 17, in load
+    for line in open(f, encoding="utf-8"):
+  File "<frozen codecs>", line 322, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x88 in position 0: invalid start byte
+FAILED cmp/paper/ranked_bl_expert_hc5_s3407.json
+=== ranked_bl_outcome_only_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s3407:bl_outcome_only:base3 --out cmp/paper/ranked_bl_outcome_only_s3407.json
+Traceback (most recent call last):
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 74, in <module>
+    main()
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 38, in main
+    data = load(d)
+           ^^^^^^^
+  File "/home/deimos/reward-search/v3/bench_compare.py", line 17, in load
+    for line in open(f, encoding="utf-8"):
+  File "<frozen codecs>", line 322, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x88 in position 0: invalid start byte
+FAILED cmp/paper/ranked_bl_outcome_only_s3407.json
+=== ranked_loo_without_latex_format_validity_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s3407:loo_without_latex_format_validity:base3 --out cmp/paper/ranked_loo_without_latex_format_validity_s3407.json
+Traceback (most recent call last):
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 74, in <module>
+    main()
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 38, in main
+    data = load(d)
+           ^^^^^^^
+  File "/home/deimos/reward-search/v3/bench_compare.py", line 17, in load
+    for line in open(f, encoding="utf-8"):
+  File "<frozen codecs>", line 322, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x88 in position 0: invalid start byte
+FAILED cmp/paper/ranked_loo_without_latex_format_validity_s3407.json
+=== ranked_loo_without_numeric_precision_formatting_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s3407:loo_without_numeric_precision_formatting:base3 --out cmp/paper/ranked_loo_without_numeric_precision_formatting_s3407.json
+Traceback (most recent call last):
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 74, in <module>
+    main()
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 38, in main
+    data = load(d)
+           ^^^^^^^
+  File "/home/deimos/reward-search/v3/bench_compare.py", line 17, in load
+    for line in open(f, encoding="utf-8"):
+  File "<frozen codecs>", line 322, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x88 in position 0: invalid start byte
+FAILED cmp/paper/ranked_loo_without_numeric_precision_formatting_s3407.json
+=== ranked_loo_without_variable_consistency_check_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s3407:loo_without_variable_consistency_check:base3 --out cmp/paper/ranked_loo_without_variable_consistency_check_s3407.json
+Traceback (most recent call last):
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 74, in <module>
+    main()
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 38, in main
+    data = load(d)
+           ^^^^^^^
+  File "/home/deimos/reward-search/v3/bench_compare.py", line 17, in load
+    for line in open(f, encoding="utf-8"):
+  File "<frozen codecs>", line 322, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x88 in position 0: invalid start byte
+FAILED cmp/paper/ranked_loo_without_variable_consistency_check_s3407.json
+=== ranked_loo_without_fraction_equivalence_check_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s3407:loo_without_fraction_equivalence_check:base3 --out cmp/paper/ranked_loo_without_fraction_equivalence_check_s3407.json
+Traceback (most recent call last):
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 74, in <module>
+    main()
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 38, in main
+    data = load(d)
+           ^^^^^^^
+  File "/home/deimos/reward-search/v3/bench_compare.py", line 17, in load
+    for line in open(f, encoding="utf-8"):
+  File "<frozen codecs>", line 322, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x88 in position 0: invalid start byte
+FAILED cmp/paper/ranked_loo_without_fraction_equivalence_check_s3407.json
+=== ranked_loo_without_thinking_length_efficiency_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s3407:loo_without_thinking_length_efficiency:base3 --out cmp/paper/ranked_loo_without_thinking_length_efficiency_s3407.json
+Traceback (most recent call last):
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 74, in <module>
+    main()
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 38, in main
+    data = load(d)
+           ^^^^^^^
+  File "/home/deimos/reward-search/v3/bench_compare.py", line 17, in load
+    for line in open(f, encoding="utf-8"):
+  File "<frozen codecs>", line 322, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x88 in position 0: invalid start byte
+FAILED cmp/paper/ranked_loo_without_thinking_length_efficiency_s3407.json
+=== ranked_decontam_ens_top5_vs_decontam_base3
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/lit_s3407:decontam_ens_top5:base3 --out cmp/paper/ranked_decontam_ens_top5_vs_decontam_base3.json
+cmp/paper/links/lit_s3407:decontam_ens_top5:base3: pooled 0.6717 vs 0.6534 diff +0.0183; suite 0.4236 vs 0.3940
+pooled over 2772 pairs: diff +0.0183 [+0.0073, +0.0297] (cluster by item [+0.0069, +0.0295]), wins/losses 176/115, p_sign 0.0004; suite means 0.4236 vs 0.3940
+=== ranked_top5_2000_vs_base3_2000
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s3407:ens_top5_2000:base3_2000 --out cmp/paper/ranked_top5_2000_vs_base3_2000.json
+Traceback (most recent call last):
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 74, in <module>
+    main()
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 38, in main
+    data = load(d)
+           ^^^^^^^
+  File "/home/deimos/reward-search/v3/bench_compare.py", line 17, in load
+    for line in open(f, encoding="utf-8"):
+  File "<frozen codecs>", line 322, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x88 in position 0: invalid start byte
+FAILED cmp/paper/ranked_top5_2000_vs_base3_2000.json
+=== base3_2000_vs_base3_500_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s3407:base3_2000:base3 --out cmp/paper/base3_2000_vs_base3_500_s3407.json
+Traceback (most recent call last):
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 74, in <module>
+    main()
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 38, in main
+    data = load(d)
+           ^^^^^^^
+  File "/home/deimos/reward-search/v3/bench_compare.py", line 17, in load
+    for line in open(f, encoding="utf-8"):
+  File "<frozen codecs>", line 322, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x88 in position 0: invalid start byte
+FAILED cmp/paper/base3_2000_vs_base3_500_s3407.json
+=== lit_ens7_3seeds
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/lit_s3407:lit_ens7:base3 --pair cmp/paper/links/lit_s1234:lit_ens7:base3 --pair cmp/paper/links/lit_s2025:lit_ens7:base3 --out cmp/paper/lit_ens7_3seeds.json
+cmp/paper/links/lit_s3407:lit_ens7:base3: pooled 0.6624 vs 0.6534 diff +0.0090; suite 0.4145 vs 0.3940
+cmp/paper/links/lit_s1234:lit_ens7:base3: pooled 0.6791 vs 0.6787 diff +0.0005; suite 0.4257 vs 0.4263
+cmp/paper/links/lit_s2025:lit_ens7:base3: pooled 0.6479 vs 0.6567 diff -0.0087; suite 0.4010 vs 0.4002
+pooled over 8316 pairs: diff +0.0002 [-0.0062, +0.0068] (cluster by item [-0.0067, +0.0072]), wins/losses 438/435, p_sign 0.9460; suite means 0.4138 vs 0.4068
+=== lit_lit_cosine_length_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/lit_s3407:lit_cosine_length:base3 --out cmp/paper/lit_lit_cosine_length_s3407.json
+cmp/paper/links/lit_s3407:lit_cosine_length:base3: pooled 0.6764 vs 0.6534 diff +0.0230; suite 0.4218 vs 0.3940
+pooled over 2772 pairs: diff +0.0230 [+0.0106, +0.0357] (cluster by item [+0.0102, +0.0357]), wins/losses 207/141, p_sign 0.0005; suite means 0.4218 vs 0.3940
+=== lit_lit_t2t_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/lit_s3407:lit_t2t:base3 --out cmp/paper/lit_lit_t2t_s3407.json
+cmp/paper/links/lit_s3407:lit_t2t:base3: pooled 0.6729 vs 0.6534 diff +0.0196; suite 0.4152 vs 0.3940
+pooled over 2772 pairs: diff +0.0196 [+0.0087, +0.0305] (cluster by item [+0.0087, +0.0303]), wins/losses 161/106, p_sign 0.0009; suite means 0.4152 vs 0.3940
+=== lit_lit_ttrl_majority_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/lit_s3407:lit_ttrl_majority:base3 --out cmp/paper/lit_lit_ttrl_majority_s3407.json
+cmp/paper/links/lit_s3407:lit_ttrl_majority:base3: pooled 0.6640 vs 0.6534 diff +0.0106; suite 0.4200 vs 0.3940
+pooled over 2772 pairs: diff +0.0106 [-0.0014, +0.0222] (cluster by item [-0.0015, +0.0225]), wins/losses 180/139, p_sign 0.0250; suite means 0.4200 vs 0.3940
+=== lit_lit_tag_count_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/lit_s3407:lit_tag_count:base3 --out cmp/paper/lit_lit_tag_count_s3407.json
+cmp/paper/links/lit_s3407:lit_tag_count:base3: pooled 0.6728 vs 0.6534 diff +0.0194; suite 0.4171 vs 0.3940
+pooled over 2772 pairs: diff +0.0194 [+0.0086, +0.0303] (cluster by item [+0.0085, +0.0301]), wins/losses 169/109, p_sign 0.0004; suite means 0.4171 vs 0.3940
+=== lit_lit_kimi_length_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/lit_s3407:lit_kimi_length:base3 --out cmp/paper/lit_lit_kimi_length_s3407.json
+cmp/paper/links/lit_s3407:lit_kimi_length:base3: pooled 0.6493 vs 0.6534 diff -0.0041; suite 0.4027 vs 0.3940
+pooled over 2772 pairs: diff -0.0041 [-0.0161, +0.0077] (cluster by item [-0.0158, +0.0073]), wins/losses 150/157, p_sign 0.7321; suite means 0.4027 vs 0.3940
+=== lit_lit_reasoning_steps_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/lit_s3407:lit_reasoning_steps:base3 --out cmp/paper/lit_lit_reasoning_steps_s3407.json
+cmp/paper/links/lit_s3407:lit_reasoning_steps:base3: pooled 0.6685 vs 0.6534 diff +0.0152; suite 0.4120 vs 0.3940
+pooled over 2772 pairs: diff +0.0152 [+0.0027, +0.0273] (cluster by item [+0.0028, +0.0268]), wins/losses 191/143, p_sign 0.0100; suite means 0.4120 vs 0.3940
+=== lit_lit_dapo_overlong_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/lit_s3407:lit_dapo_overlong:base3 --out cmp/paper/lit_lit_dapo_overlong_s3407.json
+cmp/paper/links/lit_s3407:lit_dapo_overlong:base3: pooled 0.6556 vs 0.6534 diff +0.0023; suite 0.3974 vs 0.3940
+pooled over 2772 pairs: diff +0.0023 [-0.0078, +0.0124] (cluster by item [-0.0080, +0.0123]), wins/losses 123/110, p_sign 0.4318; suite means 0.3974 vs 0.3940
+=== lit_lit_grpo_lead_accuracy_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/lit_s3407:lit_grpo_lead_accuracy:base3 --out cmp/paper/lit_lit_grpo_lead_accuracy_s3407.json
+cmp/paper/links/lit_s3407:lit_grpo_lead_accuracy:base3: pooled 0.6599 vs 0.6534 diff +0.0065; suite 0.4041 vs 0.3940
+pooled over 2772 pairs: diff +0.0065 [-0.0033, +0.0166] (cluster by item [-0.0040, +0.0165]), wins/losses 129/110, p_sign 0.2442; suite means 0.4041 vs 0.3940
+=== lit_lit_repetition_penalty_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/lit_s3407:lit_repetition_penalty:base3 --out cmp/paper/lit_lit_repetition_penalty_s3407.json
+cmp/paper/links/lit_s3407:lit_repetition_penalty:base3: pooled 0.6569 vs 0.6534 diff +0.0036; suite 0.3988 vs 0.3940
+pooled over 2772 pairs: diff +0.0036 [-0.0069, +0.0143] (cluster by item [-0.0070, +0.0143]), wins/losses 136/125, p_sign 0.5360; suite means 0.3988 vs 0.3940
+=== lit_lit_spurious_random_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/lit_s3407:lit_spurious_random:base3 --out cmp/paper/lit_lit_spurious_random_s3407.json
+cmp/paper/links/lit_s3407:lit_spurious_random:base3: pooled 0.6656 vs 0.6534 diff +0.0123; suite 0.4051 vs 0.3940
+pooled over 2772 pairs: diff +0.0123 [+0.0021, +0.0224] (cluster by item [+0.0023, +0.0225]), wins/losses 137/100, p_sign 0.0192; suite means 0.4051 vs 0.3940
+MISSING runs/math_lit/qwen3-4b-base/bench/lit_r1_strict_format_s3407.records.jsonl
+=== lit_ctl_correct_weight_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/lit_s3407:ctl_correct_weight:base3 --out cmp/paper/lit_ctl_correct_weight_s3407.json
+cmp/paper/links/lit_s3407:ctl_correct_weight:base3: pooled 0.6552 vs 0.6534 diff +0.0018; suite 0.4061 vs 0.3940
+pooled over 2772 pairs: diff +0.0018 [-0.0088, +0.0123] (cluster by item [-0.0088, +0.0120]), wins/losses 134/120, p_sign 0.4147; suite means 0.4061 vs 0.3940
+=== v4_ens_top5_3seeds
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/lit_s3407:v4_ens_top5:base3 --pair cmp/paper/links/lit_s1234:v4_ens_top5:base3 --pair cmp/paper/links/lit_s2025:v4_ens_top5:base3 --out cmp/paper/v4_ens_top5_3seeds.json
+cmp/paper/links/lit_s3407:v4_ens_top5:base3: pooled 0.6635 vs 0.6534 diff +0.0101; suite 0.4154 vs 0.3940
+cmp/paper/links/lit_s1234:v4_ens_top5:base3: pooled 0.6731 vs 0.6787 diff -0.0056; suite 0.4150 vs 0.4263
+cmp/paper/links/lit_s2025:v4_ens_top5:base3: pooled 0.6582 vs 0.6567 diff +0.0015; suite 0.4032 vs 0.4002
+pooled over 8316 pairs: diff +0.0020 [-0.0041, +0.0084] (cluster by item [-0.0044, +0.0084]), wins/losses 423/402, p_sign 0.4863; suite means 0.4112 vs 0.4068
+=== v4_ens_diverse5_3seeds
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/lit_s3407:v4_ens_diverse5:base3 --pair cmp/paper/links/lit_s1234:v4_ens_diverse5:base3 --pair cmp/paper/links/lit_s2025:v4_ens_diverse5:base3 --out cmp/paper/v4_ens_diverse5_3seeds.json
+cmp/paper/links/lit_s3407:v4_ens_diverse5:base3: pooled 0.6635 vs 0.6534 diff +0.0101; suite 0.4074 vs 0.3940
+cmp/paper/links/lit_s1234:v4_ens_diverse5:base3: pooled 0.6620 vs 0.6787 diff -0.0167; suite 0.4022 vs 0.4263
+cmp/paper/links/lit_s2025:v4_ens_diverse5:base3: pooled 0.6597 vs 0.6567 diff +0.0030; suite 0.4131 vs 0.4002
+pooled over 8316 pairs: diff -0.0012 [-0.0075, +0.0055] (cluster by item [-0.0078, +0.0054]), wins/losses 431/436, p_sign 0.8920; suite means 0.4076 vs 0.4068
+=== v4_best_single_2seeds
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/lit_s1234:v4_best_single:base3 --pair cmp/paper/links/lit_s2025:v4_best_single:base3 --out cmp/paper/v4_best_single_2seeds.json
+cmp/paper/links/lit_s1234:v4_best_single:base3: pooled 0.6860 vs 0.6787 diff +0.0074; suite 0.4351 vs 0.4263
+cmp/paper/links/lit_s2025:v4_best_single:base3: pooled 0.6667 vs 0.6567 diff +0.0101; suite 0.4106 vs 0.4002
+pooled over 5544 pairs: diff +0.0087 [+0.0009, +0.0163] (cluster by item [+0.0009, +0.0169]), wins/losses 289/241, p_sign 0.0411; suite means 0.4229 vs 0.4132
+=== v4_ens_top3_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/lit_s3407:v4_ens_top3:base3 --out cmp/paper/v4_ens_top3_s3407.json
+cmp/paper/links/lit_s3407:v4_ens_top3:base3: pooled 0.6764 vs 0.6534 diff +0.0230; suite 0.4208 vs 0.3940
+pooled over 2772 pairs: diff +0.0230 [+0.0110, +0.0353] (cluster by item [+0.0106, +0.0350]), wins/losses 195/125, p_sign 0.0001; suite means 0.4208 vs 0.3940
+=== v4_ens_top7_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/lit_s3407:v4_ens_top7:base3 --out cmp/paper/v4_ens_top7_s3407.json
+cmp/paper/links/lit_s3407:v4_ens_top7:base3: pooled 0.6504 vs 0.6534 diff -0.0030; suite 0.3942 vs 0.3940
+pooled over 2772 pairs: diff -0.0030 [-0.0147, +0.0083] (cluster by item [-0.0142, +0.0083]), wins/losses 139/151, p_sign 0.5184; suite means 0.3942 vs 0.3940
+=== v4_ens_top10_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/lit_s3407:v4_ens_top10:base3 --out cmp/paper/v4_ens_top10_s3407.json
+cmp/paper/links/lit_s3407:v4_ens_top10:base3: pooled 0.6616 vs 0.6534 diff +0.0083; suite 0.4138 vs 0.3940
+pooled over 2772 pairs: diff +0.0083 [-0.0035, +0.0198] (cluster by item [-0.0037, +0.0195]), wins/losses 163/133, p_sign 0.0917; suite means 0.4138 vs 0.3940
+=== v4_ens_random5_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/lit_s3407:v4_ens_random5:base3 --out cmp/paper/v4_ens_random5_s3407.json
+cmp/paper/links/lit_s3407:v4_ens_random5:base3: pooled 0.6839 vs 0.6534 diff +0.0305; suite 0.4326 vs 0.3940
+pooled over 2772 pairs: diff +0.0305 [+0.0185, +0.0426] (cluster by item [+0.0184, +0.0424]), wins/losses 208/112, p_sign 0.0000; suite means 0.4326 vs 0.3940
+=== v4_top5_2000_vs_base3_2000
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s3407:v4_top5_2000:base3_2000 --out cmp/paper/v4_top5_2000_vs_base3_2000.json
+Traceback (most recent call last):
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 74, in <module>
+    main()
+  File "/home/deimos/reward-search/v3/bench_compare_seeds.py", line 38, in main
+    data = load(d)
+           ^^^^^^^
+  File "/home/deimos/reward-search/v3/bench_compare.py", line 17, in load
+    for line in open(f, encoding="utf-8"):
+  File "<frozen codecs>", line 322, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x88 in position 0: invalid start byte
+FAILED cmp/paper/v4_top5_2000_vs_base3_2000.json
+=== v4_ens_top5_vs_lit_ens7_3seeds
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/lit_s3407:v4_ens_top5:lit_ens7 --pair cmp/paper/links/lit_s1234:v4_ens_top5:lit_ens7 --pair cmp/paper/links/lit_s2025:v4_ens_top5:lit_ens7 --out cmp/paper/v4_ens_top5_vs_lit_ens7_3seeds.json
+cmp/paper/links/lit_s3407:v4_ens_top5:lit_ens7: pooled 0.6635 vs 0.6624 diff +0.0011; suite 0.4154 vs 0.4145
+cmp/paper/links/lit_s1234:v4_ens_top5:lit_ens7: pooled 0.6731 vs 0.6791 diff -0.0060; suite 0.4150 vs 0.4257
+cmp/paper/links/lit_s2025:v4_ens_top5:lit_ens7: pooled 0.6582 vs 0.6479 diff +0.0103; suite 0.4032 vs 0.4010
+pooled over 8316 pairs: diff +0.0018 [-0.0045, +0.0080] (cluster by item [-0.0044, +0.0079]), wins/losses 408/398, p_sign 0.7513; suite means 0.4112 vs 0.4138
+=== dapo_ens_top5_2seeds
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/dapo_s3407:ens_top5:base3 --pair cmp/paper/links/dapo_s1234:ens_top5:base3 --out cmp/paper/dapo_ens_top5_2seeds.json
+cmp/paper/links/dapo_s3407:ens_top5:base3: pooled 0.6517 vs 0.6452 diff +0.0065; suite 0.3930 vs 0.3889
+cmp/paper/links/dapo_s1234:ens_top5:base3: pooled 0.6578 vs 0.6692 diff -0.0114; suite 0.4070 vs 0.4120
+pooled over 5544 pairs: diff -0.0024 [-0.0100, +0.0053] (cluster by item [-0.0098, +0.0049]), wins/losses 261/271, p_sign 0.6964; suite means 0.4000 vs 0.4004
+=== dapo_ens_diverse5_2seeds
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/dapo_s3407:ens_diverse5:base3 --pair cmp/paper/links/dapo_s1234:ens_diverse5:base3 --out cmp/paper/dapo_ens_diverse5_2seeds.json
+cmp/paper/links/dapo_s3407:ens_diverse5:base3: pooled 0.6482 vs 0.6452 diff +0.0031; suite 0.3979 vs 0.3889
+cmp/paper/links/dapo_s1234:ens_diverse5:base3: pooled 0.6670 vs 0.6692 diff -0.0022; suite 0.4132 vs 0.4120
+pooled over 5544 pairs: diff +0.0004 [-0.0071, +0.0079] (cluster by item [-0.0070, +0.0076]), wins/losses 259/255, p_sign 0.8947; suite means 0.4056 vs 0.4004
+=== dapo_best_single_s1234
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/dapo_s1234:best_single:base3 --out cmp/paper/dapo_best_single_s1234.json
+cmp/paper/links/dapo_s1234:best_single:base3: pooled 0.6543 vs 0.6692 diff -0.0149; suite 0.4030 vs 0.4120
+pooled over 2772 pairs: diff -0.0149 [-0.0259, -0.0041] (cluster by item [-0.0259, -0.0042]), wins/losses 111/151, p_sign 0.0158; suite means 0.4030 vs 0.4120
+=== dapo_ens_top3_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/dapo_s3407:ens_top3:base3 --out cmp/paper/dapo_ens_top3_s3407.json
+cmp/paper/links/dapo_s3407:ens_top3:base3: pooled 0.6582 vs 0.6452 diff +0.0130; suite 0.4018 vs 0.3889
+pooled over 2772 pairs: diff +0.0130 [+0.0022, +0.0245] (cluster by item [+0.0018, +0.0238]), wins/losses 156/115, p_sign 0.0150; suite means 0.4018 vs 0.3889
+=== dapo_ens_top7_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/dapo_s3407:ens_top7:base3 --out cmp/paper/dapo_ens_top7_s3407.json
+cmp/paper/links/dapo_s3407:ens_top7:base3: pooled 0.6552 vs 0.6452 diff +0.0100; suite 0.3961 vs 0.3889
+pooled over 2772 pairs: diff +0.0100 [+0.0004, +0.0202] (cluster by item [+0.0000, +0.0202]), wins/losses 133/103, p_sign 0.0588; suite means 0.3961 vs 0.3889
+=== dapo_ens_top10_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/dapo_s3407:ens_top10:base3 --out cmp/paper/dapo_ens_top10_s3407.json
+cmp/paper/links/dapo_s3407:ens_top10:base3: pooled 0.6637 vs 0.6452 diff +0.0186; suite 0.4111 vs 0.3889
+pooled over 2772 pairs: diff +0.0186 [+0.0081, +0.0294] (cluster by item [+0.0081, +0.0294]), wins/losses 156/96, p_sign 0.0002; suite means 0.4111 vs 0.3889
+=== dapo_ens_random5_s3407
+command: python v3/bench_compare_seeds.py --pair cmp/paper/links/dapo_s3407:ens_random5:base3 --out cmp/paper/dapo_ens_random5_s3407.json
+cmp/paper/links/dapo_s3407:ens_random5:base3: pooled 0.6636 vs 0.6452 diff +0.0184; suite 0.4084 vs 0.3889
+pooled over 2772 pairs: diff +0.0184 [+0.0080, +0.0286] (cluster by item [+0.0083, +0.0286]), wins/losses 154/94, p_sign 0.0002; suite means 0.4084 vs 0.3889
+cmp_paper done 2026-10-30 00:02:49

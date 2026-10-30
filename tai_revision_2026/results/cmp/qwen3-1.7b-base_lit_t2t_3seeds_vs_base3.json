@@ -1,0 +1,49 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/qwen3-1.7b-base_s3407:lit_t2t_s3407:bl_base3_s3407",
+   "items": 2772,
+   "cand_pooled": 0.398989898989899,
+   "ref_pooled": 0.4365530303030303,
+   "diff": -0.03756313131313131,
+   "cand_suite": 0.2548298363528208,
+   "ref_suite": 0.26616537203315427
+  },
+  {
+   "pair": "cmp/qwen3-1.7b-base_s1234:lit_t2t_s1234:bl_base3_s1234",
+   "items": 2772,
+   "cand_pooled": 0.380050505050505,
+   "ref_pooled": 0.4172077922077922,
+   "diff": -0.03715728715728716,
+   "cand_suite": 0.24249403583651824,
+   "ref_suite": 0.2590995095664251
+  },
+  {
+   "pair": "cmp/qwen3-1.7b-base_s2025:lit_t2t_s2025:bl_base3_s2025",
+   "items": 2772,
+   "cand_pooled": 0.4108495670995671,
+   "ref_pooled": 0.4355609668109668,
+   "diff": -0.024711399711399712,
+   "cand_suite": 0.2579215358060613,
+   "ref_suite": 0.2703963396369079
+  }
+ ],
+ "pairs": 8316,
+ "diff": -0.03314393939393939,
+ "ci_pairs": [
+  -0.04235848063973064,
+  -0.024320211038961044
+ ],
+ "ci_items_cluster": [
+  -0.04222357503607503,
+  -0.023808772246272255
+ ],
+ "wins": 612,
+ "losses": 889,
+ "p_sign": 9.076186727743811e-13,
+ "cand_suite_mean": 0.2517484693318001,
+ "ref_suite_mean": 0.26522040707882905,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/qwen3-1.7b-base_s3407:lit_t2t_s3407:bl_base3_s3407 --pair cmp/qwen3-1.7b-base_s1234:lit_t2t_s1234:bl_base3_s1234 --pair cmp/qwen3-1.7b-base_s2025:lit_t2t_s2025:bl_base3_s2025 --out cmp/qwen3-1.7b-base_lit_t2t_3seeds_vs_base3.json"
+}

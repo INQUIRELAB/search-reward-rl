@@ -1,0 +1,17 @@
+{
+  "rewards": [
+    "match_format_exactly",
+    "match_format_approximately",
+    "check_answer",
+    "penalize_unfinished_equations_in_solution"
+  ],
+  "steps": 500,
+  "seed": 3407,
+  "lr": 5e-06,
+  "beta": 0.0,
+  "num_generations": 4,
+  "grad_accum": 4,
+  "train_seconds": 14337.2,
+  "model": "qwen3-4b-base",
+  "task": "dapo"
+}

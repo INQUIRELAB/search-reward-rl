@@ -1,0 +1,31 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/paper/links/xmodel_qwen3.5-4b-base_s3407:lit_spurious_random:base3",
+   "items": 2772,
+   "cand_pooled": 0.72623556998557,
+   "ref_pooled": 0.7326839826839827,
+   "diff": -0.006448412698412698,
+   "cand_suite": 0.48967743408049486,
+   "ref_suite": 0.5106963766164502
+  }
+ ],
+ "pairs": 2772,
+ "diff": -0.006448412698412698,
+ "ci_pairs": [
+  -0.01709054834054834,
+  0.00401560245310242
+ ],
+ "ci_items_cluster": [
+  -0.016955266955266956,
+  0.003923160173160173
+ ],
+ "wins": 115,
+ "losses": 153,
+ "p_sign": 0.023633243517354532,
+ "cand_suite_mean": 0.48967743408049486,
+ "ref_suite_mean": 0.5106963766164502,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/paper/links/xmodel_qwen3.5-4b-base_s3407:lit_spurious_random:base3 --out cmp/paper/xmodel_qwen3.5-4b-base_lit_spurious_random_s3407.json"
+}

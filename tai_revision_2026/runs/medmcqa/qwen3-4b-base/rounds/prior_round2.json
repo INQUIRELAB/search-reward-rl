@@ -1,0 +1,102 @@
+[
+ {
+  "name": "medmcqa_repetition_4gram",
+  "description": "Penalizes repetitive 4-gram patterns in the output to reduce degeneration.",
+  "round": 1,
+  "trial": "round1_medmcqa_repetition_4gram",
+  "accuracy": 0.668,
+  "f1": 0.801,
+  "strict_accuracy": 0.668,
+  "failed": false
+ },
+ {
+  "name": "medmcqa_thinking_length_balance",
+  "description": "Penalizes missing or extremely short/long thinking blocks to encourage concise but sufficient reasoning.",
+  "round": 1,
+  "trial": "round1_medmcqa_thinking_length_balance",
+  "accuracy": 0.66,
+  "f1": 0.7952,
+  "strict_accuracy": 0.66,
+  "failed": false
+ },
+ {
+  "name": "medmcqa_answer_position",
+  "description": "Rewards correct answers that are concise in the solution tag.",
+  "round": 1,
+  "trial": "round1_medmcqa_answer_position",
+  "accuracy": 0.656,
+  "f1": 0.7923,
+  "strict_accuracy": 0.656,
+  "failed": false
+ },
+ {
+  "name": "medmcqa_verification_check",
+  "description": "Rewards outputs that include verification or double-checking of the answer.",
+  "round": 1,
+  "trial": "round1_medmcqa_verification_check",
+  "accuracy": 0.65,
+  "f1": 0.7879,
+  "strict_accuracy": 0.65,
+  "failed": false
+ },
+ {
+  "name": "medmcqa_hallucination_penalty",
+  "description": "Penalizes high-confidence incorrect answers to discourage hallucination and overconfidence.",
+  "round": 1,
+  "trial": "round1_medmcqa_hallucination_penalty",
+  "accuracy": 0.646,
+  "f1": 0.7849,
+  "strict_accuracy": 0.646,
+  "failed": false
+ },
+ {
+  "name": "medmcqa_option_exclusion",
+  "description": "Grants partial credit for explicitly reasoning why incorrect options are wrong.",
+  "round": 1,
+  "trial": "round1_medmcqa_option_exclusion",
+  "accuracy": 0.642,
+  "f1": 0.782,
+  "strict_accuracy": 0.642,
+  "failed": false
+ },
+ {
+  "name": "medmcqa_group_consistency",
+  "description": "Rewards answers that match the majority vote within the same question group, promoting consensus.",
+  "round": 1,
+  "trial": "round1_medmcqa_group_consistency",
+  "accuracy": 0.64,
+  "f1": 0.7805,
+  "strict_accuracy": 0.64,
+  "failed": false
+ },
+ {
+  "name": "medmcqa_step_count",
+  "description": "Rewards structured reasoning with clear step markers.",
+  "round": 1,
+  "trial": "round1_medmcqa_step_count",
+  "accuracy": 0.636,
+  "f1": 0.7775,
+  "strict_accuracy": 0.636,
+  "failed": false
+ },
+ {
+  "name": "medmcqa_solution_format_strict",
+  "description": "Rewards strict format compliance where the final answer is a single letter A-D inside the solution tag.",
+  "round": 1,
+  "trial": "round1_medmcqa_solution_format_strict",
+  "accuracy": 0.634,
+  "f1": 0.776,
+  "strict_accuracy": 0.634,
+  "failed": false
+ },
+ {
+  "name": "medmcqa_length_relative",
+  "description": "Penalizes completions that are significantly longer or shorter than the group average.",
+  "round": 1,
+  "trial": "round1_medmcqa_length_relative",
+  "accuracy": 0.634,
+  "f1": 0.776,
+  "strict_accuracy": 0.634,
+  "failed": false
+ }
+]

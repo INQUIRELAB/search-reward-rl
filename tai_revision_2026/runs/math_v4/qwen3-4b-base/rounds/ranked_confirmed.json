@@ -1,0 +1,182 @@
+[
+ {
+  "name": "truncation_detection",
+  "description": "Penalizes outputs that appear truncated (missing closing tags).",
+  "round": 1,
+  "trial": "round1_truncation_detection",
+  "accuracy": 0.674,
+  "f1": 0.8109,
+  "strict_accuracy": 0.682,
+  "failed": false,
+  "screen_accuracy": 0.682,
+  "seed_accuracy": {
+   "3407": 0.682,
+   "1234": 0.704,
+   "2025": 0.636
+  },
+  "paired_gain_vs_base3": 0.0327,
+  "n_seeds": 3
+ },
+ {
+  "name": "ngram_repetition_penalty",
+  "description": "Penalizes repetitive 3-gram patterns in the output text.",
+  "round": 1,
+  "trial": "round1_ngram_repetition_penalty",
+  "accuracy": 0.666,
+  "f1": 0.7981,
+  "strict_accuracy": 0.664,
+  "failed": false,
+  "screen_accuracy": 0.668,
+  "seed_accuracy": {
+   "3407": 0.668,
+   "1234": 0.666,
+   "2025": 0.664
+  },
+  "paired_gain_vs_base3": 0.0247,
+  "n_seeds": 3
+ },
+ {
+  "name": "step_structure_bonus",
+  "description": "Rewards structured reasoning with clear step markers.",
+  "round": 1,
+  "trial": "round1_step_structure_bonus",
+  "accuracy": 0.6653,
+  "f1": 0.8081,
+  "strict_accuracy": 0.678,
+  "failed": false,
+  "screen_accuracy": 0.678,
+  "seed_accuracy": {
+   "3407": 0.678,
+   "1234": 0.668,
+   "2025": 0.65
+  },
+  "paired_gain_vs_base3": 0.024,
+  "n_seeds": 3
+ },
+ {
+  "name": "group_consistency_bonus",
+  "description": "Rewards answers that match the majority answer within the same question group.",
+  "round": 1,
+  "trial": "round1_group_consistency_bonus",
+  "accuracy": 0.6647,
+  "f1": 0.8067,
+  "strict_accuracy": 0.676,
+  "failed": false,
+  "screen_accuracy": 0.676,
+  "seed_accuracy": {
+   "3407": 0.676,
+   "1234": 0.662,
+   "2025": 0.656
+  },
+  "paired_gain_vs_base3": 0.0233,
+  "n_seeds": 3
+ },
+ {
+  "name": "repetition_density_penalty",
+  "description": "Penalizes outputs with high 4-gram repetition, indicating degenerate or looping reasoning.",
+  "round": 2,
+  "trial": "round2_repetition_density_penalty",
+  "accuracy": 0.6647,
+  "f1": 0.7995,
+  "strict_accuracy": 0.666,
+  "failed": false,
+  "screen_accuracy": 0.666,
+  "seed_accuracy": {
+   "3407": 0.666,
+   "1234": 0.668,
+   "2025": 0.66
+  },
+  "paired_gain_vs_base3": 0.0233,
+  "n_seeds": 3
+ },
+ {
+  "name": "bigram_repetition_penalty",
+  "description": "Penalizes bigram repetition. Score ranges from 0 (all unique) to -2.0 (all repeated). Encourages diverse, non-looping reasoning.",
+  "round": 4,
+  "trial": "round4_bigram_repetition_penalty",
+  "accuracy": 0.6613,
+  "f1": 0.8067,
+  "strict_accuracy": 0.676,
+  "failed": false,
+  "screen_accuracy": 0.678,
+  "seed_accuracy": {
+   "3407": 0.678,
+   "1234": 0.654,
+   "2025": 0.652
+  },
+  "paired_gain_vs_base3": 0.02,
+  "n_seeds": 3
+ },
+ {
+  "name": "verification_mention_bonus",
+  "description": "Rewards mentioning verification steps in the reasoning process.",
+  "round": 1,
+  "trial": "round1_verification_mention_bonus",
+  "accuracy": 0.6607,
+  "f1": 0.7966,
+  "strict_accuracy": 0.662,
+  "failed": false,
+  "screen_accuracy": 0.662,
+  "seed_accuracy": {
+   "3407": 0.662,
+   "1234": 0.666,
+   "2025": 0.654
+  },
+  "paired_gain_vs_base3": 0.0193,
+  "n_seeds": 3
+ },
+ {
+  "name": "step_count_efficiency",
+  "description": "Rewards correct answers with a reasonable number of reasoning steps, penalizing overly step-heavy incorrect solutions.",
+  "round": 2,
+  "trial": "round2_step_count_efficiency",
+  "accuracy": 0.6587,
+  "f1": 0.7923,
+  "strict_accuracy": 0.656,
+  "failed": false,
+  "screen_accuracy": 0.658,
+  "seed_accuracy": {
+   "3407": 0.658,
+   "1234": 0.698,
+   "2025": 0.62
+  },
+  "paired_gain_vs_base3": 0.0173,
+  "n_seeds": 3
+ },
+ {
+  "name": "step_quality_bonus",
+  "description": "Rewards answers with clearly labeled and structured steps. Correct answers with good step quality get up to 2.0, incorrect answers get penalized more if they have many steps.",
+  "round": 5,
+  "trial": "round5_step_quality_bonus",
+  "accuracy": 0.656,
+  "f1": 0.7981,
+  "strict_accuracy": 0.664,
+  "failed": false,
+  "screen_accuracy": 0.664,
+  "seed_accuracy": {
+   "3407": 0.664,
+   "1234": 0.648,
+   "2025": 0.656
+  },
+  "paired_gain_vs_base3": 0.0147,
+  "n_seeds": 3
+ },
+ {
+  "name": "step_marker_density",
+  "description": "Rewards moderate density of step markers (0.5-2.0 per 10 words). Too few steps get 0.0, too many get -1.0. Encourages structured but not over-structured reasoning.",
+  "round": 4,
+  "trial": "round4_step_marker_density",
+  "accuracy": 0.654,
+  "f1": 0.7995,
+  "strict_accuracy": 0.666,
+  "failed": false,
+  "screen_accuracy": 0.666,
+  "seed_accuracy": {
+   "3407": 0.666,
+   "1234": 0.644,
+   "2025": 0.652
+  },
+  "paired_gain_vs_base3": 0.0127,
+  "n_seeds": 3
+ }
+]

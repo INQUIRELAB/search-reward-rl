@@ -1,0 +1,31 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/paper/links/math_s3407:base3_2000:base3",
+   "items": 2772,
+   "cand_pooled": 0.689033189033189,
+   "ref_pooled": 0.6749188311688312,
+   "diff": 0.014114357864357864,
+   "cand_suite": 0.432401395562838,
+   "ref_suite": 0.4144317211379012
+  }
+ ],
+ "pairs": 2772,
+ "diff": 0.014114357864357864,
+ "ci_pairs": [
+  0.002795815295815296,
+  0.025659496753246736
+ ],
+ "ci_items_cluster": [
+  0.0031114718614718615,
+  0.025479121572871556
+ ],
+ "wins": 162,
+ "losses": 121,
+ "p_sign": 0.017264151890161186,
+ "cand_suite_mean": 0.432401395562838,
+ "ref_suite_mean": 0.4144317211379012,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s3407:base3_2000:base3 --out cmp/paper/base3_2000_vs_base3_500_s3407.json"
+}

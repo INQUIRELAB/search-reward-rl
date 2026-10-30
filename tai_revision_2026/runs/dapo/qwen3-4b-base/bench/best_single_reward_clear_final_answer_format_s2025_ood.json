@@ -1,0 +1,30 @@
+{
+  "model": "qwen3-4b-base",
+  "lora": "runs/dapo/qwen3-4b-base/outputs/best_single_reward_clear_final_answer_format_s2025/lora",
+  "max_tokens": 4096,
+  "benchmarks": {
+    "gpqa": {
+      "n": 198,
+      "k": 8,
+      "acc_strict": 0.3365,
+      "acc_flex": 0.3441,
+      "ci_flex": null,
+      "truncated_rate": 0.0297,
+      "mean_tokens": 646.8,
+      "seconds": 260.1
+    },
+    "medqa": {
+      "n": 1273,
+      "k": 1,
+      "acc_strict": 0.6033,
+      "acc_flex": 0.6049,
+      "ci_flex": [
+        0.5773762765121759,
+        0.631578947368421
+      ],
+      "truncated_rate": 0.0086,
+      "mean_tokens": 283.9,
+      "seconds": 106.6
+    }
+  }
+}

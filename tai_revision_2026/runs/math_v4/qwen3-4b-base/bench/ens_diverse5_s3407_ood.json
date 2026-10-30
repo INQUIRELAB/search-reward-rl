@@ -1,0 +1,30 @@
+{
+  "model": "qwen3-4b-base",
+  "lora": "runs/math_v4/qwen3-4b-base/outputs/ens_diverse5_s3407/lora",
+  "max_tokens": 4096,
+  "benchmarks": {
+    "gpqa": {
+      "n": 198,
+      "k": 8,
+      "acc_strict": 0.3415,
+      "acc_flex": 0.346,
+      "ci_flex": null,
+      "truncated_rate": 0.0328,
+      "mean_tokens": 654.5,
+      "seconds": 264.5
+    },
+    "medqa": {
+      "n": 1273,
+      "k": 1,
+      "acc_strict": 0.6206,
+      "acc_flex": 0.6206,
+      "ci_flex": [
+        0.593872741555381,
+        0.6472898664571878
+      ],
+      "truncated_rate": 0.0024,
+      "mean_tokens": 270.9,
+      "seconds": 93.8
+    }
+  }
+}

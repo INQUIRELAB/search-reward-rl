@@ -1,0 +1,31 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/paper/links/math_s3407:loo_without_variable_consistency_check:base3",
+   "items": 2772,
+   "cand_pooled": 0.6676136363636364,
+   "ref_pooled": 0.6749188311688312,
+   "diff": -0.007305194805194805,
+   "cand_suite": 0.41986009827490284,
+   "ref_suite": 0.4144317211379012
+  }
+ ],
+ "pairs": 2772,
+ "diff": -0.007305194805194805,
+ "ci_pairs": [
+  -0.018443362193362192,
+  0.0036075036075036075
+ ],
+ "ci_items_cluster": [
+  -0.019074675324675324,
+  0.0036999458874458543
+ ],
+ "wins": 134,
+ "losses": 150,
+ "p_sign": 0.373449396478841,
+ "cand_suite_mean": 0.41986009827490284,
+ "ref_suite_mean": 0.4144317211379012,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s3407:loo_without_variable_consistency_check:base3 --out cmp/paper/ranked_loo_without_variable_consistency_check_s3407.json"
+}

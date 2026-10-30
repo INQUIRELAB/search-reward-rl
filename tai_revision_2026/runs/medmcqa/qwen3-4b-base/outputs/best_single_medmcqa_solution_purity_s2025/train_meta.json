@@ -1,0 +1,17 @@
+{
+  "rewards": [
+    "match_format_exactly",
+    "match_format_approximately",
+    "check_answer",
+    "medmcqa_solution_purity"
+  ],
+  "steps": 500,
+  "seed": 2025,
+  "lr": 5e-06,
+  "beta": 0.0,
+  "num_generations": 4,
+  "grad_accum": 4,
+  "train_seconds": 4070.0,
+  "model": "qwen3-4b-base",
+  "task": "medmcqa"
+}

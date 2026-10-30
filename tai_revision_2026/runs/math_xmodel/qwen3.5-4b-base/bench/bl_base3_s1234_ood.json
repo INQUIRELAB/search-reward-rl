@@ -1,0 +1,111 @@
+{
+  "model": "qwen3.5-4b-base",
+  "lora": "runs/math_xmodel/qwen3.5-4b-base/outputs/bl_base3_s1234/lora",
+  "max_tokens": 4096,
+  "benchmarks": {
+    "gpqa": {
+      "n": 198,
+      "k": 8,
+      "acc_strict": 0.4583,
+      "acc_flex": 0.5032,
+      "ci_flex": null,
+      "truncated_rate": 0.2191,
+      "mean_tokens": 1497.2,
+      "seconds": 1550.8,
+      "data_sha": "d0a8566f346d6620"
+    },
+    "medqa": {
+      "n": 1273,
+      "k": 1,
+      "acc_strict": 0.7533,
+      "acc_flex": 0.7588,
+      "ci_flex": [
+        0.7352710133542812,
+        0.7824037706205813
+      ],
+      "truncated_rate": 0.0306,
+      "mean_tokens": 425.7,
+      "seconds": 370.5,
+      "data_sha": "20dec03930ae8f85"
+    }
+  },
+  "manifest": {
+    "kind": "bench",
+    "time": "2026-10-25 11:42:12 -0500",
+    "host": "deimos",
+    "argv": [
+      "v3/eval_benchmarks.py",
+      "--model",
+      "qwen3.5-4b-base",
+      "--lora",
+      "runs/math_xmodel/qwen3.5-4b-base/outputs/bl_base3_s1234/lora",
+      "--benchmarks",
+      "gpqa,medqa",
+      "--out",
+      "runs/math_xmodel/qwen3.5-4b-base/bench/bl_base3_s1234_ood.json",
+      "--gpu-util",
+      "0.2",
+      "--max-tokens",
+      "4096"
+    ],
+    "cwd": "/home/deimos/reward-search",
+    "pid": 90688,
+    "code_sha": "885479e37ea785c4",
+    "env": {
+      "CUDA_VISIBLE_DEVICES": "1",
+      "CUDA_DEVICE_ORDER": "PCI_BUS_ID",
+      "HF_HUB_OFFLINE": "1"
+    },
+    "versions": {
+      "python": "3.12.3",
+      "torch": "2.13.0",
+      "vllm": "0.28.0",
+      "trl": "1.13.0",
+      "transformers": "5.17.0",
+      "peft": "0.20.0",
+      "datasets": "5.0.1",
+      "accelerate": "1.15.0",
+      "bitsandbytes": "0.50.2",
+      "math-verify": "0.9.0",
+      "sympy": "1.14.0",
+      "numpy": "2.3.5",
+      "flash-linear-attention": "0.6.0",
+      "huggingface-hub": "1.31.0"
+    },
+    "gpus": [
+      [
+        "1",
+        "GPU-1d565d61-e1b9-1e2b-b91e-5f0d943c2de2",
+        "NVIDIA RTX PRO 6000 Blackwell Workstation Edition",
+        "00000000:41:00.0",
+        "595.99.02"
+      ]
+    ],
+    "models": [
+      {
+        "path": "/home/deimos/models/Qwen3.5-4B-Base-chatml",
+        "resolved": "/home/deimos/.cache/huggingface/hub/models--Qwen--Qwen3.5-4B-Base/blobs",
+        "snapshot": "blobs"
+      }
+    ],
+    "lora": "runs/math_xmodel/qwen3.5-4b-base/outputs/bl_base3_s1234/lora",
+    "lora_sha": "ee3e179f0f9e69b3",
+    "sampling": {
+      "greedy_k1": {
+        "temperature": 0.0,
+        "top_p": 1.0
+      },
+      "sampled": {
+        "temperature": 0.6,
+        "top_p": 0.95,
+        "k": {
+          "aime24": 8,
+          "aime25": 8,
+          "amc23": 8,
+          "gpqa": 8
+        }
+      },
+      "seed": 3407
+    }
+  }
+}

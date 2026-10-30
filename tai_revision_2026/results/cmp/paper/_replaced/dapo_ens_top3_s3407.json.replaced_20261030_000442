@@ -1,0 +1,31 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/paper/links/dapo_s3407:ens_top3:base3",
+   "items": 2772,
+   "cand_pooled": 0.6581890331890332,
+   "ref_pooled": 0.6451569264069265,
+   "diff": 0.013032106782106782,
+   "cand_suite": 0.4018179798312997,
+   "ref_suite": 0.38886876662207953
+  }
+ ],
+ "pairs": 2772,
+ "diff": 0.013032106782106782,
+ "ci_pairs": [
+  0.0021645021645021645,
+  0.024485930735930736
+ ],
+ "ci_items_cluster": [
+  0.0017575306637806643,
+  0.023765557359307344
+ ],
+ "wins": 156,
+ "losses": 115,
+ "p_sign": 0.014952886151615632,
+ "cand_suite_mean": 0.4018179798312997,
+ "ref_suite_mean": 0.38886876662207953,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/paper/links/dapo_s3407:ens_top3:base3 --out cmp/paper/dapo_ens_top3_s3407.json"
+}

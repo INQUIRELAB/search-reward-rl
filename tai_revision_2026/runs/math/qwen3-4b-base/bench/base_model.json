@@ -1,0 +1,89 @@
+{
+  "model": "qwen3-4b-base",
+  "lora": null,
+  "max_tokens": 4096,
+  "benchmarks": {
+    "gsm8k": {
+      "n": 1319,
+      "k": 1,
+      "acc_strict": 0.8506,
+      "acc_flex": 0.8506,
+      "ci_flex": [
+        0.8316717210007583,
+        0.869598180439727
+      ],
+      "truncated_rate": 0.0023,
+      "mean_tokens": 206.4,
+      "seconds": 118.3
+    },
+    "math500": {
+      "n": 500,
+      "k": 1,
+      "acc_strict": 0.648,
+      "acc_flex": 0.656,
+      "ci_flex": [
+        0.614,
+        0.698
+      ],
+      "truncated_rate": 0.032,
+      "mean_tokens": 568.5,
+      "seconds": 132.9
+    },
+    "minerva": {
+      "n": 272,
+      "k": 1,
+      "acc_strict": 0.239,
+      "acc_flex": 0.2463,
+      "ci_flex": [
+        0.1948529411764706,
+        0.2977941176470588
+      ],
+      "truncated_rate": 0.1471,
+      "mean_tokens": 1053.4,
+      "seconds": 193.1
+    },
+    "olympiadbench": {
+      "n": 581,
+      "k": 1,
+      "acc_strict": 0.3391,
+      "acc_flex": 0.3528,
+      "ci_flex": [
+        0.3132530120481928,
+        0.3924268502581756
+      ],
+      "truncated_rate": 0.1188,
+      "mean_tokens": 1082.8,
+      "seconds": 374.8
+    },
+    "amc23": {
+      "n": 40,
+      "k": 8,
+      "acc_strict": 0.3812,
+      "acc_flex": 0.3969,
+      "ci_flex": null,
+      "truncated_rate": 0.0969,
+      "mean_tokens": 1082.5,
+      "seconds": 164.4
+    },
+    "aime24": {
+      "n": 30,
+      "k": 8,
+      "acc_strict": 0.0708,
+      "acc_flex": 0.0833,
+      "ci_flex": null,
+      "truncated_rate": 0.2,
+      "mean_tokens": 1499.5,
+      "seconds": 209.5
+    },
+    "aime25": {
+      "n": 30,
+      "k": 8,
+      "acc_strict": 0.0708,
+      "acc_flex": 0.0708,
+      "ci_flex": null,
+      "truncated_rate": 0.0917,
+      "mean_tokens": 1186.8,
+      "seconds": 164.0
+    }
+  }
+}

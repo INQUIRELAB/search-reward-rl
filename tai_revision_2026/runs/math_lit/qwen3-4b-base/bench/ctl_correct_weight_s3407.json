@@ -1,0 +1,174 @@
+{
+  "model": "qwen3-4b-base",
+  "lora": "runs/math_lit/qwen3-4b-base/outputs/ctl_correct_weight_s3407/lora",
+  "max_tokens": 4096,
+  "benchmarks": {
+    "gsm8k": {
+      "n": 1319,
+      "k": 1,
+      "acc_strict": 0.8757,
+      "acc_flex": 0.8757,
+      "ci_flex": [
+        0.8574677786201668,
+        0.8931008339651251
+      ],
+      "truncated_rate": 0.0008,
+      "mean_tokens": 208.8,
+      "seconds": 137.8,
+      "data_sha": "bcd65fd5c0fcdeab"
+    },
+    "math500": {
+      "n": 500,
+      "k": 1,
+      "acc_strict": 0.68,
+      "acc_flex": 0.682,
+      "ci_flex": [
+        0.642,
+        0.724
+      ],
+      "truncated_rate": 0.022,
+      "mean_tokens": 561.8,
+      "seconds": 173.2,
+      "data_sha": "1e4f8595a8b12f0b"
+    },
+    "minerva": {
+      "n": 272,
+      "k": 1,
+      "acc_strict": 0.3309,
+      "acc_flex": 0.3309,
+      "ci_flex": [
+        0.2757352941176471,
+        0.3860294117647059
+      ],
+      "truncated_rate": 0.0699,
+      "mean_tokens": 762.1,
+      "seconds": 171.1,
+      "data_sha": "448116bb775355cb"
+    },
+    "olympiadbench": {
+      "n": 581,
+      "k": 1,
+      "acc_strict": 0.3528,
+      "acc_flex": 0.358,
+      "ci_flex": [
+        0.32013769363166955,
+        0.39759036144578314
+      ],
+      "truncated_rate": 0.0843,
+      "mean_tokens": 978.8,
+      "seconds": 403.1,
+      "data_sha": "c43f69dbfb3e3a9a"
+    },
+    "amc23": {
+      "n": 40,
+      "k": 8,
+      "acc_strict": 0.4188,
+      "acc_flex": 0.425,
+      "ci_flex": null,
+      "truncated_rate": 0.0563,
+      "mean_tokens": 950.8,
+      "seconds": 169.2,
+      "data_sha": "28eada7f5f6f38a7"
+    },
+    "aime24": {
+      "n": 30,
+      "k": 8,
+      "acc_strict": 0.0958,
+      "acc_flex": 0.0958,
+      "ci_flex": null,
+      "truncated_rate": 0.175,
+      "mean_tokens": 1426.6,
+      "seconds": 264.9,
+      "data_sha": "17952e5ad55320ec"
+    },
+    "aime25": {
+      "n": 30,
+      "k": 8,
+      "acc_strict": 0.075,
+      "acc_flex": 0.075,
+      "ci_flex": null,
+      "truncated_rate": 0.0625,
+      "mean_tokens": 1039.3,
+      "seconds": 168.2,
+      "data_sha": "e8cddf6366daed99"
+    }
+  },
+  "manifest": {
+    "kind": "bench",
+    "time": "2026-10-26 17:21:08 -0500",
+    "host": "deimos",
+    "argv": [
+      "v3/eval_benchmarks.py",
+      "--model",
+      "qwen3-4b-base",
+      "--lora",
+      "runs/math_lit/qwen3-4b-base/outputs/ctl_correct_weight_s3407/lora",
+      "--benchmarks",
+      "gsm8k,math500,minerva,olympiadbench,amc23,aime24,aime25",
+      "--out",
+      "runs/math_lit/qwen3-4b-base/bench/ctl_correct_weight_s3407.json",
+      "--gpu-util",
+      "0.2",
+      "--max-tokens",
+      "4096"
+    ],
+    "cwd": "/home/deimos/reward-search",
+    "pid": 286980,
+    "code_sha": "7a9710cc149dd171",
+    "env": {
+      "CUDA_VISIBLE_DEVICES": "1",
+      "CUDA_DEVICE_ORDER": "PCI_BUS_ID",
+      "HF_HUB_OFFLINE": "1"
+    },
+    "versions": {
+      "python": "3.12.3",
+      "torch": "2.13.0",
+      "vllm": "0.28.0",
+      "trl": "1.13.0",
+      "transformers": "5.17.0",
+      "peft": "0.20.0",
+      "datasets": "5.0.1",
+      "accelerate": "1.15.0",
+      "bitsandbytes": "0.50.2",
+      "math-verify": "0.9.0",
+      "sympy": "1.14.0",
+      "numpy": "2.3.5",
+      "flash-linear-attention": "0.6.0",
+      "huggingface-hub": "1.31.0"
+    },
+    "gpus": [
+      [
+        "1",
+        "GPU-1d565d61-e1b9-1e2b-b91e-5f0d943c2de2",
+        "NVIDIA RTX PRO 6000 Blackwell Workstation Edition",
+        "00000000:41:00.0",
+        "595.99.02"
+      ]
+    ],
+    "models": [
+      {
+        "id": "Qwen/Qwen3-4B-Base",
+        "revision": "906bfd4b4dc7f14ee4320094d8b41684abff8539"
+      }
+    ],
+    "lora": "runs/math_lit/qwen3-4b-base/outputs/ctl_correct_weight_s3407/lora",
+    "lora_sha": "718d46c3d40b9514",
+    "sampling": {
+      "greedy_k1": {
+        "temperature": 0.0,
+        "top_p": 1.0
+      },
+      "sampled": {
+        "temperature": 0.6,
+        "top_p": 0.95,
+        "k": {
+          "aime24": 8,
+          "aime25": 8,
+          "amc23": 8,
+          "gpqa": 8
+        }
+      },
+      "seed": 3407
+    }
+  }
+}

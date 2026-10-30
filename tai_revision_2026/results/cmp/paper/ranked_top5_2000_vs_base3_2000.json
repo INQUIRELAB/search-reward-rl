@@ -1,0 +1,31 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/paper/links/math_s3407:ens_top5_2000:base3_2000",
+   "items": 2772,
+   "cand_pooled": 0.6876803751803752,
+   "ref_pooled": 0.689033189033189,
+   "diff": -0.0013528138528138528,
+   "cand_suite": 0.43295898011917217,
+   "ref_suite": 0.432401395562838
+  }
+ ],
+ "pairs": 2772,
+ "diff": -0.0013528138528138528,
+ "ci_pairs": [
+  -0.012582296176046176,
+  0.00955988455988456
+ ],
+ "ci_items_cluster": [
+  -0.01208626443001443,
+  0.00928932178932179
+ ],
+ "wins": 132,
+ "losses": 136,
+ "p_sign": 0.8546420405717403,
+ "cand_suite_mean": 0.43295898011917217,
+ "ref_suite_mean": 0.432401395562838,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s3407:ens_top5_2000:base3_2000 --out cmp/paper/ranked_top5_2000_vs_base3_2000.json"
+}

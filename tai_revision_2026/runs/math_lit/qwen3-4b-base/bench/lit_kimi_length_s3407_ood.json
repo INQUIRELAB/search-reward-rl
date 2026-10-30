@@ -1,0 +1,30 @@
+{
+  "model": "qwen3-4b-base",
+  "lora": "runs/math_lit/qwen3-4b-base/outputs/lit_kimi_length_s3407/lora",
+  "max_tokens": 4096,
+  "benchmarks": {
+    "gpqa": {
+      "n": 198,
+      "k": 8,
+      "acc_strict": 0.3561,
+      "acc_flex": 0.3649,
+      "ci_flex": null,
+      "truncated_rate": 0.0278,
+      "mean_tokens": 644.0,
+      "seconds": 237.4
+    },
+    "medqa": {
+      "n": 1273,
+      "k": 1,
+      "acc_strict": 0.6222,
+      "acc_flex": 0.6237,
+      "ci_flex": [
+        0.5978004713275726,
+        0.6496465043205027
+      ],
+      "truncated_rate": 0.0047,
+      "mean_tokens": 269.4,
+      "seconds": 94.3
+    }
+  }
+}

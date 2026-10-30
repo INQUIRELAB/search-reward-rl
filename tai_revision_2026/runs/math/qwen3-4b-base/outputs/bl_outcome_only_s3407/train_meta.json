@@ -1,0 +1,14 @@
+{
+  "rewards": [
+    "check_answer"
+  ],
+  "steps": 500,
+  "seed": 3407,
+  "lr": 5e-06,
+  "beta": 0.0,
+  "num_generations": 4,
+  "grad_accum": 4,
+  "train_seconds": 7370.1,
+  "model": "qwen3-4b-base",
+  "task": "math"
+}

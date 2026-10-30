@@ -1,0 +1,31 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/paper/links/lit_s3407:lit_cosine_length:base3",
+   "items": 2772,
+   "cand_pooled": 0.6763618326118326,
+   "ref_pooled": 0.6533639971139971,
+   "diff": 0.022997835497835496,
+   "cand_suite": 0.42175514465585096,
+   "ref_suite": 0.39398655601018406
+  }
+ ],
+ "pairs": 2772,
+ "diff": 0.022997835497835496,
+ "ci_pairs": [
+  0.010550820707070708,
+  0.03566919191919192
+ ],
+ "ci_items_cluster": [
+  0.010236291486291486,
+  0.03566919191919192
+ ],
+ "wins": 207,
+ "losses": 141,
+ "p_sign": 0.00047623347779887827,
+ "cand_suite_mean": 0.42175514465585096,
+ "ref_suite_mean": 0.39398655601018406,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/paper/links/lit_s3407:lit_cosine_length:base3 --out cmp/paper/lit_lit_cosine_length_s3407.json"
+}

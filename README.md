@@ -5,6 +5,8 @@ Code for the manuscript **"Enhanced LLM Reasoning by Optimizing Reward Functions
 **Authors:** Arash Ahmadi, Sarah S. Sharif, and Yaser M. Banad (Mike)  
 **Affiliation:** School of Electrical and Computer Engineering, University of Oklahoma; INQUIRE Laboratory  
 
+> **Revised study (2026):** the code and results of the revised and extended study (six searches on GSM8K, MATH, DAPO-Math-17k and MedMCQA, four policies, held out evaluation on seven mathematics benchmarks) are in [`tai_revision_2026/`](tai_revision_2026/). The rest of this page describes the first version.
+
 This repository implements a feedback-guided search loop for discovering Python reward functions used during GRPO post-training of small language models on GSM8K. A frontier model proposes candidate rewards, each candidate is validated in a sandbox, a Llama-3.2-3B-Instruct + LoRA policy is trained with the candidate reward, and the resulting model is evaluated on GSM8K test. The best observed rewards are summarized as text and fed back into the next generation round.
 
 ![Search-Driven Reward Optimization framework](framework.png)

@@ -1,0 +1,51 @@
+{
+  "accuracy": 0.442,
+  "accuracy_flex": 0.484,
+  "precision": 0.5312,
+  "recall": 0.7246,
+  "f1": 0.613,
+  "extraction_rate": 0.832,
+  "ci_lower": 0.398,
+  "ci_upper": 0.486,
+  "tp": 221,
+  "fp": 195,
+  "fn": 84,
+  "total": 500,
+  "mean_completion_chars": 1208.1,
+  "truncated_rate": 0.082,
+  "trial": "base_model",
+  "split": "val",
+  "task": "math",
+  "model": "llama3b",
+  "lora_dir": null,
+  "eval_seconds": 103.5,
+  "gpu": "1",
+  "code_sha": "7a9710cc149dd171",
+  "versions": {
+    "python": "3.12.3",
+    "torch": "2.13.0",
+    "vllm": "0.28.0",
+    "trl": "1.13.0",
+    "transformers": "5.17.0",
+    "peft": "0.20.0",
+    "datasets": "5.0.1",
+    "accelerate": "1.15.0",
+    "bitsandbytes": "0.50.2",
+    "math-verify": "0.9.0",
+    "sympy": "1.14.0",
+    "numpy": "2.3.5",
+    "flash-linear-attention": "0.6.0",
+    "huggingface-hub": "1.31.0"
+  },
+  "lora_sha": null,
+  "model_revision": {
+    "id": "unsloth/Llama-3.2-3B-Instruct",
+    "revision": "006f5dcd1393c3add266de40994ba96225e9689d"
+  },
+  "data_sha": "010d213b61a3c0bd",
+  "eval_settings": {
+    "max_tokens": 2048,
+    "temperature": 0.0,
+    "seed": 3407
+  }
+}

@@ -1,0 +1,31 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/paper/links/lit_s3407:lit_t2t:base3",
+   "items": 2772,
+   "cand_pooled": 0.6729347041847041,
+   "ref_pooled": 0.6533639971139971,
+   "diff": 0.019570707070707072,
+   "cand_suite": 0.41515934664054427,
+   "ref_suite": 0.39398655601018406
+  }
+ ],
+ "pairs": 2772,
+ "diff": 0.019570707070707072,
+ "ci_pairs": [
+  0.008703102453102454,
+  0.030530753968253936
+ ],
+ "ci_items_cluster": [
+  0.008658008658008658,
+  0.0303481240981241
+ ],
+ "wins": 161,
+ "losses": 106,
+ "p_sign": 0.0009159968717999845,
+ "cand_suite_mean": 0.41515934664054427,
+ "ref_suite_mean": 0.39398655601018406,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/paper/links/lit_s3407:lit_t2t:base3 --out cmp/paper/lit_lit_t2t_s3407.json"
+}

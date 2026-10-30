@@ -1,0 +1,23 @@
+{
+  "accuracy": 0.1243,
+  "accuracy_flex": 0.6558,
+  "precision": 0.4809,
+  "recall": 0.1436,
+  "f1": 0.2212,
+  "extraction_rate": 0.2585,
+  "ci_lower": 0.1069,
+  "ci_upper": 0.1425,
+  "tp": 164,
+  "fp": 177,
+  "fn": 978,
+  "total": 1319,
+  "mean_completion_chars": 633.8,
+  "truncated_rate": 0.0068,
+  "trial": "base_model",
+  "split": "test",
+  "task": "gsm8k",
+  "model": "llama3b",
+  "lora_dir": null,
+  "eval_seconds": 43.2,
+  "gpu": "2"
+}

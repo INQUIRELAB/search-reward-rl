@@ -1,0 +1,21 @@
+{
+  "rewards": [
+    "match_format_exactly",
+    "match_format_approximately",
+    "check_answer",
+    "fraction_equivalence_check",
+    "ordered_pair_component_partial_credit",
+    "thinking_mathematical_density_and_correctness",
+    "answer_verification_mention",
+    "reasoning_length_quality"
+  ],
+  "steps": 500,
+  "seed": 3407,
+  "lr": 5e-06,
+  "beta": 0.0,
+  "num_generations": 4,
+  "grad_accum": 4,
+  "train_seconds": 7889.8,
+  "model": "qwen3-4b-base",
+  "task": "math"
+}

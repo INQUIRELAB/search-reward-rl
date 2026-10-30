@@ -1,0 +1,502 @@
+[
+ {
+  "name": "reward_clear_final_answer_format",
+  "description": "Rewards clear, concise final answers in the <solution> tag and penalizes verbose or unclear final answers.",
+  "round": 2,
+  "trial": "round2_reward_clear_final_answer_format",
+  "accuracy": 0.3,
+  "f1": 0.4568,
+  "strict_accuracy": 0.296,
+  "failed": false
+ },
+ {
+  "name": "reward_systematic_case_enumeration",
+  "description": "Rewards completions that use systematic case enumeration or structured lists in the thinking block, which is crucial for combinatorial and number theory problems. Penalizes long, unstructured rambling.",
+  "round": 5,
+  "trial": "round5_reward_systematic_case_enumeration",
+  "accuracy": 0.294,
+  "f1": 0.4496,
+  "strict_accuracy": 0.29,
+  "failed": false
+ },
+ {
+  "name": "reward_correct_integer_final",
+  "description": "Rewards correct answers, with a small bonus if the final answer is a clean integer when the ground truth is an integer. Penalizes incorrect answers.",
+  "round": 2,
+  "trial": "round2_reward_correct_integer_final",
+  "accuracy": 0.288,
+  "f1": 0.4424,
+  "strict_accuracy": 0.284,
+  "failed": false
+ },
+ {
+  "name": "penalize_repeated_same_number_in_thinking",
+  "description": "Penalizes thinking blocks where a single number is repeated excessively, which can indicate a stuck generation loop or repetitive checking of the same value.",
+  "round": 4,
+  "trial": "round4_penalize_repeated_same_number_in_thinking",
+  "accuracy": 0.288,
+  "f1": 0.4399,
+  "strict_accuracy": 0.282,
+  "failed": false
+ },
+ {
+  "name": "penalize_negative_combinatorics_answer",
+  "description": "Strongly penalizes negative final answers, as they are almost always incorrect in combinatorial counting and probability problems.",
+  "round": 5,
+  "trial": "round5_penalize_negative_combinatorics_answer",
+  "accuracy": 0.288,
+  "f1": 0.4351,
+  "strict_accuracy": 0.278,
+  "failed": false
+ },
+ {
+  "name": "reward_answer_in_thinking",
+  "description": "Rewards completions where the final numerical answer appears in the thinking block, promoting consistency between reasoning and conclusion.",
+  "round": 3,
+  "trial": "round3_reward_answer_in_thinking",
+  "accuracy": 0.286,
+  "f1": 0.4399,
+  "strict_accuracy": 0.282,
+  "failed": false
+ },
+ {
+  "name": "penalize_truncated_thinking",
+  "description": "Penalizes completions that appear to be truncated, either by having unclosed tags or ending abruptly inside a thinking block with an incomplete equation or sentence.",
+  "round": 2,
+  "trial": "round2_penalize_truncated_thinking",
+  "accuracy": 0.282,
+  "f1": 0.4326,
+  "strict_accuracy": 0.276,
+  "failed": false
+ },
+ {
+  "name": "reward_modular_arithmetic_steps",
+  "description": "Rewards completions that explicitly use modular arithmetic notation and steps, which is essential for problems involving remainders and divisibility (e.g., F7).",
+  "round": 4,
+  "trial": "round4_reward_modular_arithmetic_steps",
+  "accuracy": 0.28,
+  "f1": 0.4301,
+  "strict_accuracy": 0.274,
+  "failed": false
+ },
+ {
+  "name": "penalize_brute_force_without_convergence",
+  "description": "Penalizes completions that engage in extensive brute-force checking (e.g., F1, F3, F4) especially if they appear to be truncated or stuck in a loop without converging to a general solution.",
+  "round": 4,
+  "trial": "round4_penalize_brute_force_without_convergence",
+  "accuracy": 0.28,
+  "f1": 0.4277,
+  "strict_accuracy": 0.272,
+  "failed": false
+ },
+ {
+  "name": "penalize_repeated_identical_lines",
+  "description": "Penalizes completions that have more than 3 consecutive identical lines in the thinking block, indicating a repetitive loop or stuck generation.",
+  "round": 2,
+  "trial": "round2_penalize_repeated_identical_lines",
+  "accuracy": 0.278,
+  "f1": 0.4326,
+  "strict_accuracy": 0.276,
+  "failed": false
+ },
+ {
+  "name": "reward_answer_consistency_check",
+  "description": "Rewards correct answers. For incorrect answers, penalizes less if the final number appears in the thinking block (consistent reasoning) and more if it does not (hallucination/inconsistency).",
+  "round": 5,
+  "trial": "round5_reward_answer_consistency_check",
+  "accuracy": 0.278,
+  "f1": 0.4277,
+  "strict_accuracy": 0.272,
+  "failed": false
+ },
+ {
+  "name": "reward_correct_intermediate_steps",
+  "description": "Rewards completions that contain multiple equation-based or logical step lines in the thinking process, indicating detailed problem-solving.",
+  "round": 1,
+  "trial": "round1_reward_correct_intermediate_steps",
+  "accuracy": 0.276,
+  "f1": 0.4301,
+  "strict_accuracy": 0.274,
+  "failed": false
+ },
+ {
+  "name": "penalize_off_by_one_errors",
+  "description": "Penalizes incorrect answers that are very close to the ground truth (off-by-one or simple factor errors), suggesting the model was on the right track but made a minor mistake.",
+  "round": 2,
+  "trial": "round2_penalize_off_by_one_errors",
+  "accuracy": 0.276,
+  "f1": 0.4277,
+  "strict_accuracy": 0.272,
+  "failed": false
+ },
+ {
+  "name": "reward_step_verification_markers",
+  "description": "Rewards completions that include explicit verification or conclusion steps in the thinking process, encouraging self-checking and clear reasoning flow.",
+  "round": 4,
+  "trial": "round4_reward_step_verification_markers",
+  "accuracy": 0.276,
+  "f1": 0.4252,
+  "strict_accuracy": 0.27,
+  "failed": false
+ },
+ {
+  "name": "reward_correct_answer_high_bonus",
+  "description": "Provides a high positive reward (5.0) for correct answers and a strong penalty (-2.0) for incorrect ones, creating a clear signal for accuracy.",
+  "round": 5,
+  "trial": "round5_reward_correct_answer_high_bonus",
+  "accuracy": 0.276,
+  "f1": 0.4227,
+  "strict_accuracy": 0.268,
+  "failed": false
+ },
+ {
+  "name": "penalize_missing_solution_tag",
+  "description": "Penalizes completions that are missing the <solution> or <thinking> tags, or have empty tags. Rewards completions that have both non-empty tags.",
+  "round": 2,
+  "trial": "round2_penalize_missing_solution_tag",
+  "accuracy": 0.274,
+  "f1": 0.4301,
+  "strict_accuracy": 0.274,
+  "failed": false
+ },
+ {
+  "name": "reward_structured_enumeration",
+  "description": "Rewards completions that use systematic enumeration or case analysis in the thinking block, which is crucial for combinatorial and number theory problems. Penalizes long, unstructured rambling.",
+  "round": 4,
+  "trial": "round4_reward_structured_enumeration",
+  "accuracy": 0.272,
+  "f1": 0.4252,
+  "strict_accuracy": 0.27,
+  "failed": false
+ },
+ {
+  "name": "penalize_decimal_answer_for_integer_gt",
+  "description": "Penalizes completions that provide a decimal answer when the ground truth is an integer, addressing common errors in combinatorics and number theory problems.",
+  "round": 5,
+  "trial": "round5_penalize_decimal_answer_for_integer_gt",
+  "accuracy": 0.272,
+  "f1": 0.4252,
+  "strict_accuracy": 0.27,
+  "failed": false
+ },
+ {
+  "name": "penalize_missing_structure",
+  "description": "Rewards completions with both non-empty <thinking> and <solution> tags, and penalizes missing or empty tags.",
+  "round": 3,
+  "trial": "round3_penalize_missing_structure",
+  "accuracy": 0.272,
+  "f1": 0.4227,
+  "strict_accuracy": 0.268,
+  "failed": false
+ },
+ {
+  "name": "penalize_repetitive_equation_loops",
+  "description": "Penalizes thinking blocks that contain repetitive identical lines with mathematical content, indicating a stuck or looping generation process.",
+  "round": 5,
+  "trial": "round5_penalize_repetitive_equation_loops",
+  "accuracy": 0.27,
+  "f1": 0.4202,
+  "strict_accuracy": 0.266,
+  "failed": false
+ },
+ {
+  "name": "penalize_invalid_latex_structure",
+  "description": "Penalizes completions with unclosed tags, malformed LaTeX structures (unbalanced brackets/braces), or solutions that are long LaTeX blocks without a clear final numerical answer.",
+  "round": 3,
+  "trial": "round3_penalize_invalid_latex_structure",
+  "accuracy": 0.268,
+  "f1": 0.4177,
+  "strict_accuracy": 0.264,
+  "failed": false
+ },
+ {
+  "name": "penalize_repetitive_loops",
+  "description": "Penalizes completions that exhibit repetitive looping behavior (e.g., repeating the same number or phrase many times), which is a common failure mode in truncated or stuck generations.",
+  "round": 1,
+  "trial": "round1_penalize_repetitive_loops",
+  "accuracy": 0.268,
+  "f1": 0.4102,
+  "strict_accuracy": 0.258,
+  "failed": false
+ },
+ {
+  "name": "penalize_negative_combinatorics",
+  "description": "Strongly penalizes negative final answers, as they are almost always incorrect in combinatorial counting problems (e.g., F2 where the model calculated a negative number of pairs).",
+  "round": 4,
+  "trial": "round4_penalize_negative_combinatorics",
+  "accuracy": 0.266,
+  "f1": 0.4177,
+  "strict_accuracy": 0.264,
+  "failed": false
+ },
+ {
+  "name": "reward_structured_step_count",
+  "description": "Rewards thinking blocks that contain multiple numbered steps, indicating a structured and detailed problem-solving approach.",
+  "round": 5,
+  "trial": "round5_reward_structured_step_count",
+  "accuracy": 0.266,
+  "f1": 0.4177,
+  "strict_accuracy": 0.264,
+  "failed": false
+ },
+ {
+  "name": "penalize_early_truncation",
+  "description": "Penalizes completions that appear to be truncated, either by being very short without a final answer or by ending abruptly inside a thinking block.",
+  "round": 1,
+  "trial": "round1_penalize_early_truncation",
+  "accuracy": 0.264,
+  "f1": 0.4152,
+  "strict_accuracy": 0.262,
+  "failed": false
+ },
+ {
+  "name": "penalize_hallucinated_constraints",
+  "description": "Penalizes long thinking processes that result in very short, incorrect answers, which may indicate the model is overthinking or hallucinating complex steps that don't lead to the correct result.",
+  "round": 1,
+  "trial": "round1_penalize_hallucinated_constraints",
+  "accuracy": 0.264,
+  "f1": 0.4152,
+  "strict_accuracy": 0.262,
+  "failed": false
+ },
+ {
+  "name": "reward_final_answer_clarity",
+  "description": "Rewards clear, concise final answers in the <solution> tag and penalizes verbose or unclear final answers.",
+  "round": 1,
+  "trial": "round1_reward_final_answer_clarity",
+  "accuracy": 0.264,
+  "f1": 0.4152,
+  "strict_accuracy": 0.262,
+  "failed": false
+ },
+ {
+  "name": "reward_consistent_reasoning_length",
+  "description": "Rewards long thinking that leads to correct answers and penalizes long thinking that leads to wrong answers (potential overthinking/hallucination). Also penalizes short thinking with wrong answers (guessing).",
+  "round": 2,
+  "trial": "round2_reward_consistent_reasoning_length",
+  "accuracy": 0.264,
+  "f1": 0.4152,
+  "strict_accuracy": 0.262,
+  "failed": false
+ },
+ {
+  "name": "penalize_truncated_equations",
+  "description": "Penalizes completions that appear truncated, specifically those ending with incomplete LaTeX commands or unclosed brackets.",
+  "round": 3,
+  "trial": "round3_penalize_truncated_equations",
+  "accuracy": 0.264,
+  "f1": 0.4152,
+  "strict_accuracy": 0.262,
+  "failed": false
+ },
+ {
+  "name": "reward_complete_thinking_structure",
+  "description": "Rewards completions that contain both a non-empty <thinking> block and a <solution> block, encouraging structured reasoning before answering.",
+  "round": 1,
+  "trial": "round1_reward_complete_thinking_structure",
+  "accuracy": 0.264,
+  "f1": 0.4102,
+  "strict_accuracy": 0.258,
+  "failed": false
+ },
+ {
+  "name": "reward_integer_answer_consistency",
+  "description": "Rewards integer answers and penalizes decimal answers, especially non-integer decimals which are often errors in combinatorics problems.",
+  "round": 2,
+  "trial": "round2_reward_integer_answer_consistency",
+  "accuracy": 0.262,
+  "f1": 0.4102,
+  "strict_accuracy": 0.258,
+  "failed": false
+ },
+ {
+  "name": "reward_integer_final_for_integer_gt",
+  "description": "Rewards integer predictions when the ground truth is an integer, and penalizes non-integer predictions in such cases. This addresses common errors in combinatorics and number theory.",
+  "round": 4,
+  "trial": "round4_reward_integer_final_for_integer_gt",
+  "accuracy": 0.262,
+  "f1": 0.4102,
+  "strict_accuracy": 0.258,
+  "failed": false
+ },
+ {
+  "name": "reward_concise_thinking_for_easy_problems",
+  "description": "Rewards completions where the length of the thinking block is appropriate for the complexity of the problem. Penalizes overthinking simple problems and underthinking complex ones.",
+  "round": 4,
+  "trial": "round4_reward_concise_thinking_for_easy_problems",
+  "accuracy": 0.262,
+  "f1": 0.4102,
+  "strict_accuracy": 0.258,
+  "failed": false
+ },
+ {
+  "name": "reward_correct_intermediate_logic",
+  "description": "Rewards thinking blocks that contain multiple equation-based steps and logical connectors, indicating structured reasoning.",
+  "round": 3,
+  "trial": "round3_reward_correct_intermediate_logic",
+  "accuracy": 0.262,
+  "f1": 0.4051,
+  "strict_accuracy": 0.254,
+  "failed": false
+ },
+ {
+  "name": "reward_exact_numeric_match",
+  "description": "Rewards correct answers, with a higher bonus for clean integer formats when the ground truth is an integer. Provides partial credit for numerically close incorrect answers.",
+  "round": 3,
+  "trial": "round3_reward_exact_numeric_match",
+  "accuracy": 0.262,
+  "f1": 0.4026,
+  "strict_accuracy": 0.252,
+  "failed": false
+ },
+ {
+  "name": "penalize_unfinished_equations_in_solution",
+  "description": "Penalizes solutions that contain unfinished or malformed LaTeX equations, such as unclosed brackets or trailing commands, which often occur in truncated outputs.",
+  "round": 4,
+  "trial": "round4_penalize_unfinished_equations_in_solution",
+  "accuracy": 0.26,
+  "f1": 0.4076,
+  "strict_accuracy": 0.256,
+  "failed": false
+ },
+ {
+  "name": "reward_thinking_solution_consistency",
+  "description": "Rewards completions where the final numerical answer in the solution tag also appears in the thinking block, promoting consistency between reasoning and conclusion.",
+  "round": 5,
+  "trial": "round5_reward_thinking_solution_consistency",
+  "accuracy": 0.26,
+  "f1": 0.4076,
+  "strict_accuracy": 0.256,
+  "failed": false
+ },
+ {
+  "name": "penalize_missing_units_or_context",
+  "description": "Slightly penalizes solutions that are bare numbers without any explanatory text in the <solution> tag, encouraging more complete answers.",
+  "round": 1,
+  "trial": "round1_penalize_missing_units_or_context",
+  "accuracy": 0.258,
+  "f1": 0.4102,
+  "strict_accuracy": 0.258,
+  "failed": false
+ },
+ {
+  "name": "penalize_hallucinated_complexity",
+  "description": "Penalizes long thinking processes that result in short, incorrect answers, which may indicate overthinking or hallucinated complex steps.",
+  "round": 3,
+  "trial": "round3_penalize_hallucinated_complexity",
+  "accuracy": 0.258,
+  "f1": 0.4076,
+  "strict_accuracy": 0.256,
+  "failed": false
+ },
+ {
+  "name": "reward_step_by_step_verification",
+  "description": "Rewards completions that include explicit verification or conclusion steps in the thinking process, encouraging self-checking.",
+  "round": 1,
+  "trial": "round1_reward_step_by_step_verification",
+  "accuracy": 0.258,
+  "f1": 0.4026,
+  "strict_accuracy": 0.252,
+  "failed": false
+ },
+ {
+  "name": "reward_concise_solution_tag",
+  "description": "Rewards concise final answers in the <solution> tag and penalizes verbose explanations or missing tags.",
+  "round": 3,
+  "trial": "round3_reward_concise_solution_tag",
+  "accuracy": 0.256,
+  "f1": 0.4051,
+  "strict_accuracy": 0.254,
+  "failed": false
+ },
+ {
+  "name": "reward_integer_consistency",
+  "description": "Rewards integer answers when the ground truth is an integer, and penalizes non-integer answers for integer ground truths, addressing common combinatorics errors.",
+  "round": 3,
+  "trial": "round3_reward_integer_consistency",
+  "accuracy": 0.254,
+  "f1": 0.4051,
+  "strict_accuracy": 0.254,
+  "failed": false
+ },
+ {
+  "name": "reward_modular_arithmetic_usage",
+  "description": "Rewards completions that explicitly use modular arithmetic notation and steps, which is essential for problems involving remainders and divisibility.",
+  "round": 5,
+  "trial": "round5_reward_modular_arithmetic_usage",
+  "accuracy": 0.252,
+  "f1": 0.4026,
+  "strict_accuracy": 0.252,
+  "failed": false
+ },
+ {
+  "name": "reward_final_answer_in_thinking",
+  "description": "Rewards completions where the final numeric answer appears in the thinking block, promoting consistency between reasoning and conclusion. Penalizes if the final answer is not found in the thinking.",
+  "round": 2,
+  "trial": "round2_reward_final_answer_in_thinking",
+  "accuracy": 0.25,
+  "f1": 0.4,
+  "strict_accuracy": 0.25,
+  "failed": false
+ },
+ {
+  "name": "penalize_non_integer_result_for_integer_gt",
+  "description": "Penalizes completions that produce a non-integer final answer when the ground truth is an integer. This addresses failures like F7 where n=242.6667 was predicted for an integer answer.",
+  "round": 2,
+  "trial": "round2_penalize_non_integer_result_for_integer_gt",
+  "accuracy": 0.24,
+  "f1": 0.3766,
+  "strict_accuracy": 0.232,
+  "failed": false
+ },
+ {
+  "name": "reward_numeric_consistency",
+  "description": "Rewards completions where the final numerical answer in the <solution> tag also appears in the <thinking> section, promoting consistency between reasoning and conclusion.",
+  "round": 1,
+  "trial": "round1_reward_numeric_consistency",
+  "accuracy": 0.238,
+  "f1": 0.3845,
+  "strict_accuracy": 0.238,
+  "failed": false
+ },
+ {
+  "name": "penalize_obvious_arithmetic_errors",
+  "description": "Penalizes incorrect answers that are very close to the ground truth (off-by-one or simple factor errors), suggesting the model was on the right track but made a minor mistake.",
+  "round": 1,
+  "trial": "round1_penalize_obvious_arithmetic_errors",
+  "accuracy": 0.23,
+  "f1": 0.3633,
+  "strict_accuracy": 0.222,
+  "failed": false
+ },
+ {
+  "name": "penalize_inconsistent_intermediate_results",
+  "description": "Penalizes thinking blocks that show sudden, unexplained jumps in numerical magnitude, which often indicate arithmetic errors or hallucinated values (e.g., F2).",
+  "round": 4,
+  "trial": "round4_penalize_inconsistent_intermediate_results",
+  "accuracy": 0.228,
+  "f1": 0.3687,
+  "strict_accuracy": 0.226,
+  "failed": false
+ },
+ {
+  "name": "penalize_truncated_incomplete_thinking",
+  "description": "Penalizes completions that appear to be truncated, specifically those with unclosed thinking tags or ending abruptly with incomplete LaTeX commands.",
+  "round": 5,
+  "trial": "round5_penalize_truncated_incomplete_thinking",
+  "accuracy": 0.222,
+  "f1": 0.3526,
+  "strict_accuracy": 0.214,
+  "failed": false
+ },
+ {
+  "name": "penalize_repetitive_thinking_lines",
+  "description": "Penalizes thinking blocks that contain repetitive identical lines, which indicates a stuck or looping generation process.",
+  "round": 3,
+  "trial": "round3_penalize_repetitive_thinking_lines",
+  "accuracy": 0.216,
+  "f1": 0.3553,
+  "strict_accuracy": 0.216,
+  "failed": false
+ }
+]

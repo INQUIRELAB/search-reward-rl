@@ -1,0 +1,21 @@
+{
+  "rewards": [
+    "match_format_exactly",
+    "match_format_approximately",
+    "check_answer",
+    "reward_clear_final_answer_format",
+    "reward_systematic_case_enumeration",
+    "reward_correct_integer_final",
+    "penalize_repeated_same_number_in_thinking",
+    "penalize_negative_combinatorics_answer"
+  ],
+  "steps": 500,
+  "seed": 3407,
+  "lr": 5e-06,
+  "beta": 0.0,
+  "num_generations": 4,
+  "grad_accum": 4,
+  "train_seconds": 7243.3,
+  "model": "qwen3-4b-base",
+  "task": "dapo"
+}

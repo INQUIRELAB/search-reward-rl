@@ -1,0 +1,17 @@
+{
+  "rewards": [
+    "match_format_exactly",
+    "match_format_approximately",
+    "check_answer",
+    "numeric_precision_formatting"
+  ],
+  "steps": 125,
+  "seed": 3407,
+  "lr": 1e-05,
+  "beta": 0.0,
+  "num_generations": 4,
+  "grad_accum": 16,
+  "train_seconds": 6486.3,
+  "model": "qwen3-4b-base",
+  "task": "math"
+}

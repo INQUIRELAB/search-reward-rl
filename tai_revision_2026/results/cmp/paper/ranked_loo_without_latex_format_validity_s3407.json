@@ -1,0 +1,31 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/paper/links/math_s3407:loo_without_latex_format_validity:base3",
+   "items": 2772,
+   "cand_pooled": 0.6631944444444444,
+   "ref_pooled": 0.6749188311688312,
+   "diff": -0.011724386724386724,
+   "cand_suite": 0.4169734330339825,
+   "ref_suite": 0.4144317211379012
+  }
+ ],
+ "pairs": 2772,
+ "diff": -0.011724386724386724,
+ "ci_pairs": [
+  -0.023179338023088025,
+  -0.00013528138528138528
+ ],
+ "ci_items_cluster": [
+  -0.023449900793650794,
+  -9.018759018759019e-05
+ ],
+ "wins": 135,
+ "losses": 167,
+ "p_sign": 0.07427331434270124,
+ "cand_suite_mean": 0.4169734330339825,
+ "ref_suite_mean": 0.4144317211379012,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s3407:loo_without_latex_format_validity:base3 --out cmp/paper/ranked_loo_without_latex_format_validity_s3407.json"
+}

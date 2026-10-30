@@ -1,0 +1,31 @@
+{
+ "seeds": [
+  {
+   "pair": "cmp/paper/links/math_s3407:bl_outcome_only:base3",
+   "items": 2772,
+   "cand_pooled": 0.6367694805194806,
+   "ref_pooled": 0.6749188311688312,
+   "diff": -0.03814935064935065,
+   "cand_suite": 0.38567980536113167,
+   "ref_suite": 0.4144317211379012
+  }
+ ],
+ "pairs": 2772,
+ "diff": -0.03814935064935065,
+ "ci_pairs": [
+  -0.04996392496392496,
+  -0.02628968253968254
+ ],
+ "ci_items_cluster": [
+  -0.049783549783549784,
+  -0.02628968253968254
+ ],
+ "wins": 110,
+ "losses": 216,
+ "p_sign": 4.460847421739172e-09,
+ "cand_suite_mean": 0.38567980536113167,
+ "ref_suite_mean": 0.4144317211379012,
+ "n_boot": 5000,
+ "rng_seed": 0,
+ "command": "python v3/bench_compare_seeds.py --pair cmp/paper/links/math_s3407:bl_outcome_only:base3 --out cmp/paper/ranked_bl_outcome_only_s3407.json"
+}

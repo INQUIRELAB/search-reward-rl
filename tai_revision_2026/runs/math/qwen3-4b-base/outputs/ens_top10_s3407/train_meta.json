@@ -1,0 +1,26 @@
+{
+  "rewards": [
+    "match_format_exactly",
+    "match_format_approximately",
+    "check_answer",
+    "latex_format_validity",
+    "numeric_precision_formatting",
+    "variable_consistency_check",
+    "fraction_equivalence_check",
+    "thinking_length_efficiency",
+    "final_answer_clarity",
+    "integer_constraint_compliance",
+    "final_answer_not_equation",
+    "thinking_mathematical_density_and_correctness",
+    "trig_function_form_match"
+  ],
+  "steps": 500,
+  "seed": 3407,
+  "lr": 5e-06,
+  "beta": 0.0,
+  "num_generations": 4,
+  "grad_accum": 4,
+  "train_seconds": 6406.7,
+  "model": "qwen3-4b-base",
+  "task": "math"
+}
